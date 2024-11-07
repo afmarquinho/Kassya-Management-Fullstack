@@ -1,0 +1,4 @@
+.bg-login {
+    background-image: url(../../public/bg.jpg); */
+    @apply bg-login w-full h-screen bg-cover bg-top relative flex flex-col
+  }
