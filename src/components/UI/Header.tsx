@@ -1,15 +1,21 @@
 "use client";
 
-
-import { useUIStore } from "@/stores/useUIStore";
+import { useUIStore } from "@/stores/UIStore";
 import { AlignJustify, Moon, Sun } from "lucide-react";
-
-
-
-
+import { useEffect, useState } from "react";
 
 export const Header = () => {
   const { isDark, toggleDarkMode, setSidebarCollapsed } = useUIStore();
+  const [loaded, setLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  if (!loaded) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className={``}>
       <div className={`flex justify-between`}>

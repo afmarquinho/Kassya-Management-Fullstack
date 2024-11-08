@@ -31,3 +31,6 @@ input[type="number"] {
 .bg-login {
   background-image: url(../../public/bg.jpg);
 }
+.overflow-hidden{
+  overflow: hidden;
+}

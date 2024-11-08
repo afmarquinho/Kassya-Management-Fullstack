@@ -1,7 +1,7 @@
 "use client";
 
 
-import { useUIStore } from "@/stores/useUIStore";
+import { useUIStore } from "@/stores/UIStore";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

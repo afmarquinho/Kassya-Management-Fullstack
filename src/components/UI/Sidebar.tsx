@@ -1,20 +1,20 @@
 "use client";
 import {
-  CircleDollarSign,
-  CircleUserRound,
-  ClipboardPen,
-  NotebookText,
+  // CircleDollarSign,
+  // CircleUserRound,
+  // ClipboardPen,
+  // NotebookText,
   PanelsTopLeft,
-  ShoppingBag,
+  // ShoppingBag,
   UserRoundCog,
-  Wrench,
+  // Wrench,
   X,
 } from "lucide-react";
 
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { SidebarLink } from "./SidebarLink";
-import { useUIStore } from "@/stores/useUIStore";
+import { useUIStore } from "@/stores/UIStore";
 
 
 
