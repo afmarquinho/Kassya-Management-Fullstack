@@ -1,7 +1,7 @@
 # Kassya Management System
 Kassya Management System es un ERP diseñado para la gestión eficiente de procesos de compra y el análisis detallado de procesos de ventas. Esta aplicación permite a las empresas optimizar sus operaciones, tomar decisiones basadas en datos y mejorar su flujo de trabajo.
 
-Esta apliación combina herramientas modernas de desarollo para ofrecer una experiencia intuitiva y altamente personalizable.
+|El código combina herramientas modernas de desarollo para ofrecer una experiencia intuitiva y altamente personalizable.
 
 ### Stack
 - Lenguaje principal: JavaScript
@@ -14,23 +14,31 @@ Esta apliación combina herramientas modernas de desarollo para ofrecer una expe
 ## Pasos para levantar la aplicación en desarrollo
 - 1. Clonar el repositorio:
 ``` bash
-git clone https://github.com/afmarquinho/Kassya---Management---Fullstack.git
+git clone https://github.com/afmarquinho/Kassya-Management-Fullstack.git
 ```
-- 2. Copiar el archivo ```.env.temple``` y convertir en ".env".
-- 3. Tener servicio de bases de datos activo.
-- 4. Instalar dependencias:
+- 2. Renombrar la carpeta clonada a ```kassya``` y desde consola:
+```bash
+cd kassya
+```
+- 3. Abrir el proyecto en el editor:
+```bash
+code .
+```
+- 4. Copiar el archivo ```.env.temple``` y renombrarlo a ".env".
+- 5. Tener servicio de bases de datos activo.
+- 6. Instalar dependencias:
 ``` bash
 npm install
 ```
-- 5. Hacer migranción de la base de datos:
+- 7. Hacer migranción de la base de datos:
 ```bash
 npx prisma migrate dev
 ```
-- 6. Hacer seed a la base de datos con el comando:
+- 8. Hacer seed a la base de datos con el comando:
 ```bash
 npm run seed
 ```
-- 7. Correr el servidor en desarrollo:
+- 9. Correr el servidor en desarrollo:
 ```bash
 npm run dev
 ```
