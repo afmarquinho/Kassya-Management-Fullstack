@@ -1,6 +1,4 @@
-import { Footer, Header, Sidebar } from "@/components";
-
-
+import { Footer, Header, Sidebar, ToastNotification } from "@/components";
 
 export default function HomeLayout({
   children,
@@ -8,13 +6,16 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex min-h-screen w-full overflow-hidden">
-      <Sidebar />
-      <div className="flex-1 px-2 flex flex-col overflow-hidden">
-        <Header />
-        <main className="flex-1 overflow-auto">{children}</main>
-        <Footer />
+    <>
+      <div className="flex min-h-screen w-full overflow-hidden">
+        <Sidebar />
+        <div className="flex-1 px-2 flex flex-col overflow-hidden">
+          <Header />
+          <main className="flex-1 overflow-auto">{children}</main>
+          <Footer />
+        </div>
       </div>
-    </div>
+      <ToastNotification />
+    </>
   );
 }

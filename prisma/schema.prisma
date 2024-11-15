@@ -13,21 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Location {
-  UNRECEIVED
-  WAREHOUSE
-}
+// enum Location {
+//   UNRECEIVED
+//   WAREHOUSE
+// }
 
-enum Role {
-  ADMIN
-  MANAGER
-  USER
-}
+// enum Role {
+//   ADMIN
+//   MANAGER
+//   USER
+// }
 
 model User {
   User_id               Int        @id @default(autoincrement())
+  User_code             String     @unique() @default(uuid())
   User_dni              Int        @unique
-  User_role             Role       @default(USER)
+  User_role             String       
   User_name             String
   User_surname          String
   User_email            String     @unique
@@ -99,7 +100,7 @@ model Product {
   Product_qty          Int
   Product_total        Decimal
   Product_availability Boolean          @default(false)
-  Product_location     Location         @default(UNRECEIVED)
+  Product_location     String        @default("UNRECEIVED")
   Product_purchaseId   Int
   SaleDetails          SaleDetails[]
   purchase             Purchase         @relation(fields: [Product_purchaseId], references: [Purchase_id])

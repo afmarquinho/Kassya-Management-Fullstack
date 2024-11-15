@@ -1,6 +1,6 @@
 "use client";
 
-import { useUIStore } from "@/stores/UIStore";
+import { useUIStore } from "@/store/UIStore";
 import { AlignJustify, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 

@@ -1,5 +1,6 @@
 "use client";
 import {
+  ClipboardPen,
   // CircleDollarSign,
   // CircleUserRound,
   // ClipboardPen,
@@ -14,7 +15,7 @@ import {
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { SidebarLink } from "./SidebarLink";
-import { useUIStore } from "@/stores/UIStore";
+import { useUIStore } from "@/store/UIStore";
 
 
 
@@ -68,7 +69,7 @@ export const Sidebar = () => {
       <SidebarLink label="Panel" href="/dashboard" icon={PanelsTopLeft} />
       {/* <SidebarLink label="Sales" href="/sales" icon={CircleDollarSign} /> */}
       {/* <SidebarLink label="Purchase Order" href="/purchase" icon={ShoppingBag} /> */}
-      {/* <SidebarLink label="Masters" href="/masters" icon={ClipboardPen} /> */}
+      <SidebarLink label="Masters" href="/masters" icon={ClipboardPen} /> 
       {/* <SidebarLink label="Reports" href="/reports" icon={NotebookText} /> */}
       {/* <SidebarLink label="Warranty" href="/warranty" icon={Wrench} /> */}
       <SidebarLink label="Gestor de Usuarios" href="/users" icon={UserRoundCog} />

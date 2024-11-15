@@ -1,5 +1,5 @@
 "use client";
-import { useUserStore } from "@/stores/userStore";
+import { useUserStore } from "@/store/userStore";
 import axios from "axios";
 import { RefreshCcw, UsersRound } from "lucide-react";
 

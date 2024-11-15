@@ -9,7 +9,7 @@ export const customers = [
     Customer_address: "753 Brock Passage\nGardnertown, VT 50080",
     Customer_registrationDate: "2023-08-24T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 2,
@@ -33,7 +33,7 @@ export const customers = [
     Customer_address: "6141 Kirk Hills\nWest Michaelland, WY 51025",
     Customer_registrationDate: "2023-07-27T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 4,
@@ -45,7 +45,7 @@ export const customers = [
     Customer_address: "PSC 8381, Box 0471\nAPO AE 61850",
     Customer_registrationDate: "2023-06-28T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 5,
@@ -57,7 +57,7 @@ export const customers = [
     Customer_address: "81847 Coleman Trafficway Apt. 426\nMillerland, MN 18760",
     Customer_registrationDate: "2023-06-26T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 6,
@@ -69,7 +69,7 @@ export const customers = [
     Customer_address: "661 Michelle Plains\nRussellside, IA 93839",
     Customer_registrationDate: "2023-12-23T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 7,
@@ -129,7 +129,7 @@ export const customers = [
     Customer_address: "774 James Club Apt. 582\nPort Karihaven, CT 36358",
     Customer_registrationDate: "2023-03-30T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 12,
@@ -166,7 +166,7 @@ export const customers = [
       "8912 Anthony Groves Suite 843\nSouth Jessicashire, MA 99320",
     Customer_registrationDate: "2023-07-30T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 15,
@@ -214,7 +214,7 @@ export const customers = [
     Customer_address: "7412 David Spring\nWilsonberg, NC 21545",
     Customer_registrationDate: "2023-05-12T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 19,
@@ -226,7 +226,7 @@ export const customers = [
     Customer_address: "032 Campbell Keys\nPort Jacob, HI 21863",
     Customer_registrationDate: "2023-07-01T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 20,
@@ -238,7 +238,7 @@ export const customers = [
     Customer_address: "4351 Rose Walks\nWest Debra, MT 05102",
     Customer_registrationDate: "2023-05-14T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 21,
@@ -298,7 +298,7 @@ export const customers = [
     Customer_address: "3485 Lauren Islands\nMurphybury, ME 78934",
     Customer_registrationDate: "2023-11-01T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 26,
@@ -310,7 +310,7 @@ export const customers = [
     Customer_address: "625 Thomas Glen Suite 990\nEast Brittanyland, MO 40860",
     Customer_registrationDate: "2023-06-05T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 27,
@@ -370,7 +370,7 @@ export const customers = [
     Customer_address: "108 Torres Trail Apt. 745\nNorth Martinburgh, NY 26941",
     Customer_registrationDate: "2023-01-10T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 32,
@@ -394,7 +394,7 @@ export const customers = [
     Customer_address: "6141 Manning Village Suite 197\nBakershire, LA 40294",
     Customer_registrationDate: "2023-04-05T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 34,
@@ -419,7 +419,7 @@ export const customers = [
       "901 Romero Motorway Suite 354\nNorth Victorland, TN 92637",
     Customer_registrationDate: "2023-07-12T05:00:00.000Z",
     Customer_userId: 5,
-    Customer_habeasData: false,
+    Customer_habeasData: true,
   },
   {
     Customer_id: 36,
