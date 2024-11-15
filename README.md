@@ -1,13 +1,15 @@
 # Kassya Management System
 Kassya Management System es un ERP diseñado para la gestión eficiente de procesos de compra y el análisis detallado de procesos de ventas. Esta aplicación permite a las empresas optimizar sus operaciones, tomar decisiones basadas en datos y mejorar su flujo de trabajo.
 
-Lenguaje principal: JavaScript
-Entorno: Node.js
-Frameworks: React y Next.js (versión 15)
-Base de datos: PostgreSQL
-ORM: Prisma
-Framework de estilos: Tailwind CSS
-Esta solución combina herramientas modernas para ofrecer una experiencia intuitiva y altamente personalizable en la administración de recursos empresariales.
+Esta apliación combina herramientas modernas de desarollo para ofrecer una experiencia intuitiva y altamente personalizable.
+
+### Stack
+- Lenguaje principal: JavaScript
+- Entorno: Node.js
+- Frameworks: React y Next.js (versión 15)
+- Base de datos: PostgreSQL
+- ORM: Prisma
+- Framework de estilos: Tailwind CSS
 
 ## Pasos para levantar la aplicación en desarrollo
 - 1. Clonar el repositorio:
