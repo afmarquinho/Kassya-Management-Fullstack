@@ -39,7 +39,7 @@ export const CustomerForm = () => {
           toast.success("Cliente actualizado exitosamente");
           reset();
         } else {
-          toast.error("No se pudo actualizar el cliente");
+          toast.error("No hay clientes para mostrar");
         }
       } catch (error) {
         console.error(error);

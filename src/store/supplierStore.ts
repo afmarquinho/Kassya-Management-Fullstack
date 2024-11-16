@@ -5,7 +5,7 @@ type States = {
   suppliers: Supplier[] | null; //*Almacena todos los proveedores que vienen que la bd para visulizar en la página principal.
   supplier: Supplier | null; //* Proveedor para visualizar o llenar el formulario para editar.
   activeSupplierModal: boolean; //* Modal para activar o desactivar un proveedor.
-  supplierModalOpen: boolean; //* Activa el modal del formulario para crear y editar usuarios.
+  supplierModalOpen: boolean; //* Activa el modal del formulario para crear y editar un proveedor.
 };
 
 type Actions = {

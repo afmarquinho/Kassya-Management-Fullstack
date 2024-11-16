@@ -19,6 +19,7 @@ export * from './suppliers/SupplierForm';
 export * from './suppliers/SupplierModal';
 export * from './suppliers/SuppliersTable';
 export * from './suppliers/SupplierView';
+export * from './purchases/GetPurchasesButton';
 export * from './customers/CustomerForm';
 export * from './customers/CustomerModal';
 export * from './customers/CustomersTable';
