@@ -36,7 +36,7 @@ export const GetCustomersButton = () => {
         disabled={loading}
       >
         {loading ? (
-          <LoadingSpinner h={20} b={4} color="green" />
+          <LoadingSpinner/>
         ) : (
           <>
             {customers ? (
@@ -48,8 +48,6 @@ export const GetCustomersButton = () => {
           </>
         )}
       </button>
-      Aquí se muestra un spinner
-      {loading && <LoadingSpinner h={20} b={4} color="teal" />}
     </>
   );
 };

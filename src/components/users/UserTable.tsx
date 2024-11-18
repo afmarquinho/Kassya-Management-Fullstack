@@ -24,14 +24,16 @@ export const UsersTable = () => {
 
   const handleViewUser = (user: User) => {
     setUser(user);
-    router.push(`/users/user-details/${user.User_name}-${user.User_code}-${user.User_surname}`);
+    router.push(
+      `/users/user-details/${user.User_name}-${user.User_code}-${user.User_surname}`
+    );
   };
 
   useEffect(() => {
     cleanUser();
   }, [cleanUser]);
 
-  if (!users) {
+  if (!users || users.length === 0) {
     return (
       <>
         <div className={`italic font-medium text-base`}>

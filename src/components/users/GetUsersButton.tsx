@@ -2,8 +2,8 @@
 import { useUserStore } from "@/store/userStore";
 import axios from "axios";
 import { RefreshCcw, UsersRound } from "lucide-react";
-
 import { useState } from "react";
+import { LoadingSpinner } from "../UI/LoadingSpinner";
 
 export const GetUsersButton = () => {
   const { users, setUsers } = useUserStore();
@@ -30,21 +30,22 @@ export const GetUsersButton = () => {
 
   return (
     <button
-      className={`flex gap-1 justify-center items-center  rounded-md px-2 py-1 text-white transition-colors ${
-        loading
-          ? "bg-gray-400"
-          : "bg-red-500 hover:bg-red-600 dark:bg-red-800 dark:hover:bg-red-700"
-      }`}
+      className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-red-600 hover:bg-red-500 dark:bg-red-700 dark:hover:bg-red-500`}
       onClick={handleGetUsers}
       disabled={loading}
     >
-      {users ? (
-        <RefreshCcw className={`w-5`} />
-      ) : (
-        <UsersRound className={`w-5`} />
-      )}
-
-      {users ? "Refrescar" : "Mostrar Usuarios"}
+    {loading ? (
+          <LoadingSpinner/>
+        ) : (
+          <>
+            {users ? (
+              <RefreshCcw className={`w-5`} />
+            ) : (
+              <UsersRound className={`w-5`} />
+            )}
+            {users ? "Refrescar" : "Mostrar Usuarios"}
+          </>
+        )}
     </button>
   );
 };

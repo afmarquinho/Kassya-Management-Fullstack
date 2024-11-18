@@ -1,17 +1,9 @@
 "use client";
 
-export const LoadingSpinner = ({
-  h,
-  b,
-  color,
-}: {
-  h: number;
-  b: number;
-  color: string;
-}) => {
+export const LoadingSpinner = () => {
   return (
     <div
-      className={`border-white h-[${h}px] w-[${h}px] animate-spin rounded-full border-[${b}px] border-t-${color}-600`}
+      className={`border-white h-[20px] w-[20px] animate-spin rounded-full border-[4px] border-t-blue-600`}
     />
   );
 };

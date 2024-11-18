@@ -87,7 +87,7 @@ export const ActiveUserModal = () => {
             onClick={handleActiveUser}
           >
             {loading ? (
-              <LoadingSpinner h={20} b={4} color="blue"/>
+              <LoadingSpinner/>
             ) : (
               <>
                 <UserRoundX className={`w-5`} />

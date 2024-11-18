@@ -1,4 +1,6 @@
-import { GetPurchasesButton } from "@/components";
+import { BackButton, GetPurchasesButton } from "@/components";
+import NewPurchaseButton from "@/components/purchases/NewPurchaseButton";
+import PurchasesTable from "@/components/purchases/PurchasesTable";
 
 const PurchaseManagementPage = () => {
   return (
@@ -11,7 +13,9 @@ const PurchaseManagementPage = () => {
 
         <BackButton />
       </div>
-      <PurchasesTable />
+      
+        <PurchasesTable />
+      
     </>
   );
 };

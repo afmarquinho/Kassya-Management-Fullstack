@@ -88,7 +88,7 @@ export const ActiveSupplierModal = () => {
             disabled={loading}
           >
             {loading ? (
-              <LoadingSpinner h={20} b={4} color="blue" />
+             <LoadingSpinner/>
             ) : (
               <>
                 <CirclePower className={`w-5`} />

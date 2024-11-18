@@ -37,7 +37,7 @@ export const GetSuppliersButton = () => {
       disabled={loading}
       >
       {loading ? (
-        <LoadingSpinner h={20} b={4} color="green"/>
+        <LoadingSpinner/>
       ) : (
         <>
           {suppliers ? (

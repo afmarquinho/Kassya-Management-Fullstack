@@ -23,12 +23,25 @@ datasource db {
 //   MANAGER
 //   USER
 // }
+// enum PurchaseStatus {
+//   OPEN
+//   CLOSE
+//   CANCELLED
+// }
+//
+// enum ItemStatus {
+//ORDERED
+//RECEIVED
+//DISPATCHED
+//   CLOSE
+//   CANCELLED
+// }
 
 model User {
   User_id               Int        @id @default(autoincrement())
   User_code             String     @unique() @default(uuid())
   User_dni              Int        @unique
-  User_role             String       
+  User_role             String
   User_name             String
   User_surname          String
   User_email            String     @unique
@@ -75,50 +88,36 @@ model Supplier {
 }
 
 model Purchase {
-  Purchase_id            Int              @id @default(autoincrement())
+  Purchase_id            Int             @id @default(autoincrement())
   Purchase_description   String
-  Purchase_date          DateTime         @default(now())
-  Purchase_totalAmount   Decimal          @default(0)
+  Purchase_date          DateTime        @default(now())
+  Purchase_totalAmount   Decimal         @default(0)
   Purchase_userId        Int
   Purchase_supplierId    Int
   Purchase_paymentMethod String
   Purchase_dueDate       DateTime
-  Purchase_close         Boolean          @default(false)
-  User                   User             @relation(fields: [Purchase_userId], references: [User_id])
-  Supplier               Supplier         @relation(fields: [Purchase_supplierId], references: [Supplier_id])
+  Purchase_close         Boolean         @default(false)
+  User                   User            @relation(fields: [Purchase_userId], references: [User_id])
+  Supplier               Supplier        @relation(fields: [Purchase_supplierId], references: [Supplier_id])
   ExpenseSummary         ExpenseSummary?
-  Product                Product[]
-  PurchaseDetail         PurchaseDetail[]
+  PurchaseItem           PurchaseItem[]
 }
 
-model Product {
-  Product_id           Int              @id @default(autoincrement())
-  Product_ref          String
-  Product_name         String
-  Product_description  String
-  Product_cost         Decimal
-  Product_qty          Int
-  Product_total        Decimal
-  Product_availability Boolean          @default(false)
-  Product_location     String        @default("UNRECEIVED")
-  Product_purchaseId   Int
-  SaleDetails          SaleDetails[]
-  purchase             Purchase         @relation(fields: [Product_purchaseId], references: [Purchase_id])
-  PurchaseDetail       PurchaseDetail[]
-}
-
-model PurchaseDetail {
-  PurchDet_id             Int      @id @default(autoincrement())
-  PurchDet_purchaseId     Int
-  PurchDet_productId      Int
-  PurchDet_qtyOrdered     Int
-  PurchDet_qtyReceived    Int
-  PurchDet_qtyDiff        Int
-  PurchDet_locationStatus String
-  PurchDet_qtyDispatched  Int
-  PurchDet_qtyAvailable   Int
-  Purchase                Purchase @relation(fields: [PurchDet_purchaseId], references: [Purchase_id])
-  Product                 Product  @relation(fields: [PurchDet_productId], references: [Product_id])
+model PurchaseItem {
+  Item_id            Int           @id @default(autoincrement())
+  Item_ref           String
+  Item_name          String
+  Item_description   String
+  Item_unitCost      Decimal
+  Item_qtyOrdered    Int
+  Item_totalAmount   Decimal
+  Item_qtyReceived   Int
+  Item_qtyDispatched Int           @default(0)
+  Item_location      String        @default("UNRECEIVED")
+  Item_status        String        @default("ORDERED")
+  Item_purchaseId    Int
+  SaleDetails        SaleDetails[]
+  purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
 }
 
 model Sale {
@@ -135,16 +134,17 @@ model Sale {
 }
 
 model SaleDetails {
-  SaleDetail_id        Int          @id @default(autoincrement())
+  SaleDetail_id        Int           @id @default(autoincrement())
   SaleDetail_saleId    Int
-  Sales                Sale         @relation(fields: [SaleDetail_saleId], references: [Sale_id])
+  Sales                Sale          @relation(fields: [SaleDetail_saleId], references: [Sale_id])
   SaleDetail_productId Int
-  Product              Product      @relation(fields: [SaleDetail_productId], references: [Product_id])
   SaleDetail_quantity  Int
   SaleDetail_unitPrice Decimal
   SaleDetail_total     Decimal
   Warranty             Warranty[]
   Devolution           Devolution[]
+  PurchaseItem         PurchaseItem? @relation(fields: [purchaseItemItem_id], references: [Item_id])
+  purchaseItemItem_id  Int?
 }
 
 model Warranty {

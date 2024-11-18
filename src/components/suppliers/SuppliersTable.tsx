@@ -27,6 +27,7 @@ export const SuppliersTable = () => {
     cleanSupplier();
   }, [cleanSupplier]);
 
+  
   return (
     <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
       <table
