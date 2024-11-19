@@ -46,3 +46,21 @@ export const createSupplier = async (supplier: SupplierType) => {
     return { ok: false, data: null };
   }
 };
+
+export const getSuppliersForm = async () => {
+  try {
+    const suppliers = await prisma.supplier.findMany({
+      orderBy: {
+        Supplier_name: "asc",
+      },
+      select: {
+        Supplier_id: true,
+        Supplier_name: true,
+      },
+    });
+    return { ok: true, data: suppliers };
+  } catch (error) {
+    console.error(error);
+    return { ok: false, data: null };
+  }
+};

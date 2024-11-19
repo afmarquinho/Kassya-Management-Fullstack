@@ -7,3 +7,7 @@ export interface Supplier {
   Supplier_city: string;
   Supplier_address: string;
 }
+export interface SupplierList {
+  Supplier_id: number;
+  Supplier_name: string;
+}

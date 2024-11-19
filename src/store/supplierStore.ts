@@ -1,3 +1,4 @@
+import { SupplierList } from "@/interfaces";
 import { Supplier } from "@prisma/client";
 import { create } from "zustand";
 
@@ -6,6 +7,7 @@ type States = {
   supplier: Supplier | null; //* Proveedor para visualizar o llenar el formulario para editar.
   activeSupplierModal: boolean; //* Modal para activar o desactivar un proveedor.
   supplierModalOpen: boolean; //* Activa el modal del formulario para crear y editar un proveedor.
+  supplierList: SupplierList[] | null;
 };
 
 type Actions = {
@@ -15,6 +17,8 @@ type Actions = {
   toggleActiveSupplierModal: () => void;
   updateSuppliers: (action: string, supplier: Supplier) => void; //* Actualiza (crea o edita) el array de proveedores.
   toggleSupplierModal: () => void; //* Activa o desactiva el modal del formulario para crear o editar.
+  setSupplierList: (supplierList: SupplierList[]) => void;
+  cleanSupplierList: () => void;
 };
 
 export const useSupplierStore = create<States & Actions>((set, get) => ({
@@ -22,6 +26,7 @@ export const useSupplierStore = create<States & Actions>((set, get) => ({
   supplier: null,
   activeSupplierModal: false,
   supplierModalOpen: false,
+  supplierList: null,
 
   setSuppliers: (suppliers) => {
     set({ suppliers });
@@ -48,11 +53,10 @@ export const useSupplierStore = create<States & Actions>((set, get) => ({
     }
 
     const { suppliers } = get();
-    
 
     if (action === "add") {
       set(() => ({
-        suppliers: !suppliers ? [supplier]:[...suppliers, supplier],
+        suppliers: !suppliers ? [supplier] : [...suppliers, supplier],
       }));
     } else if (action === "update") {
       if (typeof supplier.Supplier_id !== "number") {
@@ -73,5 +77,12 @@ export const useSupplierStore = create<States & Actions>((set, get) => ({
     const { supplierModalOpen } = get();
     document.documentElement.classList.toggle("overflow-hidden");
     set({ supplierModalOpen: !supplierModalOpen });
+  },
+
+  setSupplierList: (supplierList) => {
+    set({ supplierList });
+  },
+  cleanSupplierList: () => {
+    set({ supplierList: null });
   },
 }));

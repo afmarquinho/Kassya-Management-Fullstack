@@ -1,19 +1,30 @@
 "use client";
 
-import { usePurchaseStore } from "@/store";
+import { usePurchaseStore, useSupplierStore } from "@/store";
 import { desformatearFecha } from "@/utils";
 import { FilePenLine, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../UI/LoadingSpinner";
 import { toast } from "react-toastify";
-
+import { Purchases } from "@/interfaces";
+import { getSuppliersForm } from "@/server-actions";
+import NewPurchaseModal from "./NewPurchaseModal";
 
 //TODO: Poner la lógica en todas las tablas principales de cada módulo, que si el,array que viene la bd es vacía coloque la leyenda que no hay datos para mostrar
 
 const PurchasesTable = () => {
   const router = useRouter();
-  const { purchases, cleanPurchaseId, setPurchaseId } = usePurchaseStore();
+  const {
+    purchases,
+    cleanPurchaseId,
+    setPurchaseId,
+    setPurchase,
+    purchaseModalOpen,
+    togglePurchaseModal,
+  } = usePurchaseStore();
+  const { setSupplierList } = useSupplierStore();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleView = async (purchaseId: number) => {
@@ -27,6 +38,20 @@ const PurchasesTable = () => {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEdit = async (purchase: Purchases) => {
+    togglePurchaseModal();
+    setPurchase(purchase);
+    try {
+      const { ok, data } = await getSuppliersForm();
+      if (ok && data) {
+        setSupplierList(data);
+        
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -77,9 +102,7 @@ const PurchasesTable = () => {
                 {desformatearFecha(purchase.Purchase_dueDate)}
               </td>
               <td className="py-2 px-1">{purchase.Purchase_paymentMethod}</td>
-              <td className="py-2 px-1">
-                {purchase.Purchase_totalAmount}
-              </td>
+              <td className="py-2 px-1">{purchase.Purchase_totalAmount}</td>
 
               <td className="py-2 px-1">
                 <button
@@ -97,7 +120,7 @@ const PurchasesTable = () => {
                 {!purchase.Purchase_close && (
                   <button
                     className="bg-gradient-to-b from-indigo-600 to-indigo-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm"
-                    // onClick={() => handleEdit(purchase)}
+                    onClick={() => handleEdit(purchase)}
                   >
                     <FilePenLine className="text-white w-5" />
                   </button>
@@ -107,7 +130,7 @@ const PurchasesTable = () => {
           ))}
         </tbody>
       </table>
-      {/* {isEditPurchaseModalOpen && <EditPurchaseModal />} */}
+      {purchaseModalOpen && <NewPurchaseModal />}
     </div>
   );
 };
