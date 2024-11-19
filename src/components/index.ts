@@ -20,6 +20,7 @@ export * from './purchases/DeletePurchaseModal';
 export * from './purchases/GetPurchasesButton';
 export * from './purchases/NewPurchaseButton';
 export * from './purchases/NewPurchaseModal';
+export * from './purchases/PurchaseForm';
 export * from './purchases/PurchaseItemCard';
 export * from './purchases/PurchaseModalContainer';
 export * from './purchases/PurchaseView';
