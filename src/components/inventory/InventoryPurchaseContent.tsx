@@ -1,14 +1,21 @@
 "use client";
-import { Purchases } from "@/interfaces";
+
 import { getProcessedPurchases } from "@/server-actions";
 import { desformatearFecha } from "@/utils";
-import { FilePenLine, RefreshCcw, ShoppingCart } from "lucide-react";
+import {
+  PencilLineIcon,
+  RefreshCcw,
+  ShoppingCart,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { LoadingSpinner } from "../UI/LoadingSpinner";
+import Link from "next/link";
+import { useInventoryStore } from "@/store";
 
 export const InventoryPurchaseContent = () => {
-  const [purchases, setPurchases] = useState<Purchases[] | null>(null);
+ 
+  const {processedPurchases, setProcessedPurchases} = useInventoryStore()
   const [loading, setLoading] = useState<boolean>(false);
 
   const getProcessed = async () => {
@@ -16,7 +23,7 @@ export const InventoryPurchaseContent = () => {
     try {
       const { ok, data } = await getProcessedPurchases();
       if (ok && data) {
-        setPurchases(data);
+        setProcessedPurchases(data);
       }
     } catch (error) {
       console.error(error);
@@ -37,33 +44,34 @@ export const InventoryPurchaseContent = () => {
           <LoadingSpinner />
         ) : (
           <>
-            {purchases ? (
-              <RefreshCcw className={`w-5`} size={20} strokeWidth={1.25}/>
+            {processedPurchases ? (
+              <RefreshCcw className={`w-5`} size={20} strokeWidth={1.25} />
             ) : (
-              <ShoppingCart className={`w-5`} size={20} strokeWidth={1.25}/>
+              <ShoppingCart className={`w-5`} size={20} strokeWidth={1.25} />
             )}
 
-            {purchases ? "Refrescar" : "Ver Compras"}
+            {processedPurchases ? "Refrescar" : "Ver Compras"}
           </>
         )}
       </button>
-      {purchases ? (
+      {processedPurchases ? (
         //* Si no hay compras procesadas voy a ver un mensaje
         <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
           <table className="w-full rounded-lg text-left shadow-md border-collapse">
             <thead className="bg-indigo-900 text-slate-200 border-b-8 border-b-blue-600">
               <tr>
                 <th className="py-3 px-1">Item</th>
+                <th className="py-3 px-1">Id</th>
                 <th className="py-3 px-1 w-96">Descripción</th>
                 <th className="py-3 px-1">Proveedor</th>
                 <th className="py-3 px-1">Fecha de Compra</th>
                 <th className="py-3 px-1">Fecha de Vencimiento</th>
                 <th className="py-3 px-1">Monto</th>
-                <th className="py-3 px-1">Editar</th>
+                <th className="py-3 px-1">Gestionar</th>
               </tr>
             </thead>
             <tbody>
-              {purchases?.map((purchase, i) => (
+              {processedPurchases?.map((purchase, i) => (
                 <tr
                   key={purchase.Purchase_id}
                   className={`hover:bg-gray-300 dark:hover:bg-yellow-900 py-5 ${
@@ -71,6 +79,9 @@ export const InventoryPurchaseContent = () => {
                   }`}
                 >
                   <td className="py-2 px-2">{i + 1}</td>
+                  <td className="py-2 px-2 text-left">
+                    {purchase.Purchase_id}
+                  </td>
                   <td className="py-2 ps-1 pe-5">
                     {purchase.Purchase_description}
                   </td>
@@ -85,14 +96,18 @@ export const InventoryPurchaseContent = () => {
                   </td>
                   <td className="py-2 px-1">{purchase.Purchase_totalAmount}</td>
                   <td className="py-2 px-1">
-                    {!purchase.Purchase_processed && (
-                      <button
-                        className="bg-gradient-to-b from-indigo-600 to-indigo-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm"
-                        //   onClick={() => handleEdit(purchase)}
-                      >
-                        <FilePenLine className="text-white w-5" />
-                      </button>
-                    )}
+                    <Link
+                    href={`/inventory/inventory-management/${purchase.Purchase_id}`}
+                      className="bg-rose-600 w-8 h-8 flex justify-center items-center shadow-md rounded-sm"
+                      
+                      //   onClick={() => handleEdit(purchase)}
+                    >
+                      <PencilLineIcon
+                        size={20}
+                        strokeWidth={1.5}
+                        className="text-white w-5"
+                      />
+                    </Link>
                   </td>
                 </tr>
               ))}
