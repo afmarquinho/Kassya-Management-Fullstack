@@ -1,5 +1,10 @@
-import { BackButton, GetPurchasesButton } from "@/components";
-import NewPurchaseButton from "@/components/purchases/NewPurchaseButton";
+import {
+  BackButton,
+  FormContainer,
+  GetPurchasesButton,
+  NewButton,
+} from "@/components";
+
 import PurchasesTable from "@/components/purchases/PurchasesTable";
 
 const PurchaseManagementPage = () => {
@@ -8,14 +13,14 @@ const PurchaseManagementPage = () => {
       <div className={`flex justify-between gap-5`}>
         <div className={`flex gap-5`}>
           <GetPurchasesButton />
-          <NewPurchaseButton />
+          <NewButton name="Nueva compra" module="purchases" />
         </div>
 
         <BackButton />
       </div>
-      
-        <PurchasesTable />
-      
+
+      <PurchasesTable />
+      <FormContainer />
     </>
   );
 };

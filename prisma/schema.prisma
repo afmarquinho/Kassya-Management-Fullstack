@@ -38,22 +38,23 @@ datasource db {
 // }
 
 model User {
-  User_id               Int        @id @default(autoincrement())
-  User_code             String     @unique() @default(uuid())
-  User_dni              Int        @unique
+  User_id               Int            @id @default(autoincrement())
+  User_code             String         @unique() @default(uuid())
+  User_dni              Int            @unique
   User_role             String
   User_name             String
   User_surname          String
-  User_email            String     @unique
+  User_email            String         @unique
   User_password         String
   User_phoneNumber      String
   User_address          String
-  User_active           Boolean    @default(true)
-  User_registrationDate DateTime   @default(now())
+  User_active           Boolean        @default(true)
+  User_registrationDate DateTime       @default(now())
   Sales                 Sale[]
   Purchase              Purchase[]
   Supplier              Supplier[]
   Customer              Customer[]
+  PurchaseNote          PurchaseNote[]
 }
 
 model Customer {
@@ -101,6 +102,8 @@ model Purchase {
   Supplier               Supplier        @relation(fields: [Purchase_supplierId], references: [Supplier_id])
   ExpenseSummary         ExpenseSummary?
   PurchaseItem           PurchaseItem[]
+  Purchase_processed     Boolean         @default(false)
+  purchaseNote           PurchaseNote[]
 }
 
 model PurchaseItem {
@@ -117,7 +120,19 @@ model PurchaseItem {
   Item_status        String        @default("ORDERED")
   Item_purchaseId    Int
   SaleDetails        SaleDetails[]
-  purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
+  Purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
+}
+
+model PurchaseNote {
+  Note_id        Int      @id @default(autoincrement())
+  Note_content   String
+  Note_createdAt DateTime @default(now())
+
+  Note_userId Int
+  User        User @relation(fields: [Note_userId], references: [User_id])
+
+  Note_purchaseId Int
+  Purchase        Purchase @relation(fields: [Note_purchaseId], references: [Purchase_id])
 }
 
 model Sale {

@@ -1,6 +1,6 @@
 "use client";
 
-import { updatePurchase } from "@/server-actions";
+import { getSuppliersForm, updatePurchase } from "@/server-actions";
 import { usePurchaseStore, useSupplierStore } from "@/store";
 import purchaseSchema from "@/validations/purchase.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +21,7 @@ export const PurchaseForm = () => {
     updatePurchases,
     // updatePurchases,
   } = usePurchaseStore();
-  const { supplierList } = useSupplierStore();
+  const { supplierList, setSupplierList } = useSupplierStore();
   const [loading, setLoading] = useState<boolean>(false);
 
   const {
@@ -67,7 +67,7 @@ export const PurchaseForm = () => {
   //     }
 
   //   } else {
-      
+
   //   }
   //   reset();
   // };
@@ -80,15 +80,23 @@ export const PurchaseForm = () => {
       setValue("Purchase_description", purchase.Purchase_description);
       setValue("Purchase_supplierId", purchase.Purchase_supplierId);
       setValue("Purchase_paymentMethod", purchase.Purchase_paymentMethod);
-      setValue("Purchase_supplierId", purchase.Purchase_supplierId);
     }
   }, [setValue, purchase]);
 
-  // function desformatearFecha() {
-  //   const newDate = purchase?.Purchase_dueDate?.split("T");
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const { ok, data } = await getSuppliersForm();
+        if (ok && data) {
+          setSupplierList(data);
+        }
+      } catch (error) {
+        console.error("Error al cargar proveedores:", error);
+      }
+    };
 
-  //   return newDate ? newDate[0] : "";
-  // }
+    fetchSuppliers();
+  }, [setSupplierList,]);
 
   return (
     <>
@@ -123,6 +131,7 @@ export const PurchaseForm = () => {
           <select
             className="bg-slate-300 dark:bg-slate-700 p-2 focus:outline-none text-base rounded-md"
             {...register("Purchase_supplierId", { valueAsNumber: true })}
+            defaultValue={purchase ? purchase.Purchase_supplierId : ""}
           >
             <option value="">-- Seleccione --</option>
             {supplierList?.map((supplier, i) => (

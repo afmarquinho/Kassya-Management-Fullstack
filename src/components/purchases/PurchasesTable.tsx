@@ -9,7 +9,6 @@ import { LoadingSpinner } from "../UI/LoadingSpinner";
 import { toast } from "react-toastify";
 import { Purchases } from "@/interfaces";
 import { getSuppliersForm } from "@/server-actions";
-import { NewPurchaseModal } from "./NewPurchaseModal";
 
 //TODO: Poner la lógica en todas las tablas principales de cada módulo, que si el,array que viene la bd es vacía coloque la leyenda que no hay datos para mostrar
 
@@ -20,7 +19,6 @@ const PurchasesTable = () => {
     cleanPurchaseId,
     setPurchaseId,
     setPurchase,
-    purchaseModalOpen,
     togglePurchaseModal,
   } = usePurchaseStore();
   const { setSupplierList } = useSupplierStore();
@@ -129,7 +127,7 @@ const PurchasesTable = () => {
           ))}
         </tbody>
       </table>
-      {purchaseModalOpen && <NewPurchaseModal />}
+     
     </div>
   );
 };
