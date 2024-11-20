@@ -6,11 +6,11 @@ import { usePurchaseStore } from "@/store";
 type Props = {
   purchaseDetails: PurchaseDetails;
 };
-export const ClosePurchaseButton = ({ purchaseDetails }: Props) => {
-  const { toggleClosePurchaseModal } = usePurchaseStore();
+export const ProcessPurchaseButton = ({ purchaseDetails }: Props) => {
+  const { toggleProcessPurchaseModal } = usePurchaseStore();
 
   const handleClosePurchase = () => {
-    toggleClosePurchaseModal();
+    toggleProcessPurchaseModal();
   };
   
   return (

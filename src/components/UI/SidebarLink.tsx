@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useUIStore } from "@/store/UIStore";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
@@ -23,7 +22,7 @@ export const SidebarLink = ({ label, href, icon: Icon }: Props) => {
       className={`${isSidebarCollapsed ? "hidden md:block" : "block"}`}
     >
       <div
-        className={`group flex justify-start gap-2 px-4 py-3 w-full hover:bg-gradient-to-r hover:from-cyan-200 hover:to-blue-400 dark:hover:from-zinc-800 dark:hover:to-gray-600 ${
+        className={`group flex justify-start items-center gap-2 px-4 py-3 w-full hover:bg-gradient-to-r hover:from-cyan-200 hover:to-blue-400 dark:hover:from-zinc-800 dark:hover:to-gray-600 ${
           isActive && "bg-slate-200 dark:bg-slate-700"
         }
         `}

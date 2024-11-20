@@ -1,26 +1,35 @@
 "use client";
 
-import { closePurchase } from "@/server-actions";
 import { TriangleAlert, X } from "lucide-react";
 
 import { useState } from "react";
 
 import { usePurchaseStore } from "@/store";
 import { LoadingSpinner } from "../UI/LoadingSpinner";
+import { processPurchase } from "@/server-actions";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-export const ClosePurchaseModal = () => {
-  const { toggleClosePurchaseModal, purchaseId } = usePurchaseStore();
+export const ProcessPurchaseModal = () => {
+  const { toggleProcessPurchaseModal, purchaseId } = usePurchaseStore();
+  const router = useRouter();
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleClosePurchase = async () => {
+  const handleProcessPurchase = async () => {
     setLoading(true);
 
     if (!purchaseId) return;
     try {
-      await closePurchase(purchaseId);
+      const { ok } = await processPurchase(purchaseId);
+      if (ok) {
+        toggleProcessPurchaseModal();
+        toast.success("Compra procesada");
+        router.refresh();
+      }
     } catch (error) {
       console.error("Error al cerrar la compra:", error);
+      toast.error("Error desconocido");
     } finally {
       setLoading(false);
     }
@@ -39,7 +48,7 @@ export const ClosePurchaseModal = () => {
             />
             <button
               className={`absolute top-2 right-2 "bg-red-800 hover:bg-teal-800`}
-              onClick={toggleClosePurchaseModal}
+              onClick={toggleProcessPurchaseModal}
             >
               <X
                 className={`  text-yellow-400 cursor-pointer`}
@@ -60,7 +69,7 @@ export const ClosePurchaseModal = () => {
 
             <button
               className={`flex gap-1 justify-center items-center  rounded-md px-4 py-2 text-white mx-auto mt-5 uppercase font-semibold shadow-md bg-gradient-to-b from-teal-600 to-teal-800 hover:from-teal-700 hover:to-teal-700 dark:from-teal-700 dark:to-teal-700 dark:hover:from-teal-600 dark:hover:to-teal-700 transition-all duration-700`}
-              onClick={handleClosePurchase}
+              onClick={handleProcessPurchase}
             >
               {loading ? <LoadingSpinner /> : "Cerrar Compra"}
             </button>

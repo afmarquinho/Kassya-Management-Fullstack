@@ -8,6 +8,7 @@ import {
   PanelsTopLeft,
   ShoppingBag,
   UserRoundCog,
+  Warehouse,
   // Wrench,
   X,
 } from "lucide-react";
@@ -68,8 +69,9 @@ export const Sidebar = () => {
 
       <SidebarLink label="Panel" href="/dashboard" icon={PanelsTopLeft} />
       {/* <SidebarLink label="Sales" href="/sales" icon={CircleDollarSign} /> */}
-      <SidebarLink label="Purchase Order" href="/purchase" icon={ShoppingBag} /> 
-      <SidebarLink label="Masters" href="/masters" icon={ClipboardPen} /> 
+      <SidebarLink label="Órden de Compra" href="/purchase" icon={ShoppingBag} /> 
+      <SidebarLink label="Inventario" href="/inventory" icon={Warehouse} /> 
+      <SidebarLink label="Terceros" href="/masters" icon={ClipboardPen} /> 
       {/* <SidebarLink label="Reports" href="/reports" icon={NotebookText} /> */}
       {/* <SidebarLink label="Warranty" href="/warranty" icon={Wrench} /> */}
       <SidebarLink label="Gestor de Usuarios" href="/users" icon={UserRoundCog} />

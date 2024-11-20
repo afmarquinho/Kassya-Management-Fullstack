@@ -5,7 +5,7 @@ type States = {
   purchases: Purchases[] | null; //*Almacena todas las compras que vienen que la bd para visulizar en la página principal.
   purchase: Purchases | null; //* Compra para visualizar o llenar el formulario para editar.
   purchaseModalOpen: boolean; //* Activa el modal del formulario para crear y editar una compra.
-  closePurchaseModalOpen: boolean; //* Activa el modal para cerrar la compra
+  processPurchaseModalOpen: boolean; //* Activa el modal para cerrar la compra
   purchaseId: number | null; //* almacena el id para cerrar la compra
   deletePurchaseModalOpen: boolean; //*Activa el modal para eliminar un compra.
 };
@@ -16,7 +16,7 @@ type Actions = {
   cleanPurchase: () => void; //* Vacía la compra.
   togglePurchaseModal: () => void; //* Maneja el estado que activa el modal del formulario para crear o e ditar.
   updatePurchases: (action: string, purchase: Purchases) => void; //* Actualiza (crea o edita) el array de compras.
-  toggleClosePurchaseModal: () => void; //* Maneja estado que activa el modal de cerrar compra.
+  toggleProcessPurchaseModal: () => void; //* Maneja estado que activa el modal de cerrar compra.
   setPurchaseId: (purchaseId: number) => void; //* Llena el estado que almacena el purchase_id.
   cleanPurchaseId: () => void; //* Limpia el estado que almacena el purchase_id.
   toggleDeletePurchaseModal: () => void;
@@ -26,7 +26,7 @@ export const usePurchaseStore = create<States & Actions>((set, get) => ({
   purchases: null,
   purchase: null,
   purchaseModalOpen: false,
-  closePurchaseModalOpen: false,
+  processPurchaseModalOpen: false,
   purchaseId: null,
   deletePurchaseModalOpen: false,
 
@@ -73,10 +73,10 @@ export const usePurchaseStore = create<States & Actions>((set, get) => ({
     set({ purchaseModalOpen: !purchaseModalOpen });
   },
 
-  toggleClosePurchaseModal: () => {
-    const { closePurchaseModalOpen } = get();
+  toggleProcessPurchaseModal: () => {
+    const { processPurchaseModalOpen } = get();
     document.documentElement.classList.toggle("overflow-hidden");
-    set({ closePurchaseModalOpen: !closePurchaseModalOpen });
+    set({ processPurchaseModalOpen: !processPurchaseModalOpen });
   },
   setPurchaseId: (purchaseId) => {
     set({ purchaseId });

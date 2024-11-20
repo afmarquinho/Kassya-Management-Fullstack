@@ -112,14 +112,23 @@ export const getPurchaseDetails = async (purchaseId: number) => {
   }
 };
 
-export const closePurchase = async (purchaseId: number) => {
+export const processPurchase = async (purchaseId: number) => {
   try {
-    const purchase = await prisma.purchase.findUnique({
+    const purchase = await prisma.purchase.update({
       where: {
         Purchase_id: purchaseId,
       },
+      data: {
+        Purchase_processed: true,
+      },
     });
-    console.log(purchase);
+    if (!purchase) {
+      return {
+        ok: false,
+        data: null,
+      };
+    }
+    return { ok: true };
   } catch (error) {
     console.error("Error al cerrar la compra: ", error);
     return {
@@ -159,6 +168,46 @@ export const deletePurchase = async (purchaseId: number) => {
       ok: false,
       data: null,
       message: error instanceof Error ? error.message : "Error desconodico",
+    };
+  }
+};
+
+export const getProcessedPurchases = async () => {
+  try {
+    const purchases = await prisma.purchase.findMany({
+      where: {
+        Purchase_processed: true,
+        Purchase_close: false,
+      },
+      orderBy: {
+        Purchase_date: "asc", // Si es necesario ordenar por fecha
+      },
+
+      include: {
+        Supplier: {
+          select: {
+            Supplier_name: true, // Selección solo del nombre del proveedor
+          },
+        },
+      },
+    });
+    //* Formatear el tipo decimal a moneda (string)
+    const formatPurchases = purchases.map((purchase) => ({
+      ...purchase,
+      Purchase_totalAmount:
+        purchase.Purchase_totalAmount.toNumber().toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+        }),
+    }));
+
+    return { ok: true, data: formatPurchases };
+  } catch (error) {
+    console.error("Error al obtener las compras: ", error); // Mejor manejo del error
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
     };
   }
 };

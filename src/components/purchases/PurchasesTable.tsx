@@ -114,7 +114,7 @@ const PurchasesTable = () => {
                 </button>
               </td>
               <td className="py-2 px-1">
-                {!purchase.Purchase_close && (
+                {!purchase.Purchase_processed && (
                   <button
                     className="bg-gradient-to-b from-indigo-600 to-indigo-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm"
                     onClick={() => handleEdit(purchase)}

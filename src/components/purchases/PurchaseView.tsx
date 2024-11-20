@@ -3,11 +3,9 @@ import { desformatearFecha } from "@/utils";
 import { Lock, LockOpen } from "lucide-react";
 import { PurchaseItemCard } from "./PurchaseItemCard";
 import { PurchaseModalContainer } from "./PurchaseModalContainer";
-import { ClosePurchaseButton } from "./ClosePurchaseButton";
+import { ProcessPurchaseButton } from "./ProcessPurchaseButton";
 import { PurchaseDetails } from "@/interfaces";
-import DeletePurchaseButton from "./DeletePurchaseButton";
-
-// import { toast } from "react-toastify";
+import { DeletePurchaseButton } from "./DeletePurchaseButton";
 
 interface Props {
   purchaseId: number;
@@ -82,12 +80,12 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
                 <th className={`italic`}>Estado</th>
                 <td className={`p-3`}>
                   <div className={`flex gap-2 items-center justify-start`}>
-                    {purchaseDetails?.Purchase_close ? (
+                    {purchaseDetails?.Purchase_processed ? (
                       <Lock className={`w-5`} />
                     ) : (
                       <LockOpen className={`w-5`} />
                     )}
-                    {purchaseDetails?.Purchase_close ? "Cerrada" : "Abierta"}
+                    {purchaseDetails?.Purchase_processed ? "Cerrada" : "Abierta"}
                   </div>
                 </td>
               </tr>
@@ -107,7 +105,7 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
               </tr>
             </tbody>
           </table>
-          {!purchaseDetails.Purchase_close && (
+          {!purchaseDetails.Purchase_processed && (
             <button
               className={`p-2 bg-gradient-to-b from-indigo-600 to-indigo-600 text-white`}
               //   onClick={toggleProductModal}
@@ -132,12 +130,12 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
               <PurchaseItemCard
                 key={item.Item_id}
                 item={item}
-                purchaseSatus={purchaseDetails.Purchase_close}
+                purchaseSatus={purchaseDetails.Purchase_processed}
               />
             ))}
           </div>
         )}
-        {!purchaseDetails.Purchase_close && (
+        {!purchaseDetails.Purchase_processed && (
           <div
             className={`w-full bg-red-600 bg-opacity-10 border-4 border-red-600 dark:border-red-300 p-5 `}
           >
@@ -147,7 +145,7 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
               Zona de Peligro
             </p>
             <div className={`flex gap-5`}>
-              <ClosePurchaseButton purchaseDetails={purchaseDetails} />
+              <ProcessPurchaseButton purchaseDetails={purchaseDetails} />
               <DeletePurchaseButton purchaseDetails={purchaseDetails} />
             </div>
           </div>

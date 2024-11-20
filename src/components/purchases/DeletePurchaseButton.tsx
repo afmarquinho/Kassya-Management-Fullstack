@@ -7,7 +7,7 @@ type Props = {
   purchaseDetails: PurchaseDetails | null; //*Viene del componente padre PurchaseView y su valor puede ser nulo tambiem, si es nulo, el componente no retorn nada
 };
 
-const DeletePurchaseButton = ({ purchaseDetails }: Props) => {
+export const DeletePurchaseButton = ({ purchaseDetails }: Props) => {
   const { toggleDeletePurchaseModal } = usePurchaseStore();
 
   if (!purchaseDetails) {
@@ -27,4 +27,4 @@ const DeletePurchaseButton = ({ purchaseDetails }: Props) => {
     </button>
   );
 };
-export default DeletePurchaseButton;
+

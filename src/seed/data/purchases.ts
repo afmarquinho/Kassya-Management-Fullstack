@@ -8,6 +8,7 @@ export const purchases = [
     Purchase_supplierId: 2,
     Purchase_paymentMethod: "CREDIT_CARD",
     Purchase_dueDate: "2024-12-04T04:59:59.000Z",
+    Purchase_processed: true,
     Purchase_close: true,
   },
   {
@@ -19,7 +20,7 @@ export const purchases = [
     Purchase_supplierId: 5,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-08T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 4,
@@ -30,6 +31,7 @@ export const purchases = [
     Purchase_supplierId: 5,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-06T04:59:59.000Z",
+    Purchase_processed: true,
     Purchase_close: true,
   },
   {
@@ -42,7 +44,7 @@ export const purchases = [
     Purchase_supplierId: 5,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-11T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 11,
@@ -53,7 +55,7 @@ export const purchases = [
     Purchase_supplierId: 4,
     Purchase_paymentMethod: "CASH",
     Purchase_dueDate: "2024-12-01T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 12,
@@ -64,6 +66,7 @@ export const purchases = [
     Purchase_supplierId: 2,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-11T04:59:59.000Z",
+    Purchase_processed: true,
     Purchase_close: true,
   },
   {
@@ -75,7 +78,7 @@ export const purchases = [
     Purchase_supplierId: 3,
     Purchase_paymentMethod: "DEBIT_CARD",
     Purchase_dueDate: "2024-11-26T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 14,
@@ -86,7 +89,7 @@ export const purchases = [
     Purchase_supplierId: 5,
     Purchase_paymentMethod: "CASH",
     Purchase_dueDate: "2024-12-06T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 15,
@@ -97,7 +100,7 @@ export const purchases = [
     Purchase_supplierId: 1,
     Purchase_paymentMethod: "CREDIT_CARD",
     Purchase_dueDate: "2024-12-13T04:59:59.000Z",
-    Purchase_close: true,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 16,
@@ -108,7 +111,7 @@ export const purchases = [
     Purchase_supplierId: 2,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-11-26T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 17,
@@ -119,7 +122,7 @@ export const purchases = [
     Purchase_supplierId: 4,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-02T04:59:59.000Z",
-    Purchase_close: true,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 18,
@@ -130,7 +133,7 @@ export const purchases = [
     Purchase_supplierId: 2,
     Purchase_paymentMethod: "DEBIT_CARD",
     Purchase_dueDate: "2024-12-06T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 19,
@@ -141,7 +144,7 @@ export const purchases = [
     Purchase_supplierId: 3,
     Purchase_paymentMethod: "CREDIT_CARD",
     Purchase_dueDate: "2024-12-01T04:59:59.000Z",
-    Purchase_close: true,
+    Purchase_processed: true,
   },
   {
     Purchase_id: 20,
@@ -153,7 +156,7 @@ export const purchases = [
     Purchase_supplierId: 1,
     Purchase_paymentMethod: "CASH",
     Purchase_dueDate: "2024-12-06T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 21,
@@ -164,7 +167,7 @@ export const purchases = [
     Purchase_supplierId: 4,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-16T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 5,
@@ -175,7 +178,7 @@ export const purchases = [
     Purchase_supplierId: 3,
     Purchase_paymentMethod: "CASH",
     Purchase_dueDate: "2024-12-01T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 1,
@@ -186,7 +189,7 @@ export const purchases = [
     Purchase_supplierId: 2,
     Purchase_paymentMethod: "CREDIT_CARD",
     Purchase_dueDate: "2024-12-02T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 6,
@@ -197,7 +200,7 @@ export const purchases = [
     Purchase_supplierId: 1,
     Purchase_paymentMethod: "BANK_TRANSFER",
     Purchase_dueDate: "2024-12-06T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 2,
@@ -208,7 +211,7 @@ export const purchases = [
     Purchase_supplierId: 1,
     Purchase_paymentMethod: "TRANSFER",
     Purchase_dueDate: "2024-12-11T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 7,
@@ -219,7 +222,7 @@ export const purchases = [
     Purchase_supplierId: 4,
     Purchase_paymentMethod: "PAYPAL",
     Purchase_dueDate: "2024-12-11T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
   {
     Purchase_id: 3,
@@ -230,6 +233,6 @@ export const purchases = [
     Purchase_supplierId: 4,
     Purchase_paymentMethod: "CASH",
     Purchase_dueDate: "2024-12-01T04:59:59.000Z",
-    Purchase_close: false,
+    Purchase_processed: false,
   },
 ];
