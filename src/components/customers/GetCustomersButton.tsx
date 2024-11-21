@@ -31,7 +31,7 @@ export const GetCustomersButton = () => {
   return (
     <>
       <button
-        className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-teal-600 hover:bg-teal-500 dark:bg-teal-700 dark:hover:bg-teal-500`}
+        className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-teal-600 hover:bg-teal-500 dark:bg-teal-700 dark:hover:bg-teal-500 text-xs`}
         onClick={handleFetchSuppliers}
         disabled={loading}
       >

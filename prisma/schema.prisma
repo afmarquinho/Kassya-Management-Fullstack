@@ -103,7 +103,7 @@ model Purchase {
   ExpenseSummary         ExpenseSummary?
   PurchaseItem           PurchaseItem[]
   Purchase_processed     Boolean         @default(false)
-  purchaseNote           PurchaseNote[]
+  PurchaseNote           PurchaseNote[]
 }
 
 model PurchaseItem {

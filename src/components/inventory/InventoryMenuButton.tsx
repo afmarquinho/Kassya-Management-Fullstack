@@ -44,7 +44,7 @@ export const InventoryMenuButton = ({ label, color }: Props) => {
             : color === "rose"
             ? rose
             : purple
-        } hover:dark:from-orange-700 hover:dark:to-orange-900 shadow-md rounded-lg px-1 py-2 text-xs`}
+        } hover:dark:from-orange-700 hover:dark:to-orange-900 shadow-md rounded-lg p-2 text-xs`}
     >
       {icons[label]} {label}
     </button>

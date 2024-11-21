@@ -1,5 +1,5 @@
 import { getPurchaseInventory } from "@/server-actions/inventory/inventory-actions";
-import { LogIn, SendHorizontal } from "lucide-react";
+import { FolderClosed, LogIn, SendHorizontal } from "lucide-react";
 import { toast } from "react-toastify";
 
 interface PageProps {
@@ -148,7 +148,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
         </table>
       </>
       <h3 className={`font-medium my-2`}>Anotaciones</h3>
-      <div className="flex flex-col md:flex-row gap-5 w-full mb-5">
+      <div className="flex flex-col md:flex-row gap-5 w-full mb-5 ps-1">
         <form className="flex-1">
           <textarea
             name=""
@@ -158,7 +158,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
           />
           <button
             type="submit"
-            className="bg-teal-600 dark:bg-teal-800 rounded-full text-white p-2 my-2 hover:bg-teal-500 dark:hover:bg-teal-500 shadow-md transition-all"
+            className="bg-teal-600 dark:bg-teal-700 rounded-full text-white p-2 my-2 hover:bg-teal-500 dark:hover:bg-teal-500 shadow-md transition-all"
           >
             <SendHorizontal />
           </button>
@@ -173,49 +173,27 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
           <p className={`mb-2`}>
             Comentarios cargados desde el backend aparecerán aquí.
           </p>
-          {/* Ejemplo de comentarios */}
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 1: Esto es un comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
-          <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-            <p className="text-sm text-slate-700 dark:text-slate-200">
-              Usuario 2: Otro comentario de ejemplo.
-            </p>
-          </div>
+
+          {data.purchaseNote.length < 1 ? (
+            <div>No hay comentarios</div>
+          ) : (
+            <>
+              <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
+                <p className="text-sm text-slate-700 dark:text-slate-200">
+                  Usuario 1: Esto es un comentario de ejemplo.
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
+      <button
+        type="button"
+        className={`bg-rose-600 shadow-lg rounded-lg p-2 flex gap-2 text-xs text-white items-center justify-center my-5 hover:bg-rose-700`}
+      >
+        <FolderClosed strokeWidth={1.5} />
+        Cerrar Compras
+      </button>
     </>
   );
 };

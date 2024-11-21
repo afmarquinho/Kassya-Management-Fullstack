@@ -19,14 +19,14 @@ async function main() {
   // await prisma.sale.deleteMany();
   // await prisma.saleDetails.deleteMany();
 
-  await prisma.category.deleteMany();
-  await prisma.purchaseItem.deleteMany();
-  await prisma.purchase.deleteMany();
-  await prisma.supplier.deleteMany();
-  await prisma.customer.deleteMany();
-  await prisma.user.deleteMany();
-
   try {
+    await prisma.category.deleteMany();
+    await prisma.purchaseItem.deleteMany();
+    await prisma.purchase.deleteMany();
+    await prisma.supplier.deleteMany();
+    await prisma.customer.deleteMany();
+    await prisma.user.deleteMany();  
+       
     await prisma.user.createMany({
       data: users,
     });

@@ -32,7 +32,7 @@ export const GetSuppliersButton = () => {
   return (
     <>
     <button
-      className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-700 dark:hover:bg-blue-500`}
+      className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-700 dark:hover:bg-blue-500 text-xs`}
       onClick={handleGetSuppliers}
       disabled={loading}
       >
