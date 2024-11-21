@@ -2,11 +2,7 @@
 
 import { getProcessedPurchases } from "@/server-actions";
 import { desformatearFecha } from "@/utils";
-import {
-  PencilLineIcon,
-  RefreshCcw,
-  ShoppingCart,
-} from "lucide-react";
+import { PencilLineIcon, RefreshCcw, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { LoadingSpinner } from "../UI/LoadingSpinner";
@@ -14,8 +10,7 @@ import Link from "next/link";
 import { useInventoryStore } from "@/store";
 
 export const InventoryPurchaseContent = () => {
- 
-  const {processedPurchases, setProcessedPurchases} = useInventoryStore()
+  const { processedPurchases, setProcessedPurchases } = useInventoryStore();
   const [loading, setLoading] = useState<boolean>(false);
 
   const getProcessed = async () => {
@@ -97,9 +92,9 @@ export const InventoryPurchaseContent = () => {
                   <td className="py-2 px-1">{purchase.Purchase_totalAmount}</td>
                   <td className="py-2 px-1">
                     <Link
-                    href={`/inventory/inventory-management/${purchase.Purchase_id}`}
+                      href={`/inventory/inventory-management/${purchase.Purchase_id}`}
                       className="bg-rose-600 w-8 h-8 flex justify-center items-center shadow-md rounded-sm"
-                      
+
                       //   onClick={() => handleEdit(purchase)}
                     >
                       <PencilLineIcon

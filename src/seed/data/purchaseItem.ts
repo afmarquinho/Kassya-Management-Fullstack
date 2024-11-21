@@ -161,7 +161,7 @@ export const purchaseItems = [
     Item_unitCost: 850.0,
     Item_qtyOrdered: 3,
     Item_totalAmount: 2550.0,
-    Item_qtyReceived: 0,
+    Item_qtyReceived: 3,
     Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",

@@ -14,7 +14,7 @@ body,
 .app {
   @apply min-h-screen;
   @apply bg-slate-100;
-  @apply text-sm;
+  @apply text-sm md:text-base;
   @apply text-slate-800;
 }
 

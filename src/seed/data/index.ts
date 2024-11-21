@@ -1,3 +1,4 @@
+export * from './category';
 export * from './customers';
 export * from './devolutions';
 

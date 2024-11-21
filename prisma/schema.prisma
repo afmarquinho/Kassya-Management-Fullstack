@@ -135,6 +135,11 @@ model PurchaseNote {
   Purchase        Purchase @relation(fields: [Note_purchaseId], references: [Purchase_id])
 }
 
+model Category {
+  Category_id   Int    @id @default(autoincrement())
+  Category_name String
+}
+
 model Sale {
   Sale_id          Int           @id @default(autoincrement())
   Sale_date        DateTime      @default(now())

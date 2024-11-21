@@ -1,5 +1,12 @@
 import { prisma } from "../lib/db";
-import { customers, purchaseItems, purchases, suppliers, users} from "./data";
+import {
+  customers,
+  purchaseItems,
+  purchases,
+  suppliers,
+  users,
+  categories,
+} from "./data";
 
 // import { devolutions } from "./data/devolutions";
 // import { saleDetails } from "./data/saleDetails";
@@ -12,6 +19,7 @@ async function main() {
   // await prisma.sale.deleteMany();
   // await prisma.saleDetails.deleteMany();
 
+  await prisma.category.deleteMany();
   await prisma.purchaseItem.deleteMany();
   await prisma.purchase.deleteMany();
   await prisma.supplier.deleteMany();
@@ -32,7 +40,10 @@ async function main() {
       data: purchases,
     });
     await prisma.purchaseItem.createMany({
-      data: purchaseItems
+      data: purchaseItems,
+    });
+    await prisma.category.createMany({
+      data: categories,
     });
 
     // await prisma.sale.createMany({
