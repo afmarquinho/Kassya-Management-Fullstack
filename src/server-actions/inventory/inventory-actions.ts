@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/db";
 
 export const getPurchaseInventory = async (purchaseId: number) => {
@@ -61,6 +63,56 @@ export const getPurchaseInventory = async (purchaseId: number) => {
       ok: false,
       data: null,
       message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const categories = await prisma.category.findMany({
+      orderBy: {
+        Category_name: "asc",
+      },
+    });
+
+    if (!categories || categories.length === 0) {
+      return { ok: false, data: null, message: "No se encontraron categorías" };
+    }
+
+    return {
+      ok: true,
+      data: categories,
+      message: "Categorías cargadas exitosamente",
+    };
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return {
+      ok: false,
+      data: null,
+      message: "Ha ocurrido un error en la solicitud",
+    };
+  }
+};
+
+export const delteCategory = async (categoryId: number) => {
+  try {
+    await prisma.category.delete({
+      where: {
+        Category_id: categoryId,
+      },
+    });
+
+    return {
+      ok: true,
+      data: null,
+      message: "Categorías eliminada exitosamente",
+    };
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return {
+      ok: false,
+      data: null,
+      message: "Ha ocurrido un error en la solicitud",
     };
   }
 };

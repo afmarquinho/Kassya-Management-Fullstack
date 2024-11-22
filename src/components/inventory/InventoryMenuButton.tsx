@@ -1,3 +1,4 @@
+import { useInventoryStore } from "@/store";
 import { Archive, PackageOpen, Tag } from "lucide-react";
 
 type Props = {
@@ -25,10 +26,30 @@ const icons = {
     <PackageOpen size={20} strokeWidth={1.25} className={`h-4`} />
   ),
   Inventarios: <Archive size={20} strokeWidth={1.25} className={`h-4`} />,
-  Categoría: <Tag size={20} strokeWidth={1.25} className={`h-4`}/>
+  Categoría: <Tag size={20} strokeWidth={1.25} className={`h-4`} />,
 };
 
 export const InventoryMenuButton = ({ label, color }: Props) => {
+  const { toggleCategoryModal, togglePurchaseModal } = useInventoryStore();
+
+  const handleClick = () => {
+    switch (label) {
+      case "Categoría":
+          toggleCategoryModal(true);
+          togglePurchaseModal(false);
+        
+        break;
+        case  "Órdenes de Compra":
+          toggleCategoryModal(false);
+          togglePurchaseModal(true);
+  
+          break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <button
       className={`flex items-center justify-center gap-1 text-white bg-gradient-to-b 
@@ -45,6 +66,7 @@ export const InventoryMenuButton = ({ label, color }: Props) => {
             ? rose
             : purple
         } hover:dark:from-orange-700 hover:dark:to-orange-900 shadow-md rounded-lg p-2 text-xs`}
+      onClick={handleClick}
     >
       {icons[label]} {label}
     </button>

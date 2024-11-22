@@ -1,8 +1,9 @@
-import { InventoryPurchaseContent } from "@/components"
+import { InventoryContainer } from "@/components"
+
 
 const InventoryPage = () => {
   return (
-    <InventoryPurchaseContent/>
+    <InventoryContainer/>
   )
 }
 export default InventoryPage

@@ -182,7 +182,9 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
           </p>
 
           {data.PurchaseNote.length < 1 ? (
-            <div>No hay comentarios</div>
+            <div className={`italic font-medium text-sm`}>
+              No hay comentarios
+            </div>
           ) : (
             <>
               {data.PurchaseNote.map((note) => (
@@ -197,8 +199,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
                     className={`w-full text-right text-[11px] italic flex gap-2 items-center justify-end`}
                   >
                     <span className={`font-medium`}>
-                      {note.User.User_name} {" "}
-                      {note.User.User_surname}
+                      {note.User.User_name} {note.User.User_surname}
                     </span>
 
                     <span>-</span>
