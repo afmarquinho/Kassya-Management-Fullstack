@@ -1,14 +1,9 @@
--- CreateEnum
-CREATE TYPE "Location" AS ENUM ('UNRECEIVED', 'WAREHOUSE');
-
--- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'MANAGER', 'USER');
-
 -- CreateTable
 CREATE TABLE "User" (
     "User_id" SERIAL NOT NULL,
+    "User_code" TEXT NOT NULL,
     "User_dni" INTEGER NOT NULL,
-    "User_role" "Role" NOT NULL DEFAULT 'USER',
+    "User_role" TEXT NOT NULL,
     "User_name" TEXT NOT NULL,
     "User_surname" TEXT NOT NULL,
     "User_email" TEXT NOT NULL,
@@ -65,39 +60,46 @@ CREATE TABLE "Purchase" (
     "Purchase_paymentMethod" TEXT NOT NULL,
     "Purchase_dueDate" TIMESTAMP(3) NOT NULL,
     "Purchase_close" BOOLEAN NOT NULL DEFAULT false,
+    "Purchase_processed" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Purchase_pkey" PRIMARY KEY ("Purchase_id")
 );
 
 -- CreateTable
-CREATE TABLE "Product" (
-    "Product_id" SERIAL NOT NULL,
-    "Product_ref" TEXT NOT NULL,
-    "Product_name" TEXT NOT NULL,
-    "Product_description" TEXT NOT NULL,
-    "Product_cost" DECIMAL(65,30) NOT NULL,
-    "Product_qty" INTEGER NOT NULL,
-    "Product_total" DECIMAL(65,30) NOT NULL,
-    "Product_availability" BOOLEAN NOT NULL DEFAULT false,
-    "Product_location" "Location" NOT NULL DEFAULT 'UNRECEIVED',
-    "Product_purchaseId" INTEGER NOT NULL,
+CREATE TABLE "PurchaseItem" (
+    "Item_id" SERIAL NOT NULL,
+    "Item_ref" TEXT NOT NULL,
+    "Item_name" TEXT NOT NULL,
+    "Item_description" TEXT NOT NULL,
+    "Item_unitCost" DECIMAL(65,30) NOT NULL,
+    "Item_qtyOrdered" INTEGER NOT NULL,
+    "Item_totalAmount" DECIMAL(65,30) NOT NULL,
+    "Item_qtyReceived" INTEGER NOT NULL,
+    "Item_qtyDispatched" INTEGER NOT NULL DEFAULT 0,
+    "Item_location" TEXT NOT NULL DEFAULT 'UNRECEIVED',
+    "Item_status" TEXT NOT NULL DEFAULT 'ORDERED',
+    "Item_purchaseId" INTEGER NOT NULL,
 
-    CONSTRAINT "Product_pkey" PRIMARY KEY ("Product_id")
+    CONSTRAINT "PurchaseItem_pkey" PRIMARY KEY ("Item_id")
 );
 
 -- CreateTable
-CREATE TABLE "PurchaseDetail" (
-    "PurchDet_id" SERIAL NOT NULL,
-    "PurchDet_purchaseId" INTEGER NOT NULL,
-    "PurchDet_productId" INTEGER NOT NULL,
-    "PurchDet_qtyOrdered" INTEGER NOT NULL,
-    "PurchDet_qtyReceived" INTEGER NOT NULL,
-    "PurchDet_qtyDiff" INTEGER NOT NULL,
-    "PurchDet_locationStatus" TEXT NOT NULL,
-    "PurchDet_qtyDispatched" INTEGER NOT NULL,
-    "PurchDet_qtyAvailable" INTEGER NOT NULL,
+CREATE TABLE "PurchaseNote" (
+    "Note_id" SERIAL NOT NULL,
+    "Note_content" TEXT NOT NULL,
+    "Note_createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "Note_userId" INTEGER NOT NULL,
+    "Note_purchaseId" INTEGER NOT NULL,
 
-    CONSTRAINT "PurchaseDetail_pkey" PRIMARY KEY ("PurchDet_id")
+    CONSTRAINT "PurchaseNote_pkey" PRIMARY KEY ("Note_id")
+);
+
+-- CreateTable
+CREATE TABLE "Category" (
+    "Category_id" SERIAL NOT NULL,
+    "Category_name" TEXT NOT NULL,
+
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("Category_id")
 );
 
 -- CreateTable
@@ -120,6 +122,7 @@ CREATE TABLE "SaleDetails" (
     "SaleDetail_quantity" INTEGER NOT NULL,
     "SaleDetail_unitPrice" DECIMAL(65,30) NOT NULL,
     "SaleDetail_total" DECIMAL(65,30) NOT NULL,
+    "purchaseItemItem_id" INTEGER,
 
     CONSTRAINT "SaleDetails_pkey" PRIMARY KEY ("SaleDetail_id")
 );
@@ -167,6 +170,9 @@ CREATE TABLE "Devolution" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_User_code_key" ON "User"("User_code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_User_dni_key" ON "User"("User_dni");
 
 -- CreateIndex
@@ -206,13 +212,13 @@ ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_Purchase_userId_fkey" FOREIGN KE
 ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_Purchase_supplierId_fkey" FOREIGN KEY ("Purchase_supplierId") REFERENCES "Supplier"("Supplier_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_Product_purchaseId_fkey" FOREIGN KEY ("Product_purchaseId") REFERENCES "Purchase"("Purchase_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PurchaseItem" ADD CONSTRAINT "PurchaseItem_Item_purchaseId_fkey" FOREIGN KEY ("Item_purchaseId") REFERENCES "Purchase"("Purchase_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PurchaseDetail" ADD CONSTRAINT "PurchaseDetail_PurchDet_purchaseId_fkey" FOREIGN KEY ("PurchDet_purchaseId") REFERENCES "Purchase"("Purchase_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PurchaseNote" ADD CONSTRAINT "PurchaseNote_Note_userId_fkey" FOREIGN KEY ("Note_userId") REFERENCES "User"("User_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PurchaseDetail" ADD CONSTRAINT "PurchaseDetail_PurchDet_productId_fkey" FOREIGN KEY ("PurchDet_productId") REFERENCES "Product"("Product_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PurchaseNote" ADD CONSTRAINT "PurchaseNote_Note_purchaseId_fkey" FOREIGN KEY ("Note_purchaseId") REFERENCES "Purchase"("Purchase_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Sale" ADD CONSTRAINT "Sale_Sale_customer_id_fkey" FOREIGN KEY ("Sale_customer_id") REFERENCES "Customer"("Customer_id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -224,7 +230,7 @@ ALTER TABLE "Sale" ADD CONSTRAINT "Sale_Sale_userId_fkey" FOREIGN KEY ("Sale_use
 ALTER TABLE "SaleDetails" ADD CONSTRAINT "SaleDetails_SaleDetail_saleId_fkey" FOREIGN KEY ("SaleDetail_saleId") REFERENCES "Sale"("Sale_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "SaleDetails" ADD CONSTRAINT "SaleDetails_SaleDetail_productId_fkey" FOREIGN KEY ("SaleDetail_productId") REFERENCES "Product"("Product_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "SaleDetails" ADD CONSTRAINT "SaleDetails_purchaseItemItem_id_fkey" FOREIGN KEY ("purchaseItemItem_id") REFERENCES "PurchaseItem"("Item_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Warranty" ADD CONSTRAINT "Warranty_Warranty_saleDetailId_fkey" FOREIGN KEY ("Warranty_saleDetailId") REFERENCES "SaleDetails"("SaleDetail_id") ON DELETE RESTRICT ON UPDATE CASCADE;

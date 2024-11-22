@@ -6,6 +6,7 @@ import {
   suppliers,
   users,
   categories,
+  purchasesNotes
 } from "./data";
 
 // import { devolutions } from "./data/devolutions";
@@ -20,6 +21,7 @@ async function main() {
   // await prisma.saleDetails.deleteMany();
 
   try {
+    await prisma.purchaseNote.deleteMany();
     await prisma.category.deleteMany();
     await prisma.purchaseItem.deleteMany();
     await prisma.purchase.deleteMany();
@@ -44,6 +46,9 @@ async function main() {
     });
     await prisma.category.createMany({
       data: categories,
+    });
+    await prisma.purchaseNote.createMany({
+      data: purchasesNotes,
     });
 
     // await prisma.sale.createMany({

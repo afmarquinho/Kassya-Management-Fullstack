@@ -1,5 +1,11 @@
 import { getPurchaseInventory } from "@/server-actions/inventory/inventory-actions";
-import { FolderClosed, LogIn, SendHorizontal } from "lucide-react";
+import { desformatearFecha } from "@/utils";
+import {
+  FolderClosed,
+  LogIn,
+  MessageSquare,
+  SendHorizontal,
+} from "lucide-react";
 import { toast } from "react-toastify";
 
 interface PageProps {
@@ -11,6 +17,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
   const purchaseIdInt = parseInt(purchaseId, 10); // Convertir el parámetro a número
 
   const { ok, data } = await getPurchaseInventory(purchaseIdInt);
+
   if (!ok || !data) {
     toast.error("Error al cargar la compra");
     return (
@@ -170,30 +177,49 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
         </div>
         {/* Sección de comentarios con scroll */}
         <div className="flex-1 overflow-y-auto max-h-60 p-2 rounded-lg bg-slate-100 dark:bg-slate-800 shadow-md">
-          <p className={`mb-2`}>
-            Comentarios cargados desde el backend aparecerán aquí.
+          <p className={`mb-2 flex gap-2`}>
+            <MessageSquare /> Comentarios
           </p>
 
-          {data.purchaseNote.length < 1 ? (
+          {data.PurchaseNote.length < 1 ? (
             <div>No hay comentarios</div>
           ) : (
             <>
-              <div className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow">
-                <p className="text-sm text-slate-700 dark:text-slate-200">
-                  Usuario 1: Esto es un comentario de ejemplo.
-                </p>
-              </div>
+              {data.PurchaseNote.map((note) => (
+                <div
+                  className="mb-2 p-2 bg-white dark:bg-slate-700 rounded-lg shadow"
+                  key={note.Note_id}
+                >
+                  <p className="text-sm text-slate-700 dark:text-slate-200">
+                    {note.Note_content}
+                  </p>
+                  <div
+                    className={`w-full text-right text-[11px] italic flex gap-2 items-center justify-end`}
+                  >
+                    <span className={`font-medium`}>
+                      {note.User.User_name} {" "}
+                      {note.User.User_surname}
+                    </span>
+
+                    <span>-</span>
+
+                    {desformatearFecha(note.Note_createdAt)}
+                  </div>
+                </div>
+              ))}
             </>
           )}
         </div>
       </div>
-      <button
-        type="button"
-        className={`bg-rose-600 shadow-lg rounded-lg p-2 flex gap-2 text-xs text-white items-center justify-center my-5 hover:bg-rose-700`}
-      >
-        <FolderClosed strokeWidth={1.5} />
-        Cerrar Compras
-      </button>
+      {!data.Purchase_close && (
+        <button
+          type="button"
+          className={`bg-rose-600 shadow-lg rounded-lg p-2 flex gap-2 text-xs text-white items-center justify-center my-5 hover:bg-rose-700`}
+        >
+          <FolderClosed strokeWidth={1.5} />
+          Cerrar Compras
+        </button>
+      )}
     </>
   );
 };

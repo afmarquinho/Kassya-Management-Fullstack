@@ -13,6 +13,7 @@ export const getPurchaseInventory = async (purchaseId: number) => {
         Purchase_description: true,
         Purchase_dueDate: true,
         Purchase_processed: true,
+        Purchase_close: true,
         Supplier: {
           select: {
             Supplier_name: true,
@@ -34,7 +35,22 @@ export const getPurchaseInventory = async (purchaseId: number) => {
             Item_status: true,
           },
         },
-        purchaseNote: true,
+        PurchaseNote: {
+          orderBy: {
+            Note_createdAt: "desc",
+          },
+          select: {
+            Note_id: true,
+            Note_content: true,
+            Note_createdAt: true,
+            User: {
+              select: {
+                User_name: true,
+                User_surname: true,
+              },
+            },
+          },
+        },
       },
     });
 
