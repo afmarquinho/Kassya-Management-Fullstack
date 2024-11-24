@@ -17,7 +17,7 @@ const LoginPage = () => {
     <div
       className={`bg-login bg-login w-full h-screen bg-cover bg-top relative flex flex-col`}
     >
-      <div className={`absolute inset-0 bg-black bg-opacity-80`}></div>
+      <div className={`absolute inset-0 bg-black bg-opacity-80`}/>
       <h1
         className={`text-red-600 font-black text-2xl md:text-5xl lg:text-7xl relative z-20`}
       >
@@ -25,7 +25,7 @@ const LoginPage = () => {
       </h1>
       <div className={`relative z-20 flex justify-center items-center flex-1`}>
         <div
-          className={`absolute w-32 h-32 z-10 bg-gray-500 top-[5rem] md:top-14 p-4 rounded-full`}
+          className={`absolute w-32 h-32 z-10 bg-gray-500 top-[5rem] md:top-[1rem] p-4 rounded-full`}
         >
           <div
             className={`bg-white h-full w-full rounded-full flex justify-center items-center`}

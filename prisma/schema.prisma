@@ -137,7 +137,7 @@ model PurchaseNote {
 
 model Category {
   Category_id   Int    @id @default(autoincrement())
-  Category_name String
+  Category_name String @unique
 }
 
 model Sale {

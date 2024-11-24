@@ -17,6 +17,7 @@ export * from './inventory/DeleteCategoryModal';
 export * from './inventory/InventoryMenuButton';
 export * from './inventory/InventoryPurchaseContent';
 export * from './inventory/InvetoryMenu';
+export * from './inventory/NewCategory';
 export * from './inventory/PurchaseContent';
 export * from './purchaseItem/DeleteItemModal';
 export * from './purchases/DeletePurchaseButton';

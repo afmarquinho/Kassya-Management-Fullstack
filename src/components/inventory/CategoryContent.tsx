@@ -1,17 +1,34 @@
 "use client";
 
-import { getCategories } from "@/server-actions/inventory/inventory-actions";
 import { useInventoryStore } from "@/store";
 import { Category } from "@prisma/client";
 import { Pencil, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { DeleteCategoryModal } from "./DeleteCategoryModal";
+import { NewCategory } from "./NewCategory";
+import { getCategories } from "@/server-actions";
 
 export const CategoryContent = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const { setDeleteCategoryModal, deleteCategoryModal } = useInventoryStore();
+  const [category, setCategory] = useState<Category | null>(null);
+
+  const {
+    setDeleteCategoryModal,
+    deleteCategoryModal,
+    newCategoryModal,
+    toggleNewCategoryModal,
+  } = useInventoryStore();
+
+  const onNew = () => {
+    setCategory(null);
+    toggleNewCategoryModal();
+  };
+  const onEdit = (category: Category) => {
+    setCategory(category);
+    toggleNewCategoryModal();
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -34,6 +51,9 @@ export const CategoryContent = () => {
     <div>Cargando...</div>
   ) : (
     <>
+      <button className={`p-2 bg-teal-700 text-gray-200`} onClick={onNew}>
+        Nueva Categoría
+      </button>
       {categories.length < 1 ? (
         <div className={`italic font-medium text-base`}>
           No hay categprías para mostrar
@@ -58,7 +78,10 @@ export const CategoryContent = () => {
                   <td className="py-2 px-1">{i + 1}</td>
                   <td className="py-2 px-1">{category.Category_name}</td>
                   <td className="py-2 px-1">
-                    <button className="text-white rounded-full bg-blue-800 dark:bg-blue-900 w-8 h-8 p-1 flex items-center justify-center">
+                    <button
+                      className="text-white rounded-full bg-blue-800 dark:bg-blue-900 w-8 h-8 p-1 flex items-center justify-center"
+                      onClick={() => onEdit(category)}
+                    >
                       <Pencil className={`w-5`} />
                     </button>
                   </td>
@@ -84,6 +107,9 @@ export const CategoryContent = () => {
 
       {deleteCategoryModal.isOpen && (
         <DeleteCategoryModal setCategories={setCategories} />
+      )}
+      {newCategoryModal && (
+        <NewCategory setCategory={setCategory} category={category} />
       )}
     </>
   );

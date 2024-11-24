@@ -29,7 +29,7 @@ export const PurchaseContent = () => {
     <>
       <button
         onClick={getProcessed}
-        className={`mb-2 flex justify-center items-center gap-1 bg-rose-700 shadow-lg p-1 rounded-md text-white min-w-32 text-xs`}
+        className={`mb-2 flex justify-center items-center gap-1 bg-rose-700 shadow-lg p-1 text-white min-w-32 text-xs`}
         disabled={loading}
       >
         {loading ? (

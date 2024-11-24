@@ -4,9 +4,9 @@ import { TriangleAlert, X } from "lucide-react";
 import { LoadingSpinner } from "../UI/LoadingSpinner";
 import { useState } from "react";
 import { useInventoryStore } from "@/store";
-import { delteCategory } from "@/server-actions/inventory/inventory-actions";
 import { toast } from "react-toastify";
 import { Category } from "@prisma/client";
+import { delteCategory } from "@/server-actions";
 
 type DeleteCategoryModalProps = {
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;

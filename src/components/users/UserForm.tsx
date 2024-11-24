@@ -254,7 +254,7 @@ export const UserForm = () => {
             />
           </div>
         </div>
-        <div className={`w-ull flex justify-center`}>
+        <div className={`w-full flex justify-center`}>
           <button
             type="submit"
             className={`bg-indigo-700 hover:bg-indigo-600 text-slate-200 font-semibold text-base p-2 focus:outline-none rounded-md cursor-pointer w-full mt-4 max-w-96 transition-colors flex justify-center items-center`}
