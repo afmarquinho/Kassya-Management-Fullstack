@@ -7,7 +7,7 @@ import { GetUsersButton, NewButton, UsersTable } from "@/components";
 const UserPage = () => {
   return (
     <>
-      <div className={`flex gap-5`}>
+      <div className={`flex gap-2`}>
         <GetUsersButton />
         <NewButton name="Nuevo Usuario" module="users"/>
       </div>

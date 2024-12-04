@@ -1,4 +1,10 @@
-import { Footer, Header, Sidebar, ToastNotification } from "@/components";
+import {
+  Footer,
+  Sidebar,
+  Title,
+  ToastNotification,
+  TopMenu,
+} from "@/components";
 
 export default function HomeLayout({
   children,
@@ -7,11 +13,14 @@ export default function HomeLayout({
 }>) {
   return (
     <>
-      <div className="flex min-h-screen w-full overflow-hidden">
+      <div className="flex min-h-screen w-full overflow-hidden gap-3">
         <Sidebar />
-        <div className="flex-1 px-2 flex flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-auto">{children}</main>
+        <div className="flex-1 flex flex-col overflow-hidden gap-3 me-3 ms-3 md:ms-0">
+          <TopMenu />
+          <main className="flex-1 space-y-3">
+            <Title />
+            {children}
+          </main>
           <Footer />
         </div>
       </div>

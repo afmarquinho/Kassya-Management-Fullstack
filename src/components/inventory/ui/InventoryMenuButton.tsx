@@ -22,9 +22,7 @@ const purple =
   "from-purple-500 to-purple-700 dark:from-purple-800 dark:to-purple-900 hover:from-purple-700 hover:to-purple-700";
 
 const icons = {
-  "Órdenes de Compra": (
-    <PackageOpen size={20} strokeWidth={1.25} className={`h-4`} />
-  ),
+  Compras: <PackageOpen size={20} strokeWidth={1.25} className={`h-4`} />,
   Inventarios: <Archive size={20} strokeWidth={1.25} className={`h-4`} />,
   Categoría: <Tag size={20} strokeWidth={1.25} className={`h-4`} />,
 };
@@ -35,15 +33,15 @@ export const InventoryMenuButton = ({ label, color }: Props) => {
   const handleClick = () => {
     switch (label) {
       case "Categoría":
-          toggleCategoryModal(true);
-          togglePurchaseModal(false);
-        
+        toggleCategoryModal(true);
+        togglePurchaseModal(false);
+
         break;
-        case  "Órdenes de Compra":
-          toggleCategoryModal(false);
-          togglePurchaseModal(true);
-  
-          break;
+      case "Compras":
+        toggleCategoryModal(false);
+        togglePurchaseModal(true);
+
+        break;
 
       default:
         break;
@@ -52,7 +50,7 @@ export const InventoryMenuButton = ({ label, color }: Props) => {
 
   return (
     <button
-      className={`flex items-center justify-center gap-1 text-white bg-gradient-to-b 
+      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b
         ${
           color === "red"
             ? red

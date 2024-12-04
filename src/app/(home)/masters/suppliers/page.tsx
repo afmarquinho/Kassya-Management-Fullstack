@@ -1,5 +1,9 @@
-import { BackButton, GetSuppliersButton, NewButton, SuppliersTable } from "@/components";
-
+import {
+  BackButton,
+  GetSuppliersButton,
+  NewButton,
+  SuppliersTable,
+} from "@/components";
 
 const SuppliersPage = () => {
   //TODO: ORDENER LA TABLA POR APELLI CUANDO SE EDITE PARA QUE NO AGREGE EL PROVEEDOR AL FINAL.
@@ -7,11 +11,9 @@ const SuppliersPage = () => {
   return (
     <>
       <div className={`flex justify-between gap-5`}>
-        <div className={`flex gap-5`}>
-          <GetSuppliersButton /> 
-          <NewButton name="Nuevo Proveedor" module="suppliers"/>
-
-          {/* <NewButton name="Nuevo Proveedor" module="suppliers" /> */}
+        <div className={`flex gap-2`}>
+          <GetSuppliersButton />
+          <NewButton name="Nuevo Proveedor" module="suppliers" />
         </div>
         <BackButton />
       </div>

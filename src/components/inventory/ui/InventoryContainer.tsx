@@ -1,8 +1,8 @@
 "use client";
 
 import { useInventoryStore } from "@/store";
-import { CategoryContent } from "./CategoryContent";
-import { PurchaseContent } from "./PurchaseContent";
+import { PurchaseContent } from "../purchase-orders.tsx/PurchaseContent";
+import { CategoryContent } from "../category/CategoryContent";
 
 export const InventoryContainer = () => {
   const { categoryModalOpen } = useInventoryStore();

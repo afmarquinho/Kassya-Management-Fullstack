@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 
+
 export const getPurchases = async () => {
   try {
     const purchases = await prisma.purchase.findMany({
@@ -29,7 +30,7 @@ export const getPurchases = async () => {
 
     return { ok: true, data: formatPurchases };
   } catch (error) {
-    console.error("Error al obtener las compras: ", error); // Mejor manejo del error
+    console.error("Error al obtener las compras: ", error); //* Mejor manejo del error
     return {
       ok: false,
       data: null,
@@ -61,7 +62,28 @@ export const getPurchaseDetails = async (purchaseId: number) => {
             User_surname: true,
           },
         },
-        PurchaseItem: true,
+        PurchaseItem: {
+          select: {
+            Item_id: true,
+            Item_description: true,
+            Item_name: true,
+            Item_location: true,
+            Item_purchaseId: true,
+            Item_qtyDispatched: true,
+            Item_qtyOrdered: true,
+            Item_qtyReceived: true,
+            Item_ref: true,
+            Item_status: true,
+            Item_totalAmount: true,
+            Item_unitCost: true,
+            Item_categoryId: true,
+            Category: {
+              select: {
+                Category_name: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -211,3 +233,4 @@ export const getProcessedPurchases = async () => {
     };
   }
 };
+

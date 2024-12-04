@@ -1,5 +1,5 @@
 "use client";
-import { BackButton } from "../UI/BackButton";
+import { BackButton } from "../../UI/BackButton";
 import { InventoryMenuButton } from "./InventoryMenuButton";
 import { usePathname } from "next/navigation";
 
@@ -10,7 +10,7 @@ export const InvetoryMenu = () => {
     <>
       {pathname === "/inventory" ? (
         <div className={`flex gap-2 mb-2`}>
-          <InventoryMenuButton label="Órdenes de Compra" color="violet" />
+          <InventoryMenuButton label="Compras" color="violet" />
           <InventoryMenuButton label="Inventarios" color="red" />
           <InventoryMenuButton label="Categoría" color="purple" />
         </div>

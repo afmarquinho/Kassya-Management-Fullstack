@@ -21,11 +21,9 @@ const icons = {
   purchases: <ArchiveRestore className={`w-5`} />,
 };
 
-
-
 export const NewButton = ({ name, module }: Props) => {
   const { toggleUsersModal } = useUserStore();
-  const { toggleSupplierModal} = useSupplierStore();
+  const { toggleSupplierModal } = useSupplierStore();
   const { toggleCustomerModal } = useCustomerStore();
   const { togglePurchaseModal } = usePurchaseStore();
 
@@ -52,7 +50,7 @@ export const NewButton = ({ name, module }: Props) => {
 
   return (
     <button
-      className={`flex gap-1 justify-center items-center  rounded-md px-2 py-1 text-white transition-all bg-blue-500 hover:bg-blue-600 dark:bg-indigo-800 dark:hover:bg-indigo-700 text-xs`}
+      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-blue-500 to-indigo-700 hover:from-indigo-700 hover:to-indigo-700 dark:from-blue-700 dark:to-indigo-800 dark:hover:from-indigo-600 dark:hover:to-indigo-600`}
       onClick={onNew}
     >
       {icons[module]}

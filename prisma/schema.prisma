@@ -106,23 +106,6 @@ model Purchase {
   PurchaseNote           PurchaseNote[]
 }
 
-model PurchaseItem {
-  Item_id            Int           @id @default(autoincrement())
-  Item_ref           String
-  Item_name          String
-  Item_description   String
-  Item_unitCost      Decimal
-  Item_qtyOrdered    Int
-  Item_totalAmount   Decimal
-  Item_qtyReceived   Int
-  Item_qtyDispatched Int           @default(0)
-  Item_location      String        @default("UNRECEIVED")
-  Item_status        String        @default("ORDERED")
-  Item_purchaseId    Int
-  SaleDetails        SaleDetails[]
-  Purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
-}
-
 model PurchaseNote {
   Note_id        Int      @id @default(autoincrement())
   Note_content   String
@@ -136,8 +119,50 @@ model PurchaseNote {
 }
 
 model Category {
-  Category_id   Int    @id @default(autoincrement())
-  Category_name String @unique
+  Category_id   Int            @id @default(autoincrement())
+  Category_name String         @unique
+  PurchaseItem  PurchaseItem[]
+}
+
+model PurchaseItem {
+  Item_id            Int     @id @default(autoincrement())
+  Item_ref           String
+  Item_name          String
+  Item_description   String
+  Item_unitCost      Decimal
+  Item_qtyOrdered    Int
+  Item_totalAmount   Decimal
+  Item_qtyReceived   Int
+  Item_qtyDispatched Int     @default(0)
+  Item_location      String  @default("UNRECEIVED")
+  Item_status        String  @default("ORDERED")
+
+  Item_purchaseId  Int
+  SaleDetails      SaleDetails[]
+  Purchase         Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
+  Item_categoryId  Int
+  Category         Category      @relation(fields: [Item_categoryId], references: [Category_id])
+  Item_unitMeasure String
+
+  Item_productId Int?
+  Product        Product? @relation(fields: [Item_productId], references: [Product_id])
+}
+
+model Product {
+  Product_id           Int     @id @default(autoincrement())
+  Product_name         String  @unique
+  Product_stockQty     Int     @default(0)
+  Product_reorderPoint Int     @default(0)
+  Product_location     String  @default("Bodega")
+  Product_lotNumber    String
+  Product_active       Boolean @default(true)
+
+  Product_createdAt  DateTime @default(now())
+  Product_expiryDate DateTime @default(now())
+
+  PurchaseItem PurchaseItem[]
+
+   @@index([Product_location])
 }
 
 model Sale {

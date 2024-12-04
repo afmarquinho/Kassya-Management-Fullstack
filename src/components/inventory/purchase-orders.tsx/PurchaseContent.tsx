@@ -1,7 +1,7 @@
 "use client";
 
 import { PencilLineIcon, RefreshCw, ShoppingCart } from "lucide-react";
-import { LoadingSpinner } from "../UI/LoadingSpinner";
+import { LoadingSpinner } from "../../UI/LoadingSpinner";
 import { useInventoryStore } from "@/store";
 import { useState } from "react";
 import { getProcessedPurchases } from "@/server-actions";
@@ -29,7 +29,7 @@ export const PurchaseContent = () => {
     <>
       <button
         onClick={getProcessed}
-        className={`mb-2 flex justify-center items-center gap-1 bg-rose-700 shadow-lg p-1 text-white min-w-32 text-xs`}
+        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors shadow-md text-xs bg-gradient-to-b from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-700 dark:to-rose-900 dark:hover:from-rose-700 dark:hover:to-rose-700`}
         disabled={loading}
       >
         {loading ? (

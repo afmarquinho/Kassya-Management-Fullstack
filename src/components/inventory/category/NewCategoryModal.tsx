@@ -2,18 +2,24 @@
 
 import { useInventoryStore } from "@/store";
 import { Ban } from "lucide-react";
-import { LoadingSpinner } from "../UI/LoadingSpinner";
+
 import { Category } from "@prisma/client";
 import { useState } from "react";
-import { createCategory } from "@/server-actions";
+import { createCategory, updateCategory } from "@/server-actions";
 import { toast } from "react-toastify";
+import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 
 type Props = {
   category: Category | null;
   setCategory: React.Dispatch<React.SetStateAction<Category | null>>;
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
-export const NewCategory = ({ category, setCategory }: Props) => {
+export const NewCategoryModal = ({
+  category,
+  setCategory,
+  setCategories,
+}: Props) => {
   const { toggleNewCategoryModal } = useInventoryStore();
   const [name, setName] = useState<string>(
     category ? category.Category_name : ""
@@ -27,28 +33,48 @@ export const NewCategory = ({ category, setCategory }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!name.trim()) {
+      toast.error("El nombre de la categoría es obligatorio.");
+      return;
+    }
     setLoading(true);
-    try {
-      
-      const { ok, data, message } = await createCategory({ name });
+
+    if (category) {
+      const { ok, data, message } = await updateCategory({
+        Category_id: category.Category_id,
+        Category_name: name,
+      });
+
       if (ok && data) {
-        return;
-      } else {
-        toast.error(message);
+        setCategories((prevCategories) =>
+          prevCategories.map((cat) =>
+            cat.Category_id === data.Category_id ? data : cat
+          )
+        );
+
         toggleNewCategoryModal();
         setCategory(null);
+      } else {
+        toast.error(message || "No se pudo actualizar la categoría.");
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("Error deconocido");
-    } finally {
-      setLoading(false);
+    } else {
+      const { ok, data, message } = await createCategory({ name });
+      if (ok && data) {
+        setCategories((prevCategories) =>
+          prevCategories ? [...prevCategories, data] : [data]
+        );
+        toggleNewCategoryModal();
+      } else {
+        toast.error(message || "No se pudo crear la categoría.");
+      }
     }
+    setLoading(false);
   };
 
   return (
     <div
-      className={`fixed inset-0 bg-black bg-opacity-60 z-20 flex justify-center items-center`}
+      className={`fixed inset-0 bg-black bg-opacity-60 z-20 flex justify-center items-center backdrop-blur-[1px]`}
     >
       <div className={`bg-white dark:bg-slate-800 p-10 w-11/12 max-w-[800px]`}>
         <h2
@@ -63,11 +89,6 @@ export const NewCategory = ({ category, setCategory }: Props) => {
         >
           <label className="flex flex-col">
             Nombre
-            {/* {errors.Purchase_description && (
-            <div className="text-xs text-red-600 my-0 font-medium">
-              {errors.Purchase_description.message}
-            </div>
-          )} */}
             <input
               type="text"
               className="bg-slate-300 dark:bg-slate-700 p-2 focus:outline-none text-base rounded-md"

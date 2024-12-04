@@ -11,7 +11,7 @@ export const SupplierModal = () => {
 
   return (
     <div
-      className={`fixed inset-0 bg-black bg-opacity-60 z-20 flex justify-center items-center`}
+      className={`fixed inset-0 bg-black bg-opacity-60 z-20 flex justify-center items-center backdrop-blur-[1px]`}
     >
       <div className={`bg-white dark:bg-slate-800 p-10 w-11/12 max-w-[800px]`}>
         <SupplierForm /> 

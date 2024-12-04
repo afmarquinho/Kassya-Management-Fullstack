@@ -1,7 +1,7 @@
 # Kassya Management System
 Kassya Management System es un ERP diseñado para la gestión eficiente de procesos de compra y el análisis detallado de procesos de ventas. Esta aplicación permite a las empresas optimizar sus operaciones, tomar decisiones basadas en datos y mejorar su flujo de trabajo.
 
-|El código combina herramientas modernas de desarollo para ofrecer una experiencia intuitiva y altamente personalizable.
+El código combina herramientas modernas de desarollo para ofrecer una experiencia intuitiva y altamente personalizable.
 
 ### Stack
 - Lenguaje principal: JavaScript

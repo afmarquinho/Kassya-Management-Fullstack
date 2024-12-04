@@ -6,8 +6,8 @@ import { Pencil, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { DeleteCategoryModal } from "./DeleteCategoryModal";
-import { NewCategory } from "./NewCategory";
 import { getCategories } from "@/server-actions";
+import { NewCategoryModal } from "./NewCategoryModal";
 
 export const CategoryContent = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -51,7 +51,10 @@ export const CategoryContent = () => {
     <div>Cargando...</div>
   ) : (
     <>
-      <button className={`p-2 bg-teal-700 text-gray-200`} onClick={onNew}>
+      <button
+         className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-teal-500 to-teal-700 hover:from-teal-700 hover:to-teal-700 dark:from-teal-700 dark:to-teal-800 dark:hover:from-teal-600 dark:hover:to-teal-600`}
+        onClick={onNew}
+      >
         Nueva Categoría
       </button>
       {categories.length < 1 ? (
@@ -109,7 +112,11 @@ export const CategoryContent = () => {
         <DeleteCategoryModal setCategories={setCategories} />
       )}
       {newCategoryModal && (
-        <NewCategory setCategory={setCategory} category={category} />
+        <NewCategoryModal
+          setCategories={setCategories}
+          category={category}
+          setCategory={setCategory}
+        />
       )}
     </>
   );

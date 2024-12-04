@@ -103,7 +103,7 @@ const PurchasesTable = () => {
 
               <td className="py-2 px-1">
                 <button
-                  className="bg-gradient-to-b from-green-600 to-green-700 w-8 h-full flex justify-center items-center shadow-lg"
+                  className="bg-gradient-to-b from-green-600 to-green-700 w-8 h-full flex justify-center items-center shadow-lg p-1"
                   onClick={() => handleView(purchase.Purchase_id)}
                 >
                   {loading ? (
@@ -116,7 +116,7 @@ const PurchasesTable = () => {
               <td className="py-2 px-1">
                 {!purchase.Purchase_processed && (
                   <button
-                    className="bg-gradient-to-b from-indigo-600 to-indigo-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm"
+                    className="bg-gradient-to-b from-indigo-600 to-indigo-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm p-1"
                     onClick={() => handleEdit(purchase)}
                   >
                     <FilePenLine className="text-white w-5" />

@@ -25,4 +25,5 @@ export type PurchaseDetails = Omit<Purchase, "Purchase_totalAmount"> & {
     User_surname: string;
   };
   PurchaseItem: PurchaseItems[];
+  
 };

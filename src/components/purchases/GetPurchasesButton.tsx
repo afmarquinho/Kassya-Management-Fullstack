@@ -33,7 +33,7 @@ export const GetPurchasesButton = () => {
   return (
     <>
       <button
-        className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-purple-600 hover:bg-purple-500 dark:bg-purple-800 dark:hover:bg-purple-500 text-xs`}
+        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white  transition-colors text-xs bg-gradient-to-b from-purple-600 to-purple-800 hover:from-purple-800 hover:to-purple-800 dark:from-purple-800 dark:to-purple-900 dark:hover:from-purple-700 dark:hover:to-purple-700 `}
         onClick={handlePurchases}
         disabled={loading}
       >

@@ -30,7 +30,7 @@ export const GetUsersButton = () => {
 
   return (
     <button
-      className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-red-600 hover:bg-red-500 dark:bg-red-700 dark:hover:bg-red-500 text-xs`}
+    className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-red-500 to-red-700 hover:from-red-700 hover:to-red-700 dark:from-red-700 dark:to-red-800 dark:hover:from-red-600 dark:hover:to-red-600`}
       onClick={handleGetUsers}
       disabled={loading}
     >

@@ -4,7 +4,7 @@ import { PurchaseDetails } from "@/interfaces";
 import { usePurchaseStore } from "@/store";
 
 type Props = {
-  purchaseDetails: PurchaseDetails;
+  purchaseDetails: PurchaseDetails | null;  //*Viene del componente padre PurchaseView y su valor puede ser nulo tambiem, si es nulo, el componente no retorn nada
 };
 export const ProcessPurchaseButton = ({ purchaseDetails }: Props) => {
   const { toggleProcessPurchaseModal } = usePurchaseStore();
@@ -12,7 +12,10 @@ export const ProcessPurchaseButton = ({ purchaseDetails }: Props) => {
   const handleClosePurchase = () => {
     toggleProcessPurchaseModal();
   };
-  
+
+  if (!purchaseDetails) {
+    return <></>;
+  }
   return (
     <button
       className={`flex gap-1 justify-center items-center  rounded-md px-2 py-1 text-white transition-colors  ${

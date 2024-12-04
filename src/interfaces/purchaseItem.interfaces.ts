@@ -6,4 +6,7 @@ export type PurchaseItems = Omit<
 > & {
   Item_unitCost: string;
   Item_totalAmount: string;
+  Category: {
+    Category_name: string;
+  };
 };

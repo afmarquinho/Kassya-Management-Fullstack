@@ -2,6 +2,7 @@ export * from './category';
 export * from './customers';
 export * from './devolutions';
 
+export * from './products';
 export * from './purchaseItem';
 export * from './purchaseNotes';
 export * from './purchases';

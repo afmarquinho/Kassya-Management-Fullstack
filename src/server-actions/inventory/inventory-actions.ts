@@ -35,6 +35,11 @@ export const getPurchaseInventory = async (purchaseId: number) => {
             Item_qtyReceived: true,
             Item_ref: true,
             Item_status: true,
+            Category: {
+              select: {
+                Category_name: true,
+              },
+            },
           },
         },
         PurchaseNote: {

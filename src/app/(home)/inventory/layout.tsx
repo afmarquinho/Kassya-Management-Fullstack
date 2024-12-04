@@ -8,10 +8,8 @@ export default function InventoryLayout({
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className={``}>
-          <InvetoryMenu />
-        </div>
-        <main className="flex-1 overflow-auto">{children}</main>
+        <InvetoryMenu />
+        <main className="flex-1">{children}</main>
       </div>
     </>
   );

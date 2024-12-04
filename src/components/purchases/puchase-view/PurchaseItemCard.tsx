@@ -67,6 +67,10 @@ export const PurchaseItemCard = ({ item, purchaseSatus }: Props) => {
             <td>{item.Item_description}</td>
           </tr>
           <tr>
+            <th>Categoría</th>
+            <td>{item.Category.Category_name}</td>
+          </tr>
+          <tr>
             <th>Costo</th>
             <td> {totalFormatted(item.Item_unitCost)}</td>
           </tr>

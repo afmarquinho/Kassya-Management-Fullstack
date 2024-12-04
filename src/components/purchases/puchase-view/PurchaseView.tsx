@@ -1,11 +1,9 @@
 import { getPurchaseDetails } from "@/server-actions";
 import { desformatearFecha } from "@/utils";
 import { Lock, LockOpen } from "lucide-react";
-import { PurchaseItemCard } from "./PurchaseItemCard";
-import { PurchaseModalContainer } from "./PurchaseModalContainer";
-import { ProcessPurchaseButton } from "./ProcessPurchaseButton";
+import { PurchaseModalContainer } from "../PurchaseModalContainer";
 import { PurchaseDetails } from "@/interfaces";
-import { DeletePurchaseButton } from "./DeletePurchaseButton";
+import { PurchaseGrid } from "./PurchaseGrid";
 
 interface Props {
   purchaseId: number;
@@ -85,7 +83,9 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
                     ) : (
                       <LockOpen className={`w-5`} />
                     )}
-                    {purchaseDetails?.Purchase_processed ? "Cerrada" : "Abierta"}
+                    {purchaseDetails?.Purchase_processed
+                      ? "Cerrada"
+                      : "Abierta"}
                   </div>
                 </td>
               </tr>
@@ -115,41 +115,7 @@ export const PurchaseView = async ({ purchaseId }: Props) => {
           )}
         </div>
 
-        <h2 className={`font-bold text-center text-base uppercase pb`}>
-          Items
-        </h2>
-        {purchaseDetails.PurchaseItem.length === 0 ? (
-          <p className={`text-base italic font-semibold`}>
-            Esta órden aún no tiene productos asociados
-          </p>
-        ) : (
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5`}
-          >
-            {purchaseDetails.PurchaseItem.map((item) => (
-              <PurchaseItemCard
-                key={item.Item_id}
-                item={item}
-                purchaseSatus={purchaseDetails.Purchase_processed}
-              />
-            ))}
-          </div>
-        )}
-        {!purchaseDetails.Purchase_processed && (
-          <div
-            className={`w-full bg-red-600 bg-opacity-10 border-4 border-red-600 dark:border-red-300 p-5 `}
-          >
-            <p
-              className={`text-red-600 dark:text-red-200 font-bold uppercase mb-2`}
-            >
-              Zona de Peligro
-            </p>
-            <div className={`flex gap-5`}>
-              <ProcessPurchaseButton purchaseDetails={purchaseDetails} />
-              <DeletePurchaseButton purchaseDetails={purchaseDetails} />
-            </div>
-          </div>
-        )}
+        <PurchaseGrid purchaseDetails={purchaseDetails} />
       </div>
       <PurchaseModalContainer />
     </>

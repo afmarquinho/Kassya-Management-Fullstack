@@ -31,7 +31,7 @@ export const GetCustomersButton = () => {
   return (
     <>
       <button
-        className={`w-44 h-10 flex justify-center items-center gap-1 rounded-md text-white transition-colors bg-teal-600 hover:bg-teal-500 dark:bg-teal-700 dark:hover:bg-teal-500 text-xs`}
+        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-teal-500 to-teal-700 hover:from-teal-700 hover:to-teal-700 dark:from-teal-700 dark:to-teal-800 dark:hover:from-teal-600 dark:hover:to-teal-600`}
         onClick={handleFetchSuppliers}
         disabled={loading}
       >
@@ -44,7 +44,7 @@ export const GetCustomersButton = () => {
             ) : (
               <ShoppingCart className={`w-5`} />
             )}
-            {customers ? "Refrescar" : "Mostrar Proveedores"}
+            {customers ? "Refrescar" : "Mostrar Clientes"}
           </>
         )}
       </button>

@@ -1,12 +1,12 @@
 "use client";
 
 import { TriangleAlert, X } from "lucide-react";
-import { LoadingSpinner } from "../UI/LoadingSpinner";
 import { useState } from "react";
 import { useInventoryStore } from "@/store";
 import { toast } from "react-toastify";
 import { Category } from "@prisma/client";
 import { delteCategory } from "@/server-actions";
+import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 
 type DeleteCategoryModalProps = {
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
@@ -47,7 +47,7 @@ export const DeleteCategoryModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 z-20 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 z-20 flex justify-center items-center backdrop-blur-[1px]">
       <div className="w-full max-w-96 bg-white dark:bg-slate-700">
         <div className="relative">
           <TriangleAlert
