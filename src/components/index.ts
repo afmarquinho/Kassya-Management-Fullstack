@@ -16,6 +16,7 @@ export * from './customers/GetCustomersButton';
 export * from './inventory/category/CategoryContent';
 export * from './inventory/category/DeleteCategoryModal';
 export * from './inventory/category/NewCategoryModal';
+export * from './inventory/inventory/InventoryContent';
 export * from './inventory/purchase-orders.tsx/CommentsSection';
 export * from './inventory/purchase-orders.tsx/IncomeTrackingTable';
 export * from './inventory/purchase-orders.tsx/PurchaseContent';

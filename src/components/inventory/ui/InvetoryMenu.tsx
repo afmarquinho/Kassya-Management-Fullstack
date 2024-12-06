@@ -10,9 +10,9 @@ export const InvetoryMenu = () => {
     <>
       {pathname === "/inventory" ? (
         <div className={`flex gap-2 mb-2`}>
-          <InventoryMenuButton label="Compras" color="violet" />
-          <InventoryMenuButton label="Inventarios" color="red" />
-          <InventoryMenuButton label="Categoría" color="purple" />
+          <InventoryMenuButton label="Compras" />
+          <InventoryMenuButton label="Inventario" />
+          <InventoryMenuButton label="Categoría" />
         </div>
       ) : (
         <div className={`flex justify-end gap-5`}>

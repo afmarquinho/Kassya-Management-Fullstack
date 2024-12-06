@@ -45,6 +45,7 @@ async function main() {
     await prisma.purchaseNote.createMany({
       data: purchasesNotes,
     });
+    
   } catch (error) {
     console.log(error);
   }

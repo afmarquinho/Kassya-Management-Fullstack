@@ -8,7 +8,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 2,
     Item_totalAmount: 60.0,
     Item_qtyReceived: 2,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 4,
@@ -25,7 +24,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 100,
     Item_totalAmount: 1250.0,
     Item_qtyReceived: 100,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 4,
@@ -42,7 +40,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 500,
     Item_totalAmount: 375.0,
     Item_qtyReceived: 500,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 4,
@@ -59,7 +56,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 2,
     Item_totalAmount: 400.0,
     Item_qtyReceived: 2,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 4,
@@ -76,7 +72,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 50,
     Item_totalAmount: 750.0,
     Item_qtyReceived: 50,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 4,
@@ -93,7 +88,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 3,
     Item_totalAmount: 2550.0,
     Item_qtyReceived: 3,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 5,
@@ -110,7 +104,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 250.0,
     Item_qtyReceived: 5,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 9,
@@ -126,7 +119,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 20,
     Item_totalAmount: 300.0,
     Item_qtyReceived: 10,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 9,
@@ -142,7 +135,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 2,
     Item_totalAmount: 2400.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 1,
@@ -158,7 +151,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 3,
     Item_totalAmount: 450.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 2,
@@ -174,7 +167,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 4,
     Item_totalAmount: 300.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 2,
@@ -190,7 +182,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 100.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 2,
@@ -207,7 +198,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 2,
     Item_totalAmount: 400.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 5,
@@ -223,7 +213,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 5,
     Item_totalAmount: 750.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 5,
@@ -239,7 +228,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 1200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 5,
@@ -255,7 +244,6 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 750.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 6,
@@ -271,7 +259,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 4,
     Item_totalAmount: 600.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 6,
@@ -287,7 +275,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 6,
     Item_totalAmount: 300.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 6,
@@ -303,7 +291,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 20,
     Item_totalAmount: 500.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 6,
@@ -320,7 +308,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 1,
     Item_totalAmount: 500.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 7,
@@ -336,7 +324,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 12,
     Item_totalAmount: 900.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 7,
@@ -352,7 +340,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 1,
     Item_totalAmount: 1200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 7,
@@ -368,7 +356,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 1,
     Item_totalAmount: 2000.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 7,
@@ -384,7 +372,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 5,
     Item_totalAmount: 250.75,
     Item_qtyReceived: 5,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 8,
@@ -401,7 +389,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 3,
     Item_totalAmount: 270.0,
     Item_qtyReceived: 3,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 8,
@@ -417,7 +405,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 3,
     Item_totalAmount: 150.45,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 1,
@@ -434,7 +422,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 24,
     Item_totalAmount: 120,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 1,
@@ -450,7 +438,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 187.5,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 9,
@@ -466,7 +454,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 25,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 9,
@@ -482,7 +470,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 5,
     Item_totalAmount: 750.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -498,7 +486,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 7,
     Item_totalAmount: 528.5,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -514,7 +502,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 450.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -530,7 +518,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 8,
     Item_totalAmount: 480.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -546,7 +534,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 6,
     Item_totalAmount: 720.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -562,7 +550,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 950.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -578,7 +566,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 525.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -594,7 +582,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 8,
     Item_totalAmount: 320.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -610,7 +598,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 3,
     Item_totalAmount: 750.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 10,
@@ -626,7 +614,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 250.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -642,7 +630,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 20,
     Item_totalAmount: 300.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -658,7 +646,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 180.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -674,7 +662,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 25,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -690,7 +678,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -706,7 +694,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 12,
     Item_totalAmount: 216.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -722,7 +710,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 20,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -738,7 +726,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 187.5,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -754,7 +742,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 220.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 11,
@@ -770,7 +758,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 30,
     Item_totalAmount: 90.0,
     Item_qtyReceived: 30,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 12,
@@ -786,7 +774,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 50,
     Item_totalAmount: 500.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 13,
@@ -802,7 +790,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 20,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 14,
@@ -818,7 +806,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 8000.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 15,
@@ -834,7 +822,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 30,
     Item_totalAmount: 180.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 16,
@@ -850,7 +838,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 1500.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 17,
@@ -866,7 +854,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 30,
     Item_totalAmount: 90.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 18,
@@ -882,7 +870,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 40,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 19,
@@ -898,7 +886,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 10,
     Item_totalAmount: 200.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 20,
@@ -914,7 +902,7 @@ export const purchaseItems = [
     Item_qtyOrdered: 15,
     Item_totalAmount: 1500.0,
     Item_qtyReceived: 0,
-    Item_qtyDispatched: 0,
+
     Item_location: "WAREHOUSE",
     Item_status: "ORDERED",
     Item_purchaseId: 21,

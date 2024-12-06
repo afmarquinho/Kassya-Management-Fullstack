@@ -4,7 +4,9 @@ export const products = [
     Product_name: "Martillo",
     Product_stockQty: 2,
     Product_lotNumber: "1",
-    Product_active: true,
+    Product_active: false,
+    Product_ref: "ITEM-009",
+    Product_categoryId: 6,
   },
   {
     Product_id: 2,
@@ -12,13 +14,17 @@ export const products = [
     Product_stockQty: 100,
     Product_lotNumber: "1",
     Product_active: true,
+    Product_ref: "ITEM-010",
+    Product_categoryId: 5,
   },
   {
     Product_id: 3,
     Product_name: "Ladrillos",
     Product_stockQty: 500,
     Product_lotNumber: "1",
-    Product_active: true,
+    Product_active: false,
+    Product_ref: "ITEM-011",
+    Product_categoryId: 6,
   },
   {
     Product_id: 4,
@@ -26,13 +32,17 @@ export const products = [
     Product_stockQty: 2,
     Product_lotNumber: "1",
     Product_active: true,
-},
-{
+    Product_ref: "ITEM-012",
+    Product_categoryId: 1,
+  },
+  {
     Product_id: 5,
     Product_name: "Varilla",
     Product_stockQty: 50,
     Product_lotNumber: "1",
     Product_active: true,
+    Product_ref: "ITEM-014",
+    Product_categoryId: 8,
   },
   {
     Product_id: 6,
@@ -40,5 +50,7 @@ export const products = [
     Product_stockQty: 3,
     Product_lotNumber: "1",
     Product_active: true,
+    Product_ref: "ITEM-015",
+    Product_categoryId: 1,
   },
 ];

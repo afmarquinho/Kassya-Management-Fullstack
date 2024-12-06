@@ -69,7 +69,6 @@ export const getPurchaseDetails = async (purchaseId: number) => {
             Item_name: true,
             Item_location: true,
             Item_purchaseId: true,
-            Item_qtyDispatched: true,
             Item_qtyOrdered: true,
             Item_qtyReceived: true,
             Item_ref: true,

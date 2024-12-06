@@ -28,12 +28,12 @@ export const SidebarLink = ({ label, href, icon: Icon }: Props) => {
         `}
       >
         <Icon
-          className={`  group-hover:text-indigo-600 dark:group-hover:text-red-500 ${
+          className={`group-hover:text-indigo-600 dark:group-hover:text-red-500 ${
             isActive
               ? "text-indigo-600 dark:text-red-500 "
               : "text-red-500 dark:text-yellow-500 "
           }`}
-          strokeWidth={2}
+          strokeWidth={1.5}
         />
         <span className={`${isSidebarCollapsed ? "hidden" : "block"}`}>
           {label}

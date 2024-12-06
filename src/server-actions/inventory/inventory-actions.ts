@@ -71,3 +71,36 @@ export const getPurchaseInventory = async (purchaseId: number) => {
     };
   }
 };
+
+export const getProducts = async () => {
+  try {
+    const products = await prisma.product.findMany({
+      include: {
+        Category: {
+          select: {
+            Category_name: true,
+          },
+        },
+      },
+    });
+    if (!products) {
+      return {
+        ok: false,
+        message: "No hay productos en la base de datos",
+        data: null,
+      };
+    }
+    return {
+      ok: true,
+      message: "Productos cargados",
+      data: products,
+    };
+  } catch (error) {
+    console.error("Error al obtener las los productos: ", error); // Mejor manejo del error
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};

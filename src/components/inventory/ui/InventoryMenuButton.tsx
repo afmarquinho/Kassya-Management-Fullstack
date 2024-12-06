@@ -3,44 +3,52 @@ import { Archive, PackageOpen, Tag } from "lucide-react";
 
 type Props = {
   label: keyof typeof icons; //* Restringe label a las claves de icons
-  color: "red" | "blue" | "violet" | "indigo" | "rose" | "purple";
 };
-const red =
-  "from-red-500 to-red-700 dark:from-red-800 dark:to-red-900 hover:from-red-700 hover:to-red-700";
-const blue =
-  "from-blue-500 to-blue-700 dark:from-blue-800 dark:to-blue-900 hover:from-blue-700 hover:to-blue-700";
-
-const violet =
-  "from-violet-500 to-violet-700 dark:from-violet-800 dark:to-violet-900 hover:from-violet-700 hover:to-violet-700";
-
-const indigo =
-  "from-indigo-500 to-indigo-700 dark:from-indigo-800 dark:to-indigo-900 hover:from-indigo-700 hover:to-indigo-700";
-const rose =
-  "from-rose-500 to-rose-700 dark:from-rose-800 dark:to-rose-900 hover:from-rose-700 hover:to-rose-700";
-
-const purple =
-  "from-purple-500 to-purple-700 dark:from-purple-800 dark:to-purple-900 hover:from-purple-700 hover:to-purple-700";
 
 const icons = {
   Compras: <PackageOpen size={20} strokeWidth={1.25} className={`h-4`} />,
-  Inventarios: <Archive size={20} strokeWidth={1.25} className={`h-4`} />,
+  Inventario: <Archive size={20} strokeWidth={1.25} className={`h-4`} />,
   Categoría: <Tag size={20} strokeWidth={1.25} className={`h-4`} />,
 };
 
-export const InventoryMenuButton = ({ label, color }: Props) => {
-  const { toggleCategoryModal, togglePurchaseModal } = useInventoryStore();
+export const InventoryMenuButton = ({ label }: Props) => {
+  const {
+    toggleCategoryModal,
+    togglePurchaseModal,
+    toggleInventoryModal,
+    categoryModalOpen,
+    purchaseModalOpen,
+    inventoryModalOpen,
+  } = useInventoryStore();
+
+  const btn1 = ` ${
+    purchaseModalOpen
+      ? "from-violet-950 to-violet-950 dark:from-amber-700 dark:to-amber-700"
+      : "hover:from-purple-600 hover:to-purple-600 hover:dark:from-gray-400 hover:dark:to-gray-500"
+  }`;
+  const btn2 = `${
+    inventoryModalOpen
+      ? "from-violet-950 to-violet-950 dark:from-amber-700 dark:to-amber-700"
+      : "hover:from-purple-600 hover:to-purple-600 hover:dark:from-gray-400 hover:dark:to-gray-500"
+  }`;
+  const btn3 = ` ${
+    categoryModalOpen
+      ? "from-violet-950 to-violet-950 dark:from-amber-700 dark:to-amber-700"
+      : "hover:from-purple-600 hover:to-purple-600 hover:dark:from-gray-400 hover:dark:to-gray-500"
+  }`;
 
   const handleClick = () => {
     switch (label) {
       case "Categoría":
         toggleCategoryModal(true);
-        togglePurchaseModal(false);
-
         break;
-      case "Compras":
-        toggleCategoryModal(false);
-        togglePurchaseModal(true);
 
+      case "Compras":
+        togglePurchaseModal(true);
+        break;
+
+      case "Inventario":
+        toggleInventoryModal(true);
         break;
 
       default:
@@ -50,20 +58,8 @@ export const InventoryMenuButton = ({ label, color }: Props) => {
 
   return (
     <button
-      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b
-        ${
-          color === "red"
-            ? red
-            : color === "blue"
-            ? blue
-            : color === "violet"
-            ? violet
-            : color === "indigo"
-            ? indigo
-            : color === "rose"
-            ? rose
-            : purple
-        } hover:dark:from-orange-700 hover:dark:to-orange-900 shadow-md p-2 text-xs`}
+      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-violet-500 to-violet-700 shadow-md p-2
+        ${label === "Compras" ? btn1 : label === "Inventario" ? btn2 : btn3}`}
       onClick={handleClick}
     >
       {icons[label]} {label}
