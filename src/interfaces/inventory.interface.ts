@@ -68,3 +68,71 @@ export type InventoryTable = Prisma.ProductGetPayload<{
     };
   };
 }>;
+
+
+
+//*TYPES PARA LA PAGINA DE DETALLES DEL PROUCTO EN EL INVENTARIO
+
+// Nota de compra
+interface PurchaseNote {
+  userName: string;
+  userSurname: string;
+  content: string;
+  createdAt: string;
+}
+
+// Usuario asociado a la compra
+interface PurchaseUser {
+  id: number;
+  name: string;
+}
+
+// Proveedor asociado a la compra
+interface Supplier {
+  id: number;
+  name: string;
+  email: string;
+}
+
+// Detalles de la compra
+interface PurchaseDetails {
+  id: number;
+  description: string;
+  date: string;
+  supplier: Supplier;
+  user: PurchaseUser;
+  notes: PurchaseNote[];
+}
+
+// Elementos de la compra
+interface PurchaseItem {
+  itemId: number;
+  name: string;
+  qtyOrdered: number;
+  location: string | null;
+  status: string;
+  purchase: PurchaseDetails;
+}
+
+// Detalles del producto
+interface ProductDetails {
+  id: number;
+  name: string;
+  reference: string;
+  stockQuantity: number;
+  quantityDispatched: number;
+  reorderPoint: number;
+  location: string | null;
+  lotNumber: string | null;
+  active: boolean;
+  createdAt: string;
+  expiryDate: string | null;
+  category: string;
+}
+
+// Estado del producto
+export interface ProductState {
+  product: ProductDetails | null;
+  purchaseItems: PurchaseItem[] | null;
+}
+

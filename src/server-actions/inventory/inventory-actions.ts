@@ -60,8 +60,11 @@ export const getPurchaseInventory = async (purchaseId: number) => {
         },
       },
     });
+    if(!purchases){
+      return{ok: false, data: null, message: "El producto no existe en la base de datos"}
+    }
 
-    return { ok: true, data: purchases };
+    return { ok: true, data: purchases,message: "Datos cargados exitosamente" };
   } catch (error) {
     console.error("Error al obtener las compras: ", error); // Mejor manejo del error
     return {
@@ -97,6 +100,103 @@ export const getProducts = async () => {
     };
   } catch (error) {
     console.error("Error al obtener las los productos: ", error); // Mejor manejo del error
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};
+
+export const getProductDetails = async (productId: number) => {
+  try {
+    const productDetails = await prisma.product.findUnique({
+      where: { Product_id: productId },
+      include: {
+        Category: true, // Información de la categoría del producto.
+        PurchaseItem: {
+          include: {
+            Purchase: {
+              include: {
+                Supplier: true, // Proveedor asociado a la orden de compra.
+                User: true, // Usuario que creó la orden de compra.
+                PurchaseNote: {
+                  select:{
+                    Note_content: true,
+                    Note_createdAt: true,
+                    User:{
+                      select:{
+                        User_name: true,
+                        User_surname:true
+                      }
+                    }
+                  }
+                }, // Notas asociadas a la compra.
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!productDetails) {
+      return {
+        ok: false,
+        data: null,
+        message: "El producto no existe en la base de datos",
+      };
+    }
+
+    const product = {
+      id: productDetails.Product_id,
+      name: productDetails.Product_name,
+      reference: productDetails.Product_ref,
+      stockQuantity: productDetails.Product_stockQty,
+      quantityDispatched: productDetails.Product_qtyDispatched,
+      reorderPoint: productDetails.Product_reorderPoint,
+      location: productDetails.Product_location,
+      lotNumber: productDetails.Product_lotNumber,
+      active: productDetails.Product_active,
+      createdAt: productDetails.Product_createdAt,
+      expiryDate: productDetails.Product_expiryDate,
+      category: productDetails.Category?.Category_name || "Sin categoría",
+    };
+
+    const purchaseItems = productDetails.PurchaseItem.map((item) => ({
+      itemId: item.Item_id,
+      name: item.Item_name,
+      qtyOrdered: item.Item_qtyOrdered,
+      location: item.Item_location,
+      status: item.Item_status,
+      purchase: {
+        id: item.Purchase.Purchase_id,
+        description: item.Purchase.Purchase_description,
+        date: item.Purchase.Purchase_date,
+        supplier: {
+          id: item.Purchase.Supplier.Supplier_id,
+          name: item.Purchase.Supplier.Supplier_name,
+          email: item.Purchase.Supplier.Supplier_email,
+        },
+        user: {
+          id: item.Purchase.User.User_id,
+          name: `${item.Purchase.User.User_name} ${item.Purchase.User.User_surname}`,
+        },
+        notes: item.Purchase.PurchaseNote.map((note) => ({
+          usser_name: note.User.User_name,
+          usser_surname: note.User.User_surname,
+          content: note.Note_content,
+          createdAt: note.Note_createdAt,
+        })),
+      },
+    }));
+
+    return {
+      ok: true,
+      data: { product, purchaseItems },
+      message: "Datos cargados exitosamente",
+    };
+  } catch (error) {
+    console.error("Error fetching product details:", error);
     return {
       ok: false,
       data: null,
