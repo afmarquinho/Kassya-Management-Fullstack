@@ -69,70 +69,58 @@ export type InventoryTable = Prisma.ProductGetPayload<{
   };
 }>;
 
-
-
 //*TYPES PARA LA PAGINA DE DETALLES DEL PROUCTO EN EL INVENTARIO
 
-// Nota de compra
-interface PurchaseNote {
-  userName: string;
-  userSurname: string;
-  content: string;
-  createdAt: string;
-}
-
-// Usuario asociado a la compra
-interface PurchaseUser {
-  id: number;
-  name: string;
-}
-
-// Proveedor asociado a la compra
-interface Supplier {
-  id: number;
-  name: string;
-  email: string;
-}
-
-// Detalles de la compra
-interface PurchaseDetails {
-  id: number;
-  description: string;
-  date: string;
-  supplier: Supplier;
-  user: PurchaseUser;
-  notes: PurchaseNote[];
-}
-
-// Elementos de la compra
-interface PurchaseItem {
-  itemId: number;
-  name: string;
-  qtyOrdered: number;
-  location: string | null;
-  status: string;
-  purchase: PurchaseDetails;
-}
-
-// Detalles del producto
-interface ProductDetails {
+export type ProductDetailsType = {
   id: number;
   name: string;
   reference: string;
   stockQuantity: number;
   quantityDispatched: number;
   reorderPoint: number;
-  location: string | null;
-  lotNumber: string | null;
+  location: string;
+  lotNumber: string;
   active: boolean;
-  createdAt: string;
-  expiryDate: string | null;
+  createdAt: Date; // Prisma DateTime mapeado a Date de TS.
+  expiryDate: Date | null; // Puede ser null si no hay fecha de expiración.
   category: string;
-}
+};
 
-// Estado del producto
-export interface ProductState {
-  product: ProductDetails | null;
-  purchaseItems: PurchaseItem[] | null;
-}
+type PurchaseNoteType = {
+  usser_name: string;
+  usser_surname: string;
+  content: string;
+  createdAt: Date; // Prisma DateTime mapeado a Date.
+};
 
+type SupplierType = {
+  id: number;
+  name: string;
+  email: string;
+};
+
+type UserType = {
+  id: number;
+  name: string;
+};
+
+type PurchaseType = {
+  id: number;
+  description: string;
+  date: Date; // Prisma DateTime mapeado a Date.
+  supplier: SupplierType;
+  user: UserType;
+  notes: PurchaseNoteType[];
+};
+
+type PurchaseItemType = {
+  itemId: number;
+  name: string;
+  qtyOrdered: number;
+  location: string;
+  status: string;
+  purchase: PurchaseType;
+};
+
+//*TYPES PARA MOSTRAR EN PAGINA DE PRODUCTO EL ABASTECIMIENTO DEL ITEM.
+export type purchaseItemsType = PurchaseItemType[];

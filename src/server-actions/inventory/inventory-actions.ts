@@ -60,11 +60,19 @@ export const getPurchaseInventory = async (purchaseId: number) => {
         },
       },
     });
-    if(!purchases){
-      return{ok: false, data: null, message: "El producto no existe en la base de datos"}
+    if (!purchases) {
+      return {
+        ok: false,
+        data: null,
+        message: "El producto no existe en la base de datos",
+      };
     }
 
-    return { ok: true, data: purchases,message: "Datos cargados exitosamente" };
+    return {
+      ok: true,
+      data: purchases,
+      message: "Datos cargados exitosamente",
+    };
   } catch (error) {
     console.error("Error al obtener las compras: ", error); // Mejor manejo del error
     return {
@@ -121,16 +129,16 @@ export const getProductDetails = async (productId: number) => {
                 Supplier: true, // Proveedor asociado a la orden de compra.
                 User: true, // Usuario que creó la orden de compra.
                 PurchaseNote: {
-                  select:{
+                  select: {
                     Note_content: true,
                     Note_createdAt: true,
-                    User:{
-                      select:{
+                    User: {
+                      select: {
                         User_name: true,
-                        User_surname:true
-                      }
-                    }
-                  }
+                        User_surname: true,
+                      },
+                    },
+                  },
                 }, // Notas asociadas a la compra.
               },
             },
@@ -162,6 +170,88 @@ export const getProductDetails = async (productId: number) => {
       category: productDetails.Category?.Category_name || "Sin categoría",
     };
 
+    // const purchaseItems = productDetails.PurchaseItem.map((item) => ({
+    //   itemId: item.Item_id,
+    //   name: item.Item_name,
+    //   qtyOrdered: item.Item_qtyOrdered,
+    //   location: item.Item_location,
+    //   status: item.Item_status,
+    //   purchase: {
+    //     id: item.Purchase.Purchase_id,
+    //     description: item.Purchase.Purchase_description,
+    //     date: item.Purchase.Purchase_date,
+    //     supplier: {
+    //       id: item.Purchase.Supplier.Supplier_id,
+    //       name: item.Purchase.Supplier.Supplier_name,
+    //       email: item.Purchase.Supplier.Supplier_email,
+    //     },
+    //     user: {
+    //       id: item.Purchase.User.User_id,
+    //       name: `${item.Purchase.User.User_name} ${item.Purchase.User.User_surname}`,
+    //     },
+    //     notes: item.Purchase.PurchaseNote.map((note) => ({
+    //       usser_name: note.User.User_name,
+    //       usser_surname: note.User.User_surname,
+    //       content: note.Note_content,
+    //       createdAt: note.Note_createdAt,
+    //     })),
+    //   },
+    // }));
+
+    return {
+      ok: true,
+      data: product,
+      message: "Datos cargados exitosamente",
+    };
+  } catch (error) {
+    console.error("Error fetching product details:", error);
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};
+
+export const getProductPurchaseDetails = async (productId: number) => {
+  try {
+    const productDetails = await prisma.product.findUnique({
+      where: { Product_id: productId },
+      select: {
+        Category: true, // Información de la categoría del producto.
+        PurchaseItem: {
+          include: {
+            Purchase: {
+              include: {
+                Supplier: true, // Proveedor asociado a la orden de compra.
+                User: true, // Usuario que creó la orden de compra.
+                PurchaseNote: {
+                  select: {
+                    Note_content: true,
+                    Note_createdAt: true,
+                    User: {
+                      select: {
+                        User_name: true,
+                        User_surname: true,
+                      },
+                    },
+                  },
+                }, // Notas asociadas a la compra.
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!productDetails) {
+      return {
+        ok: false,
+        data: null,
+        message: "El producto no existe en la base de datos",
+      };
+    }
+
     const purchaseItems = productDetails.PurchaseItem.map((item) => ({
       itemId: item.Item_id,
       name: item.Item_name,
@@ -192,7 +282,7 @@ export const getProductDetails = async (productId: number) => {
 
     return {
       ok: true,
-      data: { product, purchaseItems },
+      data: purchaseItems,
       message: "Datos cargados exitosamente",
     };
   } catch (error) {
