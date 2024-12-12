@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const InventoryProductItems = () => {
+export const InventoryProductItems = () => {
   const { productId } = useParams();
 
   const [purchaseItems, setPurchaseItems] = useState<purchaseItemsType | []>(
@@ -42,19 +42,13 @@ const InventoryProductItems = () => {
     <div>
       <div className={`flex gap-5`}>
         <button
-          className={`px-4 py-2 w-32 shadow-md bg-gradient-to-b flex items justify-center text-white from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-800 dark:to-rose-900 hover:dark:from-rose-700 hover:dark:to-rose-700 transition-all duration-300`}
+          className={`px-4 py-2 w-32 shadow-md bg-gradient-to-b flex items justify-center text-white from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-800 dark:to-rose-900 hover:dark:from-rose-700 hover:dark:to-rose-700 transition-all duration-300 rounded`}
           onClick={getPurchaseDetails}
           disabled={loading}
         >
           {loading ? <LoadingSpinner /> : "Historial"}
         </button>
-        <button
-          className={`px-4 py-2 min-w-32 shadow-md bg-gradient-to-b flex items justify-center text-white from-purple-500 to-purple-700 hover:from-purple-700 hover:to-purple-700 dark:from-purple|||||||||||||-800 dark:to-purple-900 hover:dark:from-purple-700 hover:dark:to-purple-700 transition-all duration-300`}
-          onClick={getPurchaseDetails}
-          disabled={loading}
-        >
-          {loading ? <LoadingSpinner /> : "Solicitud de Provisión"}
-        </button>
+       
       </div>
       {purchaseItems.length > 0 && (
         <div className="mt-6">
@@ -118,4 +112,4 @@ const InventoryProductItems = () => {
   );
 };
 
-export default InventoryProductItems;
+

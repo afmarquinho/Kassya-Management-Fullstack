@@ -34,11 +34,15 @@ npm install
 ```bash
 npx prisma migrate dev
 ```
-- 8. Hacer seed a la base de datos con el comando:
+- 8. Generar el cliente Prisma:
+```bash
+npx prisma generate
+```
+- 9. Hacer seed a la base de datos con el comando:
 ```bash
 npm run seed
 ```
-- 9. Correr el servidor en desarrollo:
+- 10. Correr el servidor en desarrollo:
 ```bash
 npm run dev
 ```

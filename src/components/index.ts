@@ -19,6 +19,7 @@ export * from './inventory/category/NewCategoryModal';
 export * from './inventory/inventory/InventoryContent';
 export * from './inventory/inventory/InventoryProductGrid';
 export * from './inventory/inventory/InventoryProductItems';
+export * from './inventory/inventory/ProvisioningRequestForm';
 export * from './inventory/purchase-orders.tsx/CommentsSection';
 export * from './inventory/purchase-orders.tsx/IncomeTrackingTable';
 export * from './inventory/purchase-orders.tsx/PurchaseContent';

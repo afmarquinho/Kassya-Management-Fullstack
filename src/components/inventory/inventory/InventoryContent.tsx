@@ -11,12 +11,14 @@ import {
   RefreshCw,
   Wrench,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export const InventoryContent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { setProducts, products } = useInventoryStore();
+  const router = useRouter();
 
   const getProductsApi = async () => {
     setLoading(true);
@@ -30,6 +32,10 @@ export const InventoryContent = () => {
       toast.error(message);
     }
     setLoading(false);
+  };
+
+  const onRedirect = (id: number) => {
+    router.push(`/inventory/inventory-management/product/${id}`);
   };
 
   return (
@@ -158,7 +164,10 @@ export const InventoryContent = () => {
                   <td className="py-2 px-1">{product.Product_reorderPoint}</td>
                   <td className="py-2 px-1">{product.Product_reorderPoint}</td>
                   <td className="py-2 px-1">
-                    <button className={`flex items-center gap-1 font-semibold`}>
+                    <button
+                      className={`flex items-center gap-1 font-semibold`}
+                      onClick={() => onRedirect(product.Product_id)}
+                    >
                       <Wrench size={16} strokeWidth={1} />
                       <span className={`text-blue-700`}>Gestiona</span>
                     </button>{" "}
