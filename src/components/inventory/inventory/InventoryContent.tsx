@@ -24,8 +24,7 @@ export const InventoryContent = () => {
     setLoading(true);
     const { ok, data, message } = await getProducts();
     if (ok && data) {
-      setProducts(data);
-      console.log(products);
+      setProducts(data)
 
       toast.success(message);
     } else {
@@ -162,7 +161,7 @@ export const InventoryContent = () => {
                   <td className="py-2 px-1">{product.Product_location}</td>
                   <td className="py-2 px-1">{product.Product_lotNumber}</td>
                   <td className="py-2 px-1">{product.Product_reorderPoint}</td>
-                  <td className="py-2 px-1">{product.Product_reorderPoint}</td>
+                  <td className="py-2 px-1">{product.Product_stockQty}</td>
                   <td className="py-2 px-1">
                     <button
                       className={`flex items-center gap-1 font-semibold`}

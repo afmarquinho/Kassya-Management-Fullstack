@@ -1,9 +1,12 @@
+"use server";
+
 import { prisma } from "@/lib/db";
+import { revalidatePath } from "next/cache";
 
 export async function createProvisionRequest(
   Prov_productId: number,
-  Prov_quantity: number,
   Prov_requestedBy: number,
+  Prov_quantity: number,
   Prov_desc: string
 ) {
   const provisionRequest = await prisma.provisionRequest.create({
@@ -15,10 +18,11 @@ export async function createProvisionRequest(
     },
   });
   if (provisionRequest) {
+    revalidatePath(`/inventory/inventory-management/product/${Prov_productId}`)
     return {
       ok: true,
       data: provisionRequest,
-      message: "Requerimiento creado con éxito",
+      message: "Solicitud creada exitosamente",
     };
   } else {
     return {
@@ -34,6 +38,14 @@ export async function getPendingRequests(productId: number) {
     where: {
       Prov_productId: productId,
       Prov_status: "pending", // Filtrar solo las solicitudes pendientes
+    },
+    include: {
+      User: {
+        select: {
+          User_name: true,
+          User_surname: true,
+        },
+      },
     },
     orderBy: {
       Prov_id: "desc", // Ordenar por fecha de creación

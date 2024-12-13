@@ -8,10 +8,13 @@ import {
   categories,
   purchasesNotes,
   products,
+  provisionRequests,
 } from "./data";
+
 
 async function main() {
   try {
+    await prisma.provisionRequest.deleteMany();
     await prisma.purchaseNote.deleteMany();
     await prisma.purchaseItem.deleteMany();
     await prisma.product.deleteMany();
@@ -44,6 +47,9 @@ async function main() {
     });
     await prisma.purchaseNote.createMany({
       data: purchasesNotes,
+    });
+    await prisma.provisionRequest.createMany({
+      data: provisionRequests,
     });
     
   } catch (error) {

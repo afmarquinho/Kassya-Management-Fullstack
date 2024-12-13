@@ -48,35 +48,27 @@ export const InventoryProductItems = () => {
         >
           {loading ? <LoadingSpinner /> : "Historial"}
         </button>
-       
       </div>
       {purchaseItems.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-lg font-semibold">Historial de Provisión</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {purchaseItems.map((item) => (
               <div
                 key={item.itemId}
                 className="py-4 px-4 bg-white dark:bg-slate-800 rounded shadow-sm"
               >
-                <p className={`italic`}>
+                <p className={`italic text-right`}>
                   <strong>
-                    Fecha: {desformatearFecha(item.purchase.date)}
+                    Fecha de Compra: {desformatearFecha(item.purchase.date)}
                   </strong>
                 </p>
-                <h3 className="font-bold">Artículo: {item.name}</h3>
-                <p>
-                  <strong>Cantidad Ordenada:</strong> {item.qtyOrdered}
-                </p>
-                <p>
-                  <strong>Ubicación:</strong>{" "}
-                  {item.location || "No especificada"}
-                </p>
-                <p>
-                  <strong>Estado:</strong> {item.status}
-                </p>
                 <div className="mt-2">
-                  <h4 className="font-semibold">Detalles de la Compra</h4>
+                  <h4 className="font-bold">Detalles de la Compra</h4>
+                  <p>
+                    <strong>Consecutivo:</strong> {item.purchase.id}
+                  </p>
                   <p>
                     <strong>Descripción:</strong> {item.purchase.description}
                   </p>
@@ -88,6 +80,20 @@ export const InventoryProductItems = () => {
                     <strong>Usuario:</strong> {item.purchase.user.name}
                   </p>
                 </div>
+                <br />
+                <h3 className="font-bold">Artículo: {item.name}</h3>
+
+                <p>
+                  <strong>Cantidad Ordenada:</strong> {item.qtyOrdered}
+                </p>
+                <p>
+                  <strong>Ubicación:</strong>{" "}
+                  {item.location || "No especificada"}
+                </p>
+                <p>
+                  <strong>Estado:</strong> {item.status}
+                </p>
+
                 {item.purchase.notes.length > 0 && (
                   <div className="mt-2">
                     <h4 className="font-semibold">Notas</h4>
@@ -111,5 +117,3 @@ export const InventoryProductItems = () => {
     </div>
   );
 };
-
-
