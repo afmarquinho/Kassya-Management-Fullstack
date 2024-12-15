@@ -118,7 +118,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
           className={`bg-rose-600 shadow-lg rounded-lg p-2 flex gap-2 text-xs text-white items-center justify-center my-5 hover:bg-rose-700`}
         >
           <FolderClosed strokeWidth={1.5} />
-          Cerrar Compras
+          Cerrar Compra
         </button>
       )}
     </>

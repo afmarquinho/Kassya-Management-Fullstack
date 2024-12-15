@@ -1,5 +1,6 @@
 "use server";
 
+import { ProductData } from "@/interfaces";
 import { prisma } from "@/lib/db";
 
 export const getPurchaseInventory = async (purchaseId: number) => {
@@ -35,11 +36,7 @@ export const getPurchaseInventory = async (purchaseId: number) => {
             Item_qtyReceived: true,
             Item_ref: true,
             Item_status: true,
-            Category: {
-              select: {
-                Category_name: true,
-              },
-            },
+            Category: true,
           },
         },
         PurchaseNote: {
@@ -166,7 +163,6 @@ export const getProductDetails = async (productId: number) => {
       lotNumber: productDetails.Product_lotNumber,
       active: productDetails.Product_active,
       createdAt: productDetails.Product_createdAt,
-      expiryDate: productDetails.Product_expiryDate,
       category: productDetails.Category?.Category_name || "Sin categoría",
     };
 
@@ -204,7 +200,7 @@ export const getProductDetails = async (productId: number) => {
       message: "Datos cargados exitosamente",
     };
   } catch (error) {
-    console.error("Error fetching product details:", error);
+    console.error("Error al obtener los detalles del producto");
     return {
       ok: false,
       data: null,
@@ -287,6 +283,90 @@ export const getProductPurchaseDetails = async (productId: number) => {
     };
   } catch (error) {
     console.error("Error fetching product details:", error);
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};
+
+export const registerProductWithMovement = async (
+  productData: ProductData,
+  userId: number,
+  reason?: string
+) => {
+  try {
+    console.log("productData: ", productData);
+
+    
+    const result = await prisma.$transaction(async (tx) => {
+      // Buscar el producto por referencia
+      const existingProduct = await tx.product.findUnique({
+        where: { Product_ref: productData.Product_ref },
+      });
+
+      if (!existingProduct) {
+        // Crear un nuevo producto
+        const newProduct = await tx.product.create({
+          data: {
+            Product_name: productData.Product_name,
+            Product_ref: productData.Product_ref,
+            Product_stockQty: productData.Product_qtyReceive,
+            Product_location: productData.Product_location || "bodega",
+            Product_lotNumber: productData.Product_lotNumber || "1",
+            Product_categoryId: productData.Product_categoryId,
+          },
+        });
+
+        // Registrar el movimiento de entrada
+        await tx.stockMovement.create({
+          data: {
+            Movement_type: "entrada",
+            Movement_qty: productData.Product_qtyReceive,
+            Movement_reason: reason || "Ingreso",
+            Movement_productId: newProduct.Product_id,
+            Movement_userId: userId,
+          },
+        });
+
+        return {
+          ok: true,
+          data: newProduct,
+          message: "Producto registrado exitosamente",
+        };
+      } else {
+        // Actualizar el producto existente
+        const updatedProduct = await tx.product.update({
+          where: { Product_id: existingProduct.Product_id },
+          data: {
+            Product_stockQty:
+              existingProduct.Product_stockQty + productData.Product_qtyReceive,
+          },
+        });
+
+        // Registrar el movimiento
+        await tx.stockMovement.create({
+          data: {
+            Movement_type: "entrada",
+            Movement_qty: productData.Product_qtyReceive,
+            Movement_reason: reason || "Ingreso",
+            Movement_productId: existingProduct.Product_id,
+            Movement_userId: userId,
+          },
+        });
+
+        return {
+          ok: true,
+          data: updatedProduct,
+          message: "Producto actualizado exitosamente",
+        };
+      }
+    });
+
+    return result;
+  } catch (error) {
+    console.error("Error al registrar producto con movimiento:", error);
     return {
       ok: false,
       data: null,

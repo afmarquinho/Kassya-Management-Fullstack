@@ -8,7 +8,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-064",
     Product_categoryId: 9,
@@ -22,7 +22,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-11T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-065",
     Product_categoryId: 9,
@@ -36,7 +36,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-12T06:35:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-066",
     Product_categoryId: 9,
@@ -50,7 +50,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-12T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-067",
     Product_categoryId: 9,
@@ -64,7 +64,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-12T06:28:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-033",
     Product_categoryId: 8,
@@ -78,7 +78,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-12T06:25:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-027",
     Product_categoryId: 8,
@@ -92,7 +92,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-009",
     Product_categoryId: 9,
@@ -106,7 +106,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-010",
     Product_categoryId: 8,
@@ -120,7 +120,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-028",
     Product_categoryId: 8,
@@ -134,7 +134,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-012",
     Product_categoryId: 8,
@@ -148,7 +148,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-029",
     Product_categoryId: 8,
@@ -162,7 +162,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
-    Product_expiryDate: "2024-12-13T06:32:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-015",
     Product_categoryId: 8,
@@ -176,7 +176,7 @@ export const products = [
     Product_lotNumber: "1",
     Product_active: true,
     Product_createdAt: "2024-12-12T13:25:23.462Z",
-    Product_expiryDate: "2025-12-12T13:25:23.462Z",
+
     Product_qtyDispatched: 0,
     Product_ref: "ITEM-035",
     Product_categoryId: 8,

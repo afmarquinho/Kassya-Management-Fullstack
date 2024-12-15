@@ -1,7 +1,9 @@
 "use client";
 
-import { StockEntry } from "@/interfaces";
+import { ProductData, StockEntry } from "@/interfaces";
+import { registerProductWithMovement } from "@/server-actions";
 import { LogIn } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -10,16 +12,14 @@ type Props = {
 };
 
 export const IncomeTrackingTable = ({ data }: Props) => {
+  const router = useRouter();
   const [qtyReceive, setQtyReceive] = useState<number>(0);
+  const [lotNumber, setLotNumber] = useState<string>("");
 
-  // Captura el valor del input y valida la cantidad
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-
-    setQtyReceive(value);
-  };
-
-  const handleStock = (itemQtyRemaining: number, id:number) => {
+  const handleStock = async (
+    itemQtyRemaining: number,
+    productData: ProductData
+  ) => {
     // Recibimos la cantidad faltante como parámetro
     // Verificar si el valor es negativo
     if (qtyReceive < 0) {
@@ -36,9 +36,20 @@ export const IncomeTrackingTable = ({ data }: Props) => {
       toast.error("La cantidad no puede ser mayor que los faltantes.");
       return;
     } else {
-      // Actualizamos el valor introducido
-      console.log(qtyReceive);
-      console.log(id);
+      //* Actualizamos o creamos la bbdd del inventario con la cantidad recibida.
+
+      const { ok, data, message } = await registerProductWithMovement(
+        productData,
+        4,
+        "nota"
+      ); //TODO: ACTUALIZAR EL USERID
+      if (ok && data) {
+        toast.success(message);
+        router.refresh();
+        
+      } else {
+        toast.error(message);
+      }
     }
   };
 
@@ -55,9 +66,10 @@ export const IncomeTrackingTable = ({ data }: Props) => {
           <th className={`py-3 px-2`}>Nombre</th>
           <th className={`py-3 px-2`}>Categoría</th>
           <th className={`py-3 px-1`}>Descripción</th>
-          <th className={`py-3 px-1`}>Cant. Ordenada</th>
+          <th className={`py-3 px-1`}>Cant.</th>
           <th className={`py-3 px-1`}>Faltantes</th>
           <th className={`py-3 px-1`}>Recibido</th>
+          <th className={`py-3 px-1`}>Lote</th>
           <th className={`py-3 px-1`}>Ingresar</th>
         </tr>
       </thead>
@@ -73,7 +85,7 @@ export const IncomeTrackingTable = ({ data }: Props) => {
             <td className={`py-2 px-1`}>{item.Item_ref}</td>
             <td className={`py-2 px-1`}>{item.Item_name}</td>
             <td className={`py-2 px-1`}>{item.Category.Category_name}</td>
-            <td className={`py-2 px-1`}>{item.Item_description}/</td>
+            <td className={`py-2 px-1`}>{item.Item_description}</td>
             <td className={`py-2 px-1`}>{item.Item_qtyOrdered}</td>
             <td className={`py-2 px-1`}>
               {item.Item_qtyOrdered - item.Item_qtyReceived}
@@ -83,17 +95,34 @@ export const IncomeTrackingTable = ({ data }: Props) => {
                 <input
                   type="number"
                   className={`w-10 text-center outline-none`}
-                  onChange={(e) => handleInputChange(e)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setQtyReceive(parseFloat(e.target.value))
+                  }
+                  placeholder="0"
                 />
               )}
-              {/* Mostrar mensaje de error */}
+            </td>
+            <td className={`py-2 px-1`}>
+              <input
+                className={`w-20 text-center outline-none`}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setLotNumber(e.target.value)
+                }
+                placeholder="0"
+              />
             </td>
             <td className={`py-2 px-1`}>
               {item.Item_qtyOrdered > item.Item_qtyReceived && (
                 <button
                   className={`bg-gradient-to-b from-rose-600 to-rose-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm`}
                   onClick={() =>
-                    handleStock(item.Item_qtyOrdered - item.Item_qtyReceived,item.Item_id )
+                    handleStock(item.Item_qtyOrdered - item.Item_qtyReceived, {
+                      Product_ref: item.Item_ref,
+                      Product_name: item.Item_name,
+                      Product_lotNumber: lotNumber,
+                      Product_qtyReceive: qtyReceive,
+                      Product_categoryId: item.Category.Category_id,
+                    })
                   }
                 >
                   <LogIn className={`text-white w-5`} />

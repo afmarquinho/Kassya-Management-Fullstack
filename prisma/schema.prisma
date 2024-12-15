@@ -63,6 +63,7 @@ model User {
   Customer              Customer[]
   PurchaseNote          PurchaseNote[]
   ProvisionRequest      ProvisionRequest[]
+  StockMovement         StockMovement[]
 }
 
 model Customer {
@@ -166,13 +167,13 @@ model Product {
   Product_lotNumber     String
   Product_active        Boolean  @default(true)
   Product_createdAt     DateTime @default(now())
-  Product_expiryDate    DateTime @default(now())
-
+  
   PurchaseItem PurchaseItem[]
 
   Product_categoryId Int
   Category           Category           @relation(fields: [Product_categoryId], references: [Category_id])
   ProvisionRequest   ProvisionRequest[]
+  StockMovement      StockMovement[]
 
   @@index([Product_location])
 }
@@ -187,6 +188,21 @@ model ProvisionRequest {
   Prov_requestedBy Int
   User             User     @relation(fields: [Prov_requestedBy], references: [User_id])
   createdAt        DateTime @default(now())
+}
+
+model StockMovement {
+  Movement_id        Int      @id @default(autoincrement())
+  Movement_type      String // "entrada", "salida"
+  Movement_qty       Int
+  Movement_reason    String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
+  Movement_date      DateTime @default(now())
+  Movement_productId Int
+
+  Product         Product @relation(fields: [Movement_productId], references: [Product_id])
+  Movement_userId Int
+  User            User    @relation(fields: [Movement_userId], references: [User_id])
+
+  Movement_relatedId Int? // ID relacionado (e.g., Sale_id o Purchase_id)
 }
 
 model Sale {

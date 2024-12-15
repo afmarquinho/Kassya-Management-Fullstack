@@ -124,3 +124,13 @@ type PurchaseItemType = {
 
 //*TYPES PARA MOSTRAR EN PAGINA DE PRODUCTO EL ABASTECIMIENTO DEL ITEM.
 export type purchaseItemsType = PurchaseItemType[];
+
+//*Interfaz que se usa en el server action para crear o actualizar productos en el inventario: registerProductWithMovement y en la función para crear o actualizar inventario en el front
+export interface ProductData {
+  Product_name: string;
+  Product_ref: string;
+  Product_qtyReceive: number;
+  Product_location?: string;
+  Product_lotNumber?: string;
+  Product_categoryId: number;
+}
