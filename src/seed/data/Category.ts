@@ -1,4 +1,4 @@
-export const categories = [
+export const Category = [
   {
     Category_id: 1,
     Category_name: "Tecnología",

@@ -1,4 +1,4 @@
-export const customers = [
+export const Customer = [
   {
     Customer_id: 1,
     Customer_dni: 13229688,
@@ -8,7 +8,7 @@ export const customers = [
     Customer_phoneNumber: "(746)743-0281x491",
     Customer_address: "753 Brock Passage\nGardnertown, VT 50080",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-08-24T10:00:00.000Z",
+    Customer_registrationDate: "2023-08-24T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -20,7 +20,7 @@ export const customers = [
     Customer_phoneNumber: "530.050.9502",
     Customer_address: "4964 William Tunnel Apt. 985\nLake Shelby, CT 78125",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-05-14T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-14T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -32,7 +32,7 @@ export const customers = [
     Customer_phoneNumber: "473.609.9996x9319",
     Customer_address: "6141 Kirk Hills\nWest Michaelland, WY 51025",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-07-27T10:00:00.000Z",
+    Customer_registrationDate: "2023-07-27T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -44,7 +44,7 @@ export const customers = [
     Customer_phoneNumber: "861.602.0276x08282",
     Customer_address: "PSC 8381, Box 0471\nAPO AE 61850",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-06-28T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-28T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -56,7 +56,7 @@ export const customers = [
     Customer_phoneNumber: "545.093.9324x090",
     Customer_address: "81847 Coleman Trafficway Apt. 426\nMillerland, MN 18760",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-06-26T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-26T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -68,7 +68,7 @@ export const customers = [
     Customer_phoneNumber: "833.512.0512",
     Customer_address: "661 Michelle Plains\nRussellside, IA 93839",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-12-23T10:00:00.000Z",
+    Customer_registrationDate: "2023-12-23T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -80,7 +80,7 @@ export const customers = [
     Customer_phoneNumber: "233.718.9812",
     Customer_address: "0191 Swanson Island\nLake Heidiport, IL 58613",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-03-30T10:00:00.000Z",
+    Customer_registrationDate: "2023-03-30T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -92,7 +92,7 @@ export const customers = [
     Customer_phoneNumber: "701.258.2761x82173",
     Customer_address: "822 Delgado Lane Suite 704\nChristopherfort, NV 89668",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-06-22T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-22T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -104,7 +104,7 @@ export const customers = [
     Customer_phoneNumber: "001-155-290-4919x99416",
     Customer_address: "9039 Sydney Ford Suite 239\nVargasburgh, KY 55770",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-04-29T10:00:00.000Z",
+    Customer_registrationDate: "2023-04-29T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -116,7 +116,7 @@ export const customers = [
     Customer_phoneNumber: "(031)575-1305",
     Customer_address: "025 Giles Meadows Suite 852\nThompsonburgh, OK 45144",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-02-05T10:00:00.000Z",
+    Customer_registrationDate: "2023-02-05T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -128,7 +128,7 @@ export const customers = [
     Customer_phoneNumber: "001-111-159-2776",
     Customer_address: "774 James Club Apt. 582\nPort Karihaven, CT 36358",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-03-30T10:00:00.000Z",
+    Customer_registrationDate: "2023-03-30T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -140,7 +140,7 @@ export const customers = [
     Customer_phoneNumber: "715.396.1825",
     Customer_address: "34856 Jackson Valleys\nLauraton, AR 75103",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-03-29T10:00:00.000Z",
+    Customer_registrationDate: "2023-03-29T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -152,7 +152,7 @@ export const customers = [
     Customer_phoneNumber: "945-982-1704x68264",
     Customer_address: "35580 Stacy Shores Suite 725\nWest Edward, NE 85149",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-05-18T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-18T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -165,7 +165,7 @@ export const customers = [
     Customer_address:
       "8912 Anthony Groves Suite 843\nSouth Jessicashire, MA 99320",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-07-30T10:00:00.000Z",
+    Customer_registrationDate: "2023-07-30T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -177,7 +177,7 @@ export const customers = [
     Customer_phoneNumber: "001-766-779-9801",
     Customer_address: "098 Donald Trafficway\nNew Jasmine, MS 08450",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-06-10T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-10T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -189,7 +189,7 @@ export const customers = [
     Customer_phoneNumber: "015.660.5228x3320",
     Customer_address: "0319 Shields Plaza Suite 326\nRebeccaland, IA 12942",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-08-21T10:00:00.000Z",
+    Customer_registrationDate: "2023-08-21T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -201,7 +201,7 @@ export const customers = [
     Customer_phoneNumber: "987.398.6693x99340",
     Customer_address: "1471 Kelly Locks Suite 821\nWest Sara, CA 00930",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-05-21T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-21T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -213,7 +213,7 @@ export const customers = [
     Customer_phoneNumber: "315-466-1727x984",
     Customer_address: "7412 David Spring\nWilsonberg, NC 21545",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-05-12T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-12T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -225,7 +225,7 @@ export const customers = [
     Customer_phoneNumber: "178.887.0902x4521",
     Customer_address: "032 Campbell Keys\nPort Jacob, HI 21863",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-07-01T10:00:00.000Z",
+    Customer_registrationDate: "2023-07-01T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -237,7 +237,7 @@ export const customers = [
     Customer_phoneNumber: "(085)050-3152",
     Customer_address: "4351 Rose Walks\nWest Debra, MT 05102",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-05-14T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-14T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -249,7 +249,7 @@ export const customers = [
     Customer_phoneNumber: "001-356-830-4009",
     Customer_address: "753 Kennedy Heights Apt. 503\nEast Madison, RI 89327",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-09-02T10:00:00.000Z",
+    Customer_registrationDate: "2023-09-02T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -261,7 +261,7 @@ export const customers = [
     Customer_phoneNumber: "(129)244-0932",
     Customer_address: "37432 David Stream Suite 128\nNew Alexandra, AK 56820",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-05-25T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-25T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -273,7 +273,7 @@ export const customers = [
     Customer_phoneNumber: "583.457.6718",
     Customer_address: "729 Reed Fields Suite 107\nWest Charles, NH 53986",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-08-15T10:00:00.000Z",
+    Customer_registrationDate: "2023-08-15T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -285,7 +285,7 @@ export const customers = [
     Customer_phoneNumber: "334-228-7127",
     Customer_address: "7589 Walker Turnpike\nSouth Lisa, SD 83104",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-04-10T10:00:00.000Z",
+    Customer_registrationDate: "2023-04-10T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -297,7 +297,7 @@ export const customers = [
     Customer_phoneNumber: "237.921.5016",
     Customer_address: "3485 Lauren Islands\nMurphybury, ME 78934",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-11-01T10:00:00.000Z",
+    Customer_registrationDate: "2023-11-01T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -309,7 +309,7 @@ export const customers = [
     Customer_phoneNumber: "389.930.2610",
     Customer_address: "625 Thomas Glen Suite 990\nEast Brittanyland, MO 40860",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-06-05T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-05T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -321,7 +321,7 @@ export const customers = [
     Customer_phoneNumber: "937-344-1918",
     Customer_address: "255 Hall Club Suite 607\nNorth Peterborough, VT 54875",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-03-11T10:00:00.000Z",
+    Customer_registrationDate: "2023-03-11T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -333,7 +333,7 @@ export const customers = [
     Customer_phoneNumber: "690.570.1083",
     Customer_address: "3221 Dean Terrace\nWest Matthew, MS 50715",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-10-13T10:00:00.000Z",
+    Customer_registrationDate: "2023-10-13T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -345,7 +345,7 @@ export const customers = [
     Customer_phoneNumber: "743.582.4909",
     Customer_address: "983 Blake Orchard\nWest Michealberg, SC 90153",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-07-19T10:00:00.000Z",
+    Customer_registrationDate: "2023-07-19T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -357,7 +357,7 @@ export const customers = [
     Customer_phoneNumber: "827-374-1158",
     Customer_address: "7432 Vargas Ville Suite 433\nWest Dorothy, TX 27114",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-06-29T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-29T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -369,7 +369,7 @@ export const customers = [
     Customer_phoneNumber: "487-843-0249",
     Customer_address: "108 Torres Trail Apt. 745\nNorth Martinburgh, NY 26941",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-01-10T10:00:00.000Z",
+    Customer_registrationDate: "2023-01-10T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -381,7 +381,7 @@ export const customers = [
     Customer_phoneNumber: "010-529-8392",
     Customer_address: "9125 Garcia Overpass Apt. 145\nSouth Michele, AZ 20945",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-09-21T10:00:00.000Z",
+    Customer_registrationDate: "2023-09-21T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -393,7 +393,7 @@ export const customers = [
     Customer_phoneNumber: "572.048.6187",
     Customer_address: "6141 Manning Village Suite 197\nBakershire, LA 40294",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-04-05T10:00:00.000Z",
+    Customer_registrationDate: "2023-04-05T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -405,7 +405,7 @@ export const customers = [
     Customer_phoneNumber: "482-108-9425",
     Customer_address: "839 Willis Point Suite 713\nNew Natalieport, IN 48154",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-02-28T10:00:00.000Z",
+    Customer_registrationDate: "2023-02-28T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -418,7 +418,7 @@ export const customers = [
     Customer_address:
       "901 Romero Motorway Suite 354\nNorth Victorland, TN 92637",
     Customer_habeasData: true,
-    Customer_registrationDate: "2023-07-12T10:00:00.000Z",
+    Customer_registrationDate: "2023-07-12T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -430,7 +430,7 @@ export const customers = [
     Customer_phoneNumber: "294-710-3621",
     Customer_address: "734 Smith Coves Suite 404\nWest Lindseyville, NM 42897",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-03-22T10:00:00.000Z",
+    Customer_registrationDate: "2023-03-22T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -442,7 +442,7 @@ export const customers = [
     Customer_phoneNumber: "153-297-1539",
     Customer_address: "967 Scott Lodge\nSouth Ericatown, OR 30584",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-05-04T10:00:00.000Z",
+    Customer_registrationDate: "2023-05-04T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -455,7 +455,7 @@ export const customers = [
     Customer_address:
       "4735 Warren Parkways Suite 824\nPort Laurabury, MD 10759",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-06-16T10:00:00.000Z",
+    Customer_registrationDate: "2023-06-16T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -468,7 +468,7 @@ export const customers = [
     Customer_address:
       "74992 Duncan Corners Suite 952\nNew Kimberlyfort, OK 92816",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-08-09T10:00:00.000Z",
+    Customer_registrationDate: "2023-08-09T15:00:00.000Z",
     Customer_userId: 5,
   },
   {
@@ -480,7 +480,7 @@ export const customers = [
     Customer_phoneNumber: "485-902-1794",
     Customer_address: "939 Hill Grove Apt. 315\nWest Cherylbury, OH 50793",
     Customer_habeasData: false,
-    Customer_registrationDate: "2023-01-30T10:00:00.000Z",
+    Customer_registrationDate: "2023-01-30T15:00:00.000Z",
     Customer_userId: 5,
   },
 ];

@@ -296,9 +296,7 @@ export const registerProductWithMovement = async (
   userId: number,
   reason?: string
 ) => {
-console.log("Product data: ", productData)
-console.log("user id: ", userId)
-console.log("Reason: ", reason)
+
   try {
     const result = await prisma.$transaction(async (tx) => {
       // Buscar el producto por referencia

@@ -1,15 +1,14 @@
 import { prisma } from "../lib/db";
-import {
-  customers,
-  purchaseItems,
-  purchases,
-  suppliers,
-  users,
-  categories,
-  purchasesNotes,
-  products,
-  provisionRequests,
-} from "./data";
+import { Category } from "./data/Category";
+import { Customer } from "./data/Customer";
+import { Product } from "./data/Product";
+import { ProvisionRequest } from "./data/ProvisionRequest";
+import { Purchase } from "./data/Purchase";
+import { PurchaseItem } from "./data/PurchaseItem";
+import { PurchaseNote } from "./data/PurchaseNote";
+import { StockMovement } from "./data/StockMovement";
+import { Supplier } from "./data/Supplier";
+import { User } from "./data/User";
 
 
 async function main() {
@@ -34,31 +33,34 @@ async function main() {
 
     // 5. Insertar datos en el orden correcto
     await prisma.user.createMany({
-      data: users,
+      data: User,
     });
     await prisma.customer.createMany({
-      data: customers,
+      data: Customer,
     });
     await prisma.supplier.createMany({
-      data: suppliers,
+      data: Supplier,
     });
     await prisma.category.createMany({
-      data: categories,
+      data:Category,
     });
     await prisma.purchase.createMany({
-      data: purchases,
+      data: Purchase,
     });
-    await prisma.product.createMany({
-      data: products,
-    });
+     await prisma.product.createMany({
+       data: Product,
+     });
     await prisma.purchaseItem.createMany({
-      data: purchaseItems,
+      data: PurchaseItem,
     });
     await prisma.purchaseNote.createMany({
-      data: purchasesNotes,
+      data: PurchaseNote,
     });
     await prisma.provisionRequest.createMany({
-      data: provisionRequests,
+     data: ProvisionRequest,
+    });
+    await prisma.stockMovement.createMany({
+     data: StockMovement,
     });
     
   } catch (error) {

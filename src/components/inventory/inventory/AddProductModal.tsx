@@ -25,6 +25,7 @@ const AddProductModal = ({
   const router = useRouter();
   const [qtyReceive, setQtyReceive] = useState<number>(0);
   const [lotNumber, setLotNumber] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const { toggleProductModal } = useInventoryStore();
@@ -50,6 +51,9 @@ const AddProductModal = ({
     else if (qtyReceive > itemQtyRemaining) {
       toast.error("La cantidad no puede ser mayor que los faltantes.");
       return;
+    } else if (!reason) {
+      toast.error("Indique la razón de ingreso a inventario.");
+      return;
     } else {
       //* Actualizamos o creamos la bbdd del inventario con la cantidad recibida.
 
@@ -67,7 +71,7 @@ const AddProductModal = ({
             Item_id: productData.Item_id,
           },
           4, // TODO: ACTUALIZAR EL USERID
-          "nota" // TODO: REASON
+          reason
         );
 
         if (ok && data) {
@@ -110,15 +114,30 @@ const AddProductModal = ({
               }
             />
           </label>
-          <label className={`flex gap-5 justify-start items-center`}>
+          <label className={`flex gap-5 justify-start items-center mb-2`}>
             <span className={`w-16 italic`}>Lote:</span>
             <input
               type="text"
-              className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none text-base rounded h-8 flex-1 max-w-40`}
+              className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none text-base rounded h-8 flex-1 max-w-40 uppercase`}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setLotNumber(e.target.value)
+                setLotNumber(e.target.value.toUpperCase())
               }
             />
+          </label>
+          <label className={`flex gap-5 justify-start items-center mb-2`}>
+            <span className={`w-16 italic`}>Razón:</span>
+            <select
+              className={`outline-none`}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                setReason(e.target.value)
+              }
+            >
+              <option value="">-- Seleccione --</option>
+              <option value="compra">Compra</option>
+              <option value="reposición">Reposición</option>
+              <option value="devolución">Devolucón</option>
+              <option value="ajuste">Ajuste</option>
+            </select>
           </label>
           <div className={`flex gap-5`}>
             <button

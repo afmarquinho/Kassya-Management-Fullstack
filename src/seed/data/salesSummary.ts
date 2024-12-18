@@ -1,1 +1,1 @@
-export const salesSummary = [];
+export const SalesSummary = [];
