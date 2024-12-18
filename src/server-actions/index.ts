@@ -1,6 +1,7 @@
 export * from './customers/customer-actions';
 export * from './inventory/category-actions';
 export * from './inventory/inventory-actions';
+export * from './inventory/movements-actions';
 export * from './inventory/provisioning-actions';
 export * from './purchaseItem/item-actions';
 export * from './purchaseNote/purchaseNote-actions';

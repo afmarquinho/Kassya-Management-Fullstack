@@ -5,7 +5,7 @@ export const products = [
     Product_stockQty: 5,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -19,7 +19,7 @@ export const products = [
     Product_stockQty: 5,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-11T06:32:23.462Z",
 
@@ -33,7 +33,7 @@ export const products = [
     Product_stockQty: 10,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-12T06:35:23.462Z",
 
@@ -47,7 +47,7 @@ export const products = [
     Product_stockQty: 10,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-12T06:32:23.462Z",
 
@@ -61,7 +61,7 @@ export const products = [
     Product_stockQty: 10,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-12T06:28:23.462Z",
 
@@ -75,7 +75,7 @@ export const products = [
     Product_stockQty: 100,
     Product_reorderPoint: 50,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-12T06:25:23.462Z",
 
@@ -89,7 +89,7 @@ export const products = [
     Product_stockQty: 5,
     Product_reorderPoint: 1,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -103,7 +103,7 @@ export const products = [
     Product_stockQty: 0,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -117,7 +117,7 @@ export const products = [
     Product_stockQty: 200,
     Product_reorderPoint: 20,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -131,7 +131,7 @@ export const products = [
     Product_stockQty: 0,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -145,7 +145,7 @@ export const products = [
     Product_stockQty: 5,
     Product_reorderPoint: 1,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -159,7 +159,7 @@ export const products = [
     Product_stockQty: 0,
     Product_reorderPoint: 0,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-13T06:32:23.462Z",
 
@@ -173,7 +173,7 @@ export const products = [
     Product_stockQty: 20,
     Product_reorderPoint: 10,
     Product_location: "Bodega",
-    Product_lotNumber: "1",
+
     Product_active: true,
     Product_createdAt: "2024-12-12T13:25:23.462Z",
 

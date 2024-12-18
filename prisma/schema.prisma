@@ -154,6 +154,8 @@ model PurchaseItem {
 
   Item_productId Int?
   Product        Product? @relation(fields: [Item_productId], references: [Product_id])
+
+  @@index([Item_ref])
 }
 
 model Product {
@@ -164,10 +166,9 @@ model Product {
   Product_qtyDispatched Int      @default(0)
   Product_reorderPoint  Int      @default(0)
   Product_location      String   @default("Bodega")
-  Product_lotNumber     String
   Product_active        Boolean  @default(true)
   Product_createdAt     DateTime @default(now())
-  
+
   PurchaseItem PurchaseItem[]
 
   Product_categoryId Int
@@ -196,6 +197,7 @@ model StockMovement {
   Movement_qty       Int
   Movement_reason    String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
   Movement_date      DateTime @default(now())
+  Movement_lotNumber String
   Movement_productId Int
 
   Product         Product @relation(fields: [Movement_productId], references: [Product_id])
@@ -203,6 +205,8 @@ model StockMovement {
   User            User    @relation(fields: [Movement_userId], references: [User_id])
 
   Movement_relatedId Int? // ID relacionado (e.g., Sale_id o Purchase_id)
+
+  @@index([Movement_productId])
 }
 
 model Sale {

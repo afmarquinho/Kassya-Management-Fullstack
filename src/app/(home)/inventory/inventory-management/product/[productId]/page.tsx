@@ -1,6 +1,7 @@
 import {
   InventoryProductGrid,
   InventoryProductItems,
+  MovementsDetails,
   ProvisionRequest,
 } from "@/components";
 import { getProductDetails } from "@/server-actions";
@@ -30,7 +31,7 @@ const InventoryProductPage = async ({ params }: Props) => {
       </h2>
       <InventoryProductGrid data={data} />
       <ProvisionRequest productId={productIdInt} />
-      <h3 className={`py-4 font-medium`}>Historial de Provisión</h3>
+      <MovementsDetails productId={productIdInt} />
       <InventoryProductItems />
     </div>
   );

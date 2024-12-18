@@ -58,7 +58,7 @@ export const ProvisionRequest = ({ productId }: Props) => {
 
   return (
     <div className="mt-8">
-      <h3 className="text-xl font-semibold">
+      <h3 className="text-lg font-semibold">
         Solicitudes de Aprovisionamiento
       </h3>
       <div className="mt-4">

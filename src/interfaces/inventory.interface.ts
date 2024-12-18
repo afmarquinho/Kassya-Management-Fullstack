@@ -30,6 +30,7 @@ export type StockEntry = Prisma.PurchaseGetPayload<{
         Category: {
           select: {
             Category_name: true;
+            Category_id: true;
           };
         };
       };
@@ -58,7 +59,6 @@ export type InventoryTable = Prisma.ProductGetPayload<{
     Product_stockQty: true;
     Product_reorderPoint: true;
     Product_location: true;
-    Product_lotNumber: true;
     Product_active: true;
     Product_createdAt: true;
     Category: {
@@ -79,10 +79,8 @@ export type ProductDetailsType = {
   quantityDispatched: number;
   reorderPoint: number;
   location: string;
-  lotNumber: string;
   active: boolean;
   createdAt: Date; // Prisma DateTime mapeado a Date de TS.
-  expiryDate: Date | null; // Puede ser null si no hay fecha de expiración.
   category: string;
 };
 
@@ -129,8 +127,9 @@ export type purchaseItemsType = PurchaseItemType[];
 export interface ProductData {
   Product_name: string;
   Product_ref: string;
-  Product_qtyReceive: number;
+  Product_qtyReceive?: number;
   Product_location?: string;
   Product_lotNumber?: string;
   Product_categoryId: number;
+  Item_id: number;
 }

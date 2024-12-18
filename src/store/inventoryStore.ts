@@ -12,6 +12,7 @@ type States = {
   };
   newCategoryModal: boolean;
   products: InventoryTable[] | null;
+  productModalOpen: boolean;
 };
 
 type Actions = {
@@ -24,6 +25,7 @@ type Actions = {
     categoryId: number | null;
   }) => void;
   toggleNewCategoryModal: () => void;
+  toggleProductModal: () => void;
   setProducts: (products: InventoryTable[]) => void;
 };
 
@@ -40,6 +42,7 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
   },
   newCategoryModal: false,
   products: null,
+  productModalOpen: false,
 
   // Acciones para actualizar el estado
   setProcessedPurchases: (purchases) => {
@@ -84,6 +87,13 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
     document.documentElement.classList.toggle("overflow-hidden");
     set({ newCategoryModal: !newCategoryModal });
   },
+
+  toggleProductModal: () => {
+    const { productModalOpen } = get();
+    document.documentElement.classList.toggle("overflow-hidden");
+    set({ productModalOpen: !productModalOpen });
+  },
+
   setProducts: (products) => {
     set({ products });
   },

@@ -14,16 +14,25 @@ import {
 
 async function main() {
   try {
+    // 1. Eliminar registros de tablas dependientes
+    await prisma.stockMovement.deleteMany();
     await prisma.provisionRequest.deleteMany();
     await prisma.purchaseNote.deleteMany();
     await prisma.purchaseItem.deleteMany();
+
+    // 2. Eliminar registros de tablas relacionadas con otras
     await prisma.product.deleteMany();
     await prisma.purchase.deleteMany();
+
+    // 3. Eliminar registros de tablas intermedias o independientes
     await prisma.category.deleteMany();
     await prisma.supplier.deleteMany();
     await prisma.customer.deleteMany();
+
+    // 4. Finalmente, eliminar registros de la tabla principal
     await prisma.user.deleteMany();
 
+    // 5. Insertar datos en el orden correcto
     await prisma.user.createMany({
       data: users,
     });
@@ -55,6 +64,7 @@ async function main() {
   } catch (error) {
     console.log(error);
   }
+
 }
 
 // // Función anónima auto invocada

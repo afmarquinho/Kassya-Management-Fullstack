@@ -87,6 +87,7 @@ export const getProducts = async () => {
         Category: {
           select: {
             Category_name: true,
+            Category_id: true,
           },
         },
       },
@@ -160,7 +161,6 @@ export const getProductDetails = async (productId: number) => {
       quantityDispatched: productDetails.Product_qtyDispatched,
       reorderPoint: productDetails.Product_reorderPoint,
       location: productDetails.Product_location,
-      lotNumber: productDetails.Product_lotNumber,
       active: productDetails.Product_active,
       createdAt: productDetails.Product_createdAt,
       category: productDetails.Category?.Category_name || "Sin categoría",
@@ -296,10 +296,10 @@ export const registerProductWithMovement = async (
   userId: number,
   reason?: string
 ) => {
+console.log("Product data: ", productData)
+console.log("user id: ", userId)
+console.log("Reason: ", reason)
   try {
-    console.log("productData: ", productData);
-
-    
     const result = await prisma.$transaction(async (tx) => {
       // Buscar el producto por referencia
       const existingProduct = await tx.product.findUnique({
@@ -312,9 +312,8 @@ export const registerProductWithMovement = async (
           data: {
             Product_name: productData.Product_name,
             Product_ref: productData.Product_ref,
-            Product_stockQty: productData.Product_qtyReceive,
+            Product_stockQty: productData.Product_qtyReceive || 0,
             Product_location: productData.Product_location || "bodega",
-            Product_lotNumber: productData.Product_lotNumber || "1",
             Product_categoryId: productData.Product_categoryId,
           },
         });
@@ -322,11 +321,22 @@ export const registerProductWithMovement = async (
         // Registrar el movimiento de entrada
         await tx.stockMovement.create({
           data: {
+            Movement_userId: userId,
             Movement_type: "entrada",
-            Movement_qty: productData.Product_qtyReceive,
+            Movement_qty: productData.Product_qtyReceive || 0,
             Movement_reason: reason || "Ingreso",
             Movement_productId: newProduct.Product_id,
-            Movement_userId: userId,
+            Movement_lotNumber: productData.Product_lotNumber || "1",
+          },
+        });
+
+        // Actualizar el purchaseItem
+        await tx.purchaseItem.update({
+          where: {
+            Item_id: productData.Item_id,
+          },
+          data: {
+            Item_qtyReceived: productData.Product_qtyReceive,
           },
         });
 
@@ -341,18 +351,43 @@ export const registerProductWithMovement = async (
           where: { Product_id: existingProduct.Product_id },
           data: {
             Product_stockQty:
-              existingProduct.Product_stockQty + productData.Product_qtyReceive,
+              existingProduct.Product_stockQty +
+              (productData.Product_qtyReceive || 0),
           },
         });
 
         // Registrar el movimiento
         await tx.stockMovement.create({
           data: {
+            Movement_userId: userId,
             Movement_type: "entrada",
-            Movement_qty: productData.Product_qtyReceive,
+            Movement_qty: productData.Product_qtyReceive || 0,
             Movement_reason: reason || "Ingreso",
             Movement_productId: existingProduct.Product_id,
-            Movement_userId: userId,
+            Movement_lotNumber: productData.Product_lotNumber || "1",
+          },
+        });
+
+        // Obtener el valor actual de Item_qtyReceived
+        const existingPurchaseItem = await tx.purchaseItem.findUnique({
+          where: {
+            Item_id: productData.Item_id,
+          },
+        });
+
+        if (!existingPurchaseItem) {
+          throw new Error("El ítem de compra no existe.");
+        }
+
+        // Actualizar el purchaseItem sumando la cantidad existente y la nueva cantidad recibida
+        await tx.purchaseItem.update({
+          where: {
+            Item_id: productData.Item_id,
+          },
+          data: {
+            Item_qtyReceived:
+              existingPurchaseItem.Item_qtyReceived +
+              (productData.Product_qtyReceive || 0),
           },
         });
 

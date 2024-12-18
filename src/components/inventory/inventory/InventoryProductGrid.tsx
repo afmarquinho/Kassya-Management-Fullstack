@@ -1,5 +1,4 @@
 import { ProductDetailsType } from "@/interfaces";
-import { desformatearFecha } from "@/utils";
 
 type Props = {
   data: ProductDetailsType;
@@ -49,23 +48,6 @@ export const InventoryProductGrid = ({ data }: Props) => {
           />
           {data.active ? "Disponible" : "No Disponible"}
         </div>
-        <p>
-          <strong>Lote:</strong> {data.lotNumber || "N/A"}
-        </p>
-      </div>
-
-      {/* Card: Fechas */}
-      <div className="bg-white dark:bg-slate-800 hover:bg-blue-200 dark:hover:bg-slate-600 p-4 rounded shadow-md ">
-        <h2 className="font-semibold text-lg mb-2">Fechas</h2>
-        <p>
-          <strong>Creación:</strong> {desformatearFecha(data.createdAt)}
-        </p>
-        <p>
-          <strong>Expiración:</strong>{" "}
-          {(data.expiryDate &&
-            desformatearFecha(data.expiryDate)) ||
-            "N/A"}
-        </p>
       </div>
     </div>
   );

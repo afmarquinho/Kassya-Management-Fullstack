@@ -48,13 +48,13 @@ export const InventoryContent = () => {
           <LoadingSpinner />
         ) : (
           <>
-            {false ? (
+            {products ? (
               <RefreshCw className={`w-5`} size={20} strokeWidth={1.25} />
             ) : (
               <FilePenLine className={`w-5`} size={20} strokeWidth={1.25} />
             )}
 
-            {false ? "Refrescar" : "Ver Inventario"}
+            {products ? "Refrescar" : "Ver Inventario"}
           </>
         )}
       </button>
@@ -101,12 +101,6 @@ export const InventoryContent = () => {
                 <th className="py-3 px-1">
                   <button className={`flex items-center gap-1`}>
                     Localización
-                    <ArrowDownAz className={`w-4`} />
-                  </button>
-                </th>
-                <th className="py-3 px-1">
-                  <button className={`flex items-center gap-1`}>
-                    Lote
                     <ArrowDownAz className={`w-4`} />
                   </button>
                 </th>
@@ -159,7 +153,6 @@ export const InventoryContent = () => {
                   </td>
                   <td className="py-2 px-1">{28}</td>
                   <td className="py-2 px-1">{product.Product_location}</td>
-                  <td className="py-2 px-1">{product.Product_lotNumber}</td>
                   <td className="py-2 px-1">{product.Product_reorderPoint}</td>
                   <td className="py-2 px-1">{product.Product_stockQty}</td>
                   <td className="py-2 px-1">
