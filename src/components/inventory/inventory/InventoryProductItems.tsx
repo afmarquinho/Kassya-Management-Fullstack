@@ -47,7 +47,7 @@ export const InventoryProductItems = () => {
   };
 
   return (
-    <>
+    <div className={`mt-8`}>
       <h3 className={`py-4 font-medium text-lg`}>Historial de Provisión</h3>
       <button
         className={`px-4 py-2 w-32 shadow-md bg-gradient-to-b flex items justify-center text-white from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-800 dark:to-rose-900 hover:dark:from-rose-700 hover:dark:to-rose-700 transition-all duration-300 rounded`}
@@ -139,6 +139,6 @@ export const InventoryProductItems = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

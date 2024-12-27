@@ -62,6 +62,7 @@ const AddProductModal = ({
       try {
         const { ok, data, message } = await registerProductWithMovement(
           {
+            Product_purchaseId: productData.Product_purchaseId,
             Product_name: productData.Product_name,
             Product_ref: productData.Product_ref,
             Product_qtyReceive: qtyReceive,

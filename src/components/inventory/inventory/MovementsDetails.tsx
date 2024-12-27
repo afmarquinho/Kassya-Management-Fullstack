@@ -41,7 +41,7 @@ export const MovementsDetails = ({ productId }: Props) => {
   };
 
   return (
-    <>
+    <div className={`mt-8`}>
       <h3 className={`py-4 font-medium text-lg`}>Movimientos de Stock</h3>
       <div className={`flex justify-start items-center gap-5`}>
         <label className={`flex justify-start items-center gap-3`}>
@@ -90,32 +90,34 @@ export const MovementsDetails = ({ productId }: Props) => {
             }`}
           >
             <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
-              <table className="min-w-full table-auto border-collapse border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-700">
+              <table className="min-w-full border-collapse border border-gray-200 dark:border-slate-700">
                 {/* Encabezados */}
-                <thead className="bg-gray-200 dark:bg-gray-800">
+                <thead className="bg-gray-100 dark:bg-slate-700">
                   <tr>
-                    <th className="border border-gray-300 dark:border-gray-600 ps-4 py-2 w-16 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Ítem
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       ID
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Tipo
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
-                      Cantidad
-                    </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Razón
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Órden ralcionada                    </th>
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Cantidad
+                    </th>
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Fecha
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Número de Lote
                     </th>
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">
+                    <th className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
                       Usuario
                     </th>
                   </tr>
@@ -125,16 +127,16 @@ export const MovementsDetails = ({ productId }: Props) => {
                   {movements.map((movement, i) => (
                     <tr
                       key={movement.Movement_id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="hover:bg-blue-200 dark:hover:bg-slate-600"
                     >
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {i + 1}
                       </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {movement.Movement_id}
                       </td>
                       <td
-                        className={`border border-gray-300 dark:border-gray-600 px-4 py-2 font-semibold ${
+                        className={`border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm font-semibold ${
                           movement.Movement_type === "entrada"
                             ? "text-green-500"
                             : "text-red-500"
@@ -142,19 +144,22 @@ export const MovementsDetails = ({ productId }: Props) => {
                       >
                         {movement.Movement_type}
                       </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
-                        {movement.Movement_qty}
-                      </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {movement.Movement_reason}
                       </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
+                        {movement.Movement_relatedId}
+                      </td>
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
+                        {movement.Movement_qty}
+                      </td>
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {new Date(movement.Movement_date).toLocaleDateString()}
                       </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {movement.Movement_lotNumber}
                       </td>
-                      <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
+                      <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {movement.User.User_name} {movement.User.User_surname}
                       </td>
                     </tr>
@@ -169,6 +174,6 @@ export const MovementsDetails = ({ productId }: Props) => {
           No hay datos para mostrar aún
         </p>
       )}
-    </>
+    </div>
   );
 };

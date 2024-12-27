@@ -1,9 +1,12 @@
 import {
+
+  DispatchProduct,
   InventoryProductGrid,
   InventoryProductItems,
   MovementsDetails,
   ProvisionRequest,
 } from "@/components";
+
 import { getProductDetails } from "@/server-actions";
 
 type Props = {
@@ -23,16 +26,13 @@ const InventoryProductPage = async ({ params }: Props) => {
 
   return (
     <div className="p-5">
-      <h2
-        className="text-2xl font-bold mb-5 bg-white dark:bg-slate-800 p-4
-       rounded shadow-md"
-      >
-        Producto: {data.name}
-      </h2>
+      <h2 className="text-2xl font-bold mb-5 p-4">Producto: {data.name}</h2>
       <InventoryProductGrid data={data} />
+      <DispatchProduct product={data.name}/>
       <ProvisionRequest productId={productIdInt} />
       <MovementsDetails productId={productIdInt} />
       <InventoryProductItems />
+      
     </div>
   );
 };

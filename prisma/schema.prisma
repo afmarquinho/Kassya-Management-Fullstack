@@ -135,22 +135,23 @@ model Category {
 }
 
 model PurchaseItem {
-  Item_id          Int           @id @default(autoincrement())
-  Item_ref         String
-  Item_name        String
-  Item_description String
-  Item_unitCost    Decimal
-  Item_qtyOrdered  Int
-  Item_totalAmount Decimal
-  Item_qtyReceived Int
-  Item_location    String        @default("UNRECEIVED")
-  Item_status      String        @default("ORDERED")
-  Item_purchaseId  Int
-  SaleDetails      SaleDetails[]
-  Purchase         Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
-  Item_categoryId  Int
-  Category         Category      @relation(fields: [Item_categoryId], references: [Category_id])
-  Item_unitMeasure String
+  Item_id            Int           @id @default(autoincrement())
+  Item_ref           String
+  Item_name          String
+  Item_description   String
+  Item_unitCost      Decimal
+  Item_qtyOrdered    Int
+  Item_totalAmount   Decimal
+  Item_qtyReceived   Int
+  Item_qtyDispatched Int           @default(0)
+  Item_location      String        @default("UNRECEIVED")
+  Item_status        String        @default("ORDERED")
+  Item_purchaseId    Int
+  SaleDetails        SaleDetails[]
+  Purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
+  Item_categoryId    Int
+  Category           Category      @relation(fields: [Item_categoryId], references: [Category_id])
+  Item_unitMeasure   String
 
   Item_productId Int?
   Product        Product? @relation(fields: [Item_productId], references: [Product_id])
@@ -192,13 +193,14 @@ model ProvisionRequest {
 }
 
 model StockMovement {
-  Movement_id        Int      @id @default(autoincrement())
-  Movement_type      String // "entrada", "salida"
-  Movement_qty       Int
-  Movement_reason    String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
-  Movement_date      DateTime @default(now())
-  Movement_lotNumber String
-  Movement_productId Int
+  Movement_id          Int      @id @default(autoincrement())
+  Movement_type        String // "entrada", "salida"
+  Movement_qty         Int
+  Movement_reason      String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
+  Movement_date        DateTime @default(now())
+  Movement_lotNumber   String
+  Movement_productId   Int
+  Movement_destination String   @default("bodega") // (e.g., ventas, garantías, ...)
 
   Product         Product @relation(fields: [Movement_productId], references: [Product_id])
   Movement_userId Int
@@ -206,7 +208,7 @@ model StockMovement {
 
   Movement_relatedId Int? // ID relacionado (e.g., Sale_id o Purchase_id)
 
-  @@index([Movement_productId])
+  @@index([Movement_productId, Movement_destination])
 }
 
 model Sale {

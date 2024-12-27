@@ -70,6 +70,7 @@ export const IncomeTrackingTable = ({ data }: Props) => {
                     onClick={() =>
                       handleStock(
                         {
+                          Product_purchaseId: data.Purchase_id,
                           Product_name: item.Item_name,
                           Product_ref: item.Item_ref,
                           Product_location: "Bodega", //*En este momento los productos están ingresando a la bodega.

@@ -296,7 +296,6 @@ export const registerProductWithMovement = async (
   userId: number,
   reason?: string
 ) => {
-
   try {
     const result = await prisma.$transaction(async (tx) => {
       // Buscar el producto por referencia
@@ -322,12 +321,13 @@ export const registerProductWithMovement = async (
             Movement_userId: userId,
             Movement_type: "entrada",
             Movement_qty: productData.Product_qtyReceive || 0,
-            Movement_reason: reason || "Ingreso",
+            Movement_reason: reason || "compra",
             Movement_productId: newProduct.Product_id,
             Movement_lotNumber: productData.Product_lotNumber || "1",
+            Movement_relatedId: productData.Product_purchaseId,
           },
         });
-
+        
         // Actualizar el purchaseItem
         await tx.purchaseItem.update({
           where: {
@@ -337,7 +337,7 @@ export const registerProductWithMovement = async (
             Item_qtyReceived: productData.Product_qtyReceive,
           },
         });
-
+        
         return {
           ok: true,
           data: newProduct,
@@ -349,20 +349,21 @@ export const registerProductWithMovement = async (
           where: { Product_id: existingProduct.Product_id },
           data: {
             Product_stockQty:
-              existingProduct.Product_stockQty +
-              (productData.Product_qtyReceive || 0),
+            existingProduct.Product_stockQty +
+            (productData.Product_qtyReceive || 0),
           },
         });
-
+        
         // Registrar el movimiento
         await tx.stockMovement.create({
           data: {
             Movement_userId: userId,
             Movement_type: "entrada",
             Movement_qty: productData.Product_qtyReceive || 0,
-            Movement_reason: reason || "Ingreso",
+            Movement_reason: reason || "compra",
             Movement_productId: existingProduct.Product_id,
             Movement_lotNumber: productData.Product_lotNumber || "1",
+            Movement_relatedId: productData.Product_purchaseId,
           },
         });
 
