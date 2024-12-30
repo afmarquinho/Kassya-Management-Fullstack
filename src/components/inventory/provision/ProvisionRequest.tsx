@@ -57,11 +57,11 @@ export const ProvisionRequest = ({ productId }: Props) => {
   };
 
   return (
-    <div className="mt-8">
-      <h3 className="text-lg font-semibold">
+    <div className="">
+      <h3 className="text-lg font-semibold mb-5">
         Solicitudes de Aprovisionamiento
       </h3>
-      <div className="mt-4">
+      <div className="">
         {loadingRequest ? (
           <span className={`italic`}>Cargando solicitudes ...</span>
         ) : pendingRequests.length > 0 ? ( // Si hay datos

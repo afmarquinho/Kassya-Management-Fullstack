@@ -1,72 +1,69 @@
 import { prisma } from "../lib/db";
-import { Category } from "./data/Category";
-import { Customer } from "./data/Customer";
-import { Product } from "./data/Product";
-import { ProvisionRequest } from "./data/ProvisionRequest";
-import { Purchase } from "./data/Purchase";
-import { PurchaseItem } from "./data/PurchaseItem";
-import { PurchaseNote } from "./data/PurchaseNote";
-import { StockMovement } from "./data/StockMovement";
-import { Supplier } from "./data/Supplier";
-import { User } from "./data/User";
-
+import {
+  BatchInventory,
+  Category,
+  Customer,
+  Product,
+  ProvisionRequest,
+  Purchase,
+  PurchaseItem,
+  PurchaseNote,
+  StockMovement,
+  Supplier,
+  User,
+} from "./data";
 
 async function main() {
   try {
-    // 1. Eliminar registros de tablas dependientes
-    await prisma.stockMovement.deleteMany();
-    await prisma.provisionRequest.deleteMany();
-    await prisma.purchaseNote.deleteMany();
-    await prisma.purchaseItem.deleteMany();
+    // 1. Eliminar registros en el orden correcto
+    await prisma.stockMovement.deleteMany(); // Primero eliminar movimientos de inventario
+    await prisma.provisionRequest.deleteMany(); // Eliminar solicitudes de provisión
+    await prisma.purchaseNote.deleteMany(); // Eliminar notas de compra
+    await prisma.batchInventory.deleteMany(); // Eliminar lotes de inventario
+    await prisma.purchaseItem.deleteMany(); // Eliminar ítems de compra
+    await prisma.purchase.deleteMany(); // Eliminar compras
+    await prisma.product.deleteMany(); // Eliminar productos
+    await prisma.category.deleteMany(); // Eliminar categorías
+    await prisma.supplier.deleteMany(); // Eliminar proveedores
+    await prisma.customer.deleteMany(); // Eliminar clientes
+    await prisma.user.deleteMany(); // Eliminar usuarios
 
-    // 2. Eliminar registros de tablas relacionadas con otras
-    await prisma.product.deleteMany();
-    await prisma.purchase.deleteMany();
+    // 2. Insertar datos en el orden correcto
+    // 2.1 Insertar los usuarios
+    await prisma.user.createMany({ data: User });
 
-    // 3. Eliminar registros de tablas intermedias o independientes
-    await prisma.category.deleteMany();
-    await prisma.supplier.deleteMany();
-    await prisma.customer.deleteMany();
-
-    // 4. Finalmente, eliminar registros de la tabla principal
-    await prisma.user.deleteMany();
-
-    // 5. Insertar datos en el orden correcto
-    await prisma.user.createMany({
-      data: User,
-    });
-    await prisma.customer.createMany({
-      data: Customer,
-    });
-    await prisma.supplier.createMany({
-      data: Supplier,
-    });
-    await prisma.category.createMany({
-      data:Category,
-    });
-    await prisma.purchase.createMany({
-      data: Purchase,
-    });
-     await prisma.product.createMany({
-       data: Product,
-     });
-    await prisma.purchaseItem.createMany({
-      data: PurchaseItem,
-    });
-    await prisma.purchaseNote.createMany({
-      data: PurchaseNote,
-    });
-    await prisma.provisionRequest.createMany({
-     data: ProvisionRequest,
-    });
-    await prisma.stockMovement.createMany({
-     data: StockMovement,
-    });
+    // 2.2 Insertar los clientes, proveedores y categorías (dependen de User)
+    await prisma.customer.createMany({ data: Customer });
+    await prisma.supplier.createMany({ data: Supplier });
+    await prisma.category.createMany({ data: Category });
     
-  } catch (error) {
-    console.log(error);
-  }
+    // 2.3 Insertar productos (dependen de ítems de compra)
+    await prisma.product.createMany({ data: Product });
 
+    // 2.4 Insertar compras (dependen de proveedores y usuarios)
+    await prisma.purchase.createMany({ data: Purchase });
+
+    // 2.5 Insertar los ítems de compra (dependen de compras y productos)
+    await prisma.purchaseItem.createMany({ data: PurchaseItem });
+
+    // 2.6 Insertar lotes de inventario (dependen de productos)
+    await prisma.batchInventory.createMany({ data: BatchInventory });
+
+    // 2.7 Insertar las notas de compra (dependen de compras y usuarios)
+    await prisma.purchaseNote.createMany({ data: PurchaseNote });
+
+    // 2.8 Insertar solicitudes de provisión (dependen de productos y usuarios)
+    await prisma.provisionRequest.createMany({ data: ProvisionRequest });
+
+    // 2.9 Insertar movimientos de inventario (dependen de lotes de inventario, productos y usuarios)
+    await prisma.stockMovement.createMany({ data: StockMovement });
+
+  } catch (error) {
+    console.error("Error during seeding:", error);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Conexion a la bbdd cerrada.');
+  }
 }
 
 // // Función anónima auto invocada

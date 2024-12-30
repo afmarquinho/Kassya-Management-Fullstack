@@ -11,23 +11,23 @@ type Props = {
 };
 export const AddNoteForm = ({ purchaseId }: Props) => {
   const router = useRouter();
-  const [note, setNote] = useState<string>("");
+  const [text, setText] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     //* Validaciones
 
-    if (!note.trim()) {
+    if (!text.trim()) {
       toast.error("Por favor escribe una nota antes de enviarla.");
       return;
     }
-    if (note.length > 100) {
+    if (text.length > 100) {
       toast.error("La nota no puede exceder los 100 caracteres.");
       return;
     }
 
-    const { ok, data, message } = await addNote({ purchaseId, note });
+    const { ok, data, message } = await addNote({ purchaseId, text});
     if (ok && data) {
       router.refresh();
       return;
@@ -43,7 +43,7 @@ export const AddNoteForm = ({ purchaseId }: Props) => {
         id=""
         className="w-full h-20 outline-none rounded-lg bg-white dark:bg-slate-900 resize-none p-2 shadow-md focus:ring-2 focus:ring-teal-600"
         placeholder="Escribe tu comentario, max 100 carctácteres."
-        onChange={(e) => setNote(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       />
       <button
         type="submit"

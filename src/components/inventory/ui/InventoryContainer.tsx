@@ -11,9 +11,9 @@ export const InventoryContainer = () => {
 
   return (
     <>
-      {categoryModalOpen && <CategoryContent />}
       {purchaseModalOpen && <PurchaseContent />}
       {inventoryModalOpen && <InventoryContent />}
+      {categoryModalOpen && <CategoryContent />}
     </>
   );
 };

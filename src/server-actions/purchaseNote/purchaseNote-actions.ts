@@ -4,20 +4,23 @@ import { prisma } from "@/lib/db";
 
 type AddCommentsProps = {
   purchaseId: number;
-  note: string;
+  text: string;
 };
 
-export const addNote = async ({ purchaseId, note }: AddCommentsProps) => {
-  if (!purchaseId || !note) {
-    console.error("purchaseId o note son inválidos:", { purchaseId, note });
+export const addNote = async ({ purchaseId, text }: AddCommentsProps) => {
+  if (!purchaseId || !text) {
+    console.error("El ID de la compra o el texto son inválidos:", {
+      purchaseId,
+      text,
+    });
     return {
       ok: false,
       data: null,
-      message: "Datos inválidos enviados al servidor",
+      message: "Datos inválidos",
     };
   }
 
-  if (note.length > 100) {
+  if (text.length > 100) {
     return {
       ok: false,
       data: null,
@@ -25,20 +28,14 @@ export const addNote = async ({ purchaseId, note }: AddCommentsProps) => {
     };
   }
 
-  console.log("----------------------------------");
-  console.log("DESPUES DE LA VALIDACIÓN", { purchaseId, note });
-  console.log("----------------------------------");
   try {
     const newNote = await prisma.purchaseNote.create({
       data: {
-        Note_purchaseId: purchaseId,
-        Note_content: note,
+        Note_content: text,
         Note_userId: 1,
+        Note_purchaseId: purchaseId,
       },
     });
-    console.log("----------------------------------");
-    console.log("DESPUES DE LA creación en bbdd", { newNote });
-    console.log("----------------------------------");
 
     if (newNote) {
       return {

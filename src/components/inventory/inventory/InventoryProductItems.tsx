@@ -1,10 +1,11 @@
 "use client";
 
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
-import { purchaseItemsType } from "@/interfaces";
+import { PurchaseItemType } from "@/interfaces";
+
 import { getProductPurchaseDetails } from "@/server-actions";
 import { desformatearFecha } from "@/utils";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, RefreshCcw } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -12,9 +13,7 @@ import { toast } from "react-toastify";
 export const InventoryProductItems = () => {
   const { productId } = useParams();
 
-  const [purchaseItems, setPurchaseItems] = useState<purchaseItemsType | []>(
-    []
-  );
+  const [purchaseItems, setPurchaseItems] = useState<PurchaseItemType[]>([]);
   const [loading, setLoading] = useState(false);
   const [rotate, setRotate] = useState<boolean>(false); // Controla la rotación del ícono
   const [showItems, setShowItems] = useState<boolean>(true); // Controla la visibilidad del contenido
@@ -47,14 +46,22 @@ export const InventoryProductItems = () => {
   };
 
   return (
-    <div className={`mt-8`}>
-      <h3 className={`py-4 font-medium text-lg`}>Historial de Provisión</h3>
+    <div className={``}>
+      <h3 className={`font-medium text-lg mb-5`}>Historial de Compras</h3>
       <button
         className={`px-4 py-2 w-32 shadow-md bg-gradient-to-b flex items justify-center text-white from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-800 dark:to-rose-900 hover:dark:from-rose-700 hover:dark:to-rose-700 transition-all duration-300 rounded`}
         onClick={getPurchaseDetails}
         disabled={loading}
       >
-        {loading ? <LoadingSpinner /> : "Historial"}
+        {loading ? (
+          <LoadingSpinner />
+        ) : purchaseItems.length > 0 ? (
+          <div className={`flex items justify-center gap-1`}>
+            <RefreshCcw className={`w-5`}/> Refrescar
+          </div>
+        ) : (
+          "Ver Compras"
+        )}
       </button>
 
       {purchaseItems.length > 0 && (
@@ -82,7 +89,7 @@ export const InventoryProductItems = () => {
             {purchaseItems.map((item) => (
               <div
                 key={item.itemId}
-                className="py-4 px-4 bg-white dark:bg-slate-800 rounded shadow-sm"
+                className="py-4 px-4 bg-white dark:bg-slate-800 rounded shadow-md hover:bg-blue-200 dark:hover:bg-slate-800"
               >
                 <p className={`italic text-right`}>
                   <strong>

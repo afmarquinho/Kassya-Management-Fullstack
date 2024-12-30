@@ -2,7 +2,7 @@
 
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import { getProducts } from "@/server-actions";
-import { useInventoryStore } from "@/store";
+import { stockMovementsStore, useInventoryStore } from "@/store";
 import { desformatearFecha } from "@/utils";
 import {
   ArrowDown10,
@@ -16,15 +16,17 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 export const InventoryContent = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { setProducts, products } = useInventoryStore();
   const router = useRouter();
+  const { setProducts, products } = useInventoryStore();
+  const { setmovements } = stockMovementsStore();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getProductsApi = async () => {
     setLoading(true);
     const { ok, data, message } = await getProducts();
     if (ok && data) {
-      setProducts(data)
+      setProducts(data);
 
       toast.success(message);
     } else {
@@ -34,6 +36,7 @@ export const InventoryContent = () => {
   };
 
   const onRedirect = (id: number) => {
+    setmovements([]);
     router.push(`/inventory/inventory-management/product/${id}`);
   };
 

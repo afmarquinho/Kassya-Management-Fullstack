@@ -8,6 +8,7 @@ import { Ban, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 type Props = {
   productData: ProductData | null;
@@ -27,6 +28,7 @@ const AddProductModal = ({
   const [lotNumber, setLotNumber] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [lotDate, setLotDate] = useState<string>("");
 
   const { toggleProductModal } = useInventoryStore();
   const handleCancel = () => {
@@ -68,6 +70,7 @@ const AddProductModal = ({
             Product_qtyReceive: qtyReceive,
             Product_location: productData.Product_location,
             Product_lotNumber: lotNumber,
+            Product_lotDate: lotDate,
             Product_categoryId: productData.Product_categoryId,
             Item_id: productData.Item_id,
           },
@@ -93,11 +96,19 @@ const AddProductModal = ({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed inset-0 bg-black bg-opacity-60 z-20 flex justify-center items-start md:items-center overflow-auto pt-5 md:pt-0 backdrop-blur-[1px]`}
       onClick={handleCancel}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -50 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         className={`bg-white dark:bg-slate-600 p-5 w-11/12 max-w-[300px] shadow`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -105,8 +116,8 @@ const AddProductModal = ({
           Ingresar: <span>{productData?.Product_name}</span> al Inventario
         </h3>
         <form>
-          <label className={`flex gap-5 justify-start items-center mb-2`}>
-            <span className={`w-16 italic`}>Cantidad:</span>
+          <label className={`flex gap-2 justify-start items-center mb-2`}>
+            <span className={`w-20 italic`}>Cantidad:</span>
             <input
               type="number"
               className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none text-base rounded h-8 flex-1 max-w-20`}
@@ -115,8 +126,8 @@ const AddProductModal = ({
               }
             />
           </label>
-          <label className={`flex gap-5 justify-start items-center mb-2`}>
-            <span className={`w-16 italic`}>Lote:</span>
+          <label className={`flex gap-2 justify-start items-center mb-2`}>
+            <span className={`w-20 italic`}>Lote:</span>
             <input
               type="text"
               className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none text-base rounded h-8 flex-1 max-w-40 uppercase`}
@@ -125,8 +136,18 @@ const AddProductModal = ({
               }
             />
           </label>
-          <label className={`flex gap-5 justify-start items-center mb-2`}>
-            <span className={`w-16 italic`}>Razón:</span>
+          <label className={`flex gap-2 justify-start items-center mb-2`}>
+            <span className={`w-20 italic`}>Fecha lote:</span>
+            <input
+              type="date"
+              className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none rounded h-8 flex-1 max-w-40 uppercase`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setLotDate(e.target.value.toUpperCase())
+              }
+            />
+          </label>
+          <label className={`flex gap-2 justify-start items-center mb-2`}>
+            <span className={`w-20 italic`}>Razón:</span>
             <select
               className={`outline-none`}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -140,7 +161,7 @@ const AddProductModal = ({
               <option value="ajuste">Ajuste</option>
             </select>
           </label>
-          <div className={`flex gap-5`}>
+          <div className={`flex gap-2 mt-5`}>
             <button
               className={`flex justify-center items-center py-1 px-2 text-white gap-1 my-1 bg-gradient-to-b from-rose-500 to-rose-600 rounde hover:from-rose-700 hover:to-rose-700 mx-auto rounded mt-2 w-28 transition-all duration-300`}
               onClick={handleCancel}
@@ -166,8 +187,8 @@ const AddProductModal = ({
             </button>
           </div>
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 export default AddProductModal;

@@ -4,14 +4,16 @@ import { Ban } from "lucide-react";
 type Props = {
   dispRequest: any | null;
   product: string;
-  setDispathRequest: React.Dispatch<React.SetStateAction<boolean>>
+  setDispathRequest: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const DispatchModal = ({ dispRequest, product, setDispathRequest }: Props) => {
-  
-
+export const DispatchConfirmation = ({
+  dispRequest,
+  product,
+  setDispathRequest,
+}: Props) => {
   const handleCancel = () => {
-    setDispathRequest(false)
+    setDispathRequest(false);
   };
 
   return (
@@ -25,7 +27,6 @@ export const DispatchModal = ({ dispRequest, product, setDispathRequest }: Props
     <motion.div
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
-      
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`bg-white dark:bg-slate-800 p-5 w-full rounded-md shadow-lg`}
     >
@@ -33,28 +34,33 @@ export const DispatchModal = ({ dispRequest, product, setDispathRequest }: Props
         Confirmar Despacho y Salida de Producto de Inventario
       </h3>
       <h4 className={`font-semibold`}>Solicitud</h4>
-      <ol>
-        <li className={`font-semibold`}>
+
+      <div className={`flex flex-col md:flex-row gap-5`}>
+
+        <p className={`font-semibold text-base`}>
           Producto: <span className={`italic font-normal`}>{product}</span>
-        </li>
-        <li className={`font-semibold`}>
-          Cantidad a despachar:{" "}
-          <span className={`italic font-normal`}>{dispRequest.cantidad}</span>
-        </li>
-        <li className={`font-semibold`}>
-          Fecha:{" "}
-          <span className={`italic font-normal`}>{dispRequest.date}</span>
-        </li>
-        <li className={`font-semibold`}>
-          Área: <span className={`italic font-normal`}>{dispRequest.area}</span>
-        </li>
-        <li className={`font-semibold`}>
-          Solicitante:{" "}
-          <span className={`italic font-normal`}>{dispRequest.usuario}</span>
-        </li>
-      </ol>
+        </p>
+        <div>
+          <p className={`font-semibold`}>
+            Cantidad a despachar:{" "}
+            <span className={`italic font-normal`}>{dispRequest.cantidad}</span>
+          </p>
+          <p className={`font-semibold`}>
+            Fecha:{" "}
+            <span className={`italic font-normal`}>{dispRequest.date}</span>
+          </p>
+          <p className={`font-semibold`}>
+            Área:{" "}
+            <span className={`italic font-normal`}>{dispRequest.area}</span>
+          </p>
+          <p className={`font-semibold`}>
+            Solicitante:{" "}
+            <span className={`italic font-normal`}>{dispRequest.usuario}</span>
+          </p>
+        </div>
+      </div>
       <button
-        className={`flex justify-center items-center p-2 text-white gap-1 my-1 bg-gradient-to-b from-red-600 to-red-700 rounded-md`}
+        className={`flex justify-center items-center p-2 text-slate-200 gap-1 mt-5 bg-red-500 dark:bg-red-700 h-full rounded hover:bg-red-600 dark:hover:bg-red-500 transition-colors duration-300 ease-in-out`}
         onClick={handleCancel}
       >
         <Ban className={`w-5`} />

@@ -1,7 +1,7 @@
 export const ProvisionRequest = [
   {
     Prov_id: 1,
-    Prov_productId: 36,
+    Prov_productId: 1,
     Prov_quantity: 5,
     Prov_status: "pending",
     Prov_desc: "Solicitar 5 unidades",
@@ -10,7 +10,7 @@ export const ProvisionRequest = [
   },
   {
     Prov_id: 2,
-    Prov_productId: 37,
+    Prov_productId: 1,
     Prov_quantity: 10,
     Prov_status: "pending",
     Prov_desc: "",
@@ -19,7 +19,7 @@ export const ProvisionRequest = [
   },
   {
     Prov_id: 3,
-    Prov_productId: 37,
+    Prov_productId: 2,
     Prov_quantity: 5,
     Prov_status: "pending",
     Prov_desc: "",
@@ -28,7 +28,7 @@ export const ProvisionRequest = [
   },
   {
     Prov_id: 4,
-    Prov_productId: 33,
+    Prov_productId: 4,
     Prov_quantity: 8,
     Prov_status: "pending",
     Prov_desc: "",
@@ -37,7 +37,7 @@ export const ProvisionRequest = [
   },
   {
     Prov_id: 5,
-    Prov_productId: 32,
+    Prov_productId: 4,
     Prov_quantity: 3,
     Prov_status: "pending",
     Prov_desc: "",

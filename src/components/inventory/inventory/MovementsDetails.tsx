@@ -3,7 +3,7 @@
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import { getMovementsById } from "@/server-actions";
 import { stockMovementsStore } from "@/store/stockMovementsStore";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -41,8 +41,8 @@ export const MovementsDetails = ({ productId }: Props) => {
   };
 
   return (
-    <div className={`mt-8`}>
-      <h3 className={`py-4 font-medium text-lg`}>Movimientos de Stock</h3>
+    <div className={``}>
+      <h3 className={`font-medium text-lg mb-5`}>Movimientos de Stock</h3>
       <div className={`flex justify-start items-center gap-5`}>
         <label className={`flex justify-start items-center gap-3`}>
           Ver
@@ -64,7 +64,9 @@ export const MovementsDetails = ({ productId }: Props) => {
           {loading ? (
             <LoadingSpinner />
           ) : movements.length > 0 ? (
-            "Refrescar"
+            <div className={`flex items justify-center gap-1`}>
+            <RefreshCcw className={`w-5`}/> Refrescar
+          </div>
           ) : (
             "Ver Movimientos"
           )}
@@ -89,7 +91,7 @@ export const MovementsDetails = ({ productId }: Props) => {
               showMovs ? "max-h-[1000px]" : "max-h-0"
             }`}
           >
-            <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
+            <div className="overflow-auto mt-5 bg-white p-5 dark:bg-slate-900">
               <table className="min-w-full border-collapse border border-gray-200 dark:border-slate-700">
                 {/* Encabezados */}
                 <thead className="bg-gray-100 dark:bg-slate-700">
@@ -157,7 +159,7 @@ export const MovementsDetails = ({ productId }: Props) => {
                         {new Date(movement.Movement_date).toLocaleDateString()}
                       </td>
                       <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
-                        {movement.Movement_lotNumber}
+                        {movement.BatchInventory.Batch_code}
                       </td>
                       <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm text-gray-800 dark:text-gray-300">
                         {movement.User.User_name} {movement.User.User_surname}

@@ -1,6 +1,6 @@
 "use client";
 
-import { DispatchModal } from "./DispatchModal";
+import { DispatchConfirmation } from "./DispatchConfirmation";
 import { useState } from "react";
 import { DispatchRequestTable } from "./DispatchRequestTable";
 
@@ -13,10 +13,10 @@ export const DispatchProduct = ({ product }: Props) => {
   const [dispathRequest, setDispathRequest] = useState<boolean>(false);
 
   return (
-    <div className={`mt-8`}>
+    <div className={``}>
       <h2 className="text-lg font-semibold mb-5">Depachos - Entregas</h2>
       {dispathRequest ? (
-        <DispatchModal
+        <DispatchConfirmation
           dispRequest={dispRequest}
           product={product}
           setDispathRequest={setDispathRequest}

@@ -50,67 +50,69 @@ export const getItemsToDispatch = async (productId: number) => {
   }
 };
 
-// export const dispatchItem = async (
-//   lotId: number,
-//   qtyToDispatch: number,
-//   userId: number
-// ) => {
-//   try {
-//     // Validar que los datos necesarios estén presentes
-//     if (!lotId || !qtyToDispatch || !userId) {
-//       throw new Error("Faltan datos requeridos.");
-//     }
 
-//     // Buscar el item correspondiente
-//     const item = await prisma.purchaseItem.findUnique({
-//       where: { Item_id: lotId },
+// export const dispatchProduct = async (productId: number, requestedQty: number, userId: number) => {
+ 
+//   const dispatchedLots: { lotNumber: string; quantity: number }[] = []; // Para registrar los lotes y cantidades tomadas
+//   let remainingQty = requestedQty; // Cantidad que aún necesita ser despachada
+
+//   // Obtener los lotes disponibles en orden FIFO (los más antiguos primero)
+//   const availableMovements = await prisma.stockMovement.findMany({
+//     where: {
+//       Movement_productId: productId,
+//       Movement_qty: { gt: 0 }, // Solo lotes con cantidad disponible
+//       Movement_type: 'entrada', // Solo entradas
+//     },
+//     orderBy: {
+//       Movement_date: 'asc', // Ordenar por fecha (FIFO)
+//     },
+//   });
+
+//   for (const movement of availableMovements) {
+//     if (remainingQty <= 0) break; // Si ya se cumplió el despacho, salir del bucle
+
+//     const dispatchQty = Math.min(remainingQty, movement.Movement_qty); // Tomar la cantidad mínima entre lo necesario y lo disponible
+//     remainingQty -= dispatchQty; // Reducir la cantidad restante por la cantidad tomada
+
+//     // Registrar el lote y la cantidad despachada
+//     dispatchedLots.push({
+//       lotNumber: movement.Movement_lotNumber,
+//       quantity: dispatchQty,
 //     });
 
-//     if (!item) {
-//       throw new Error("El item no existe.");
-//     }
-
-//     // Calcular la cantidad disponible para despachar
-//     const availableToDispatch = item.Item_qtyDispatched - item.Item_qtyReceived;
-
-//     if (qtyToDispatch > availableToDispatch) {
-//       throw new Error("La cantidad a despachar excede la cantidad disponible.");
-//     }
-
-//     // Actualizar la cantidad despachada
-//     const updatedItem = await prisma.purchaseItem.update({
-//       where: { Item_id: lotId },
+//     // Actualizar el movimiento en la base de datos
+//     await prisma.stockMovement.update({
+//       where: { Movement_id: movement.Movement_id },
 //       data: {
-//         Item_qtyDispatched: {
-//           increment: qtyToDispatch,
-//         },
+//         Movement_qty: movement.Movement_qty - dispatchQty, // Reducir la cantidad en el lote
 //       },
 //     });
-
-//     // Registrar el movimiento en StockMovement
-//     await prisma.stockMovement.create({
-//       data: {
-//         Movement_type: "salida",
-//         Movement_qty: qtyToDispatch,
-//         Movement_reason: "despacho",
-//         Movement_date: new Date(),
-//         Movement_lotNumber: item.Item_ref,
-//         Movement_productId: item.Item_productId,
-//         Movement_userId: userId,
-//       },
-//     });
-
-//     // Retornar el item actualizado
-//     return {
-//       success: true,
-//       message: "Item despachado correctamente.",
-//       updatedItem,
-//     };
-//   } catch (error) {
-//     console.error("Error al despachar el item:", error);
-//     return {
-//       success: false,
-//       error: error.message || "Error interno del servidor.",
-//     };
 //   }
-// };
+
+//   // Verificar si se pudo cumplir el despacho completo
+//   if (remainingQty > 0) {
+//     throw new Error(
+//       `No hay suficiente inventario para cumplir con el despacho. Faltan ${remainingQty} unidades.`
+//     );
+//   }
+
+//   // Registrar el movimiento de salida
+//   await prisma.stockMovement.create({
+//     data: {
+//       Movement_type: 'salida',
+//       Movement_qty: requestedQty,
+//       Movement_reason: 'despacho',
+//       Movement_date: new Date(),
+//       Movement_productId: productId,
+//       Movement_userId: userId,
+//     },
+//   });
+
+//   // Respuesta con los lotes utilizados
+//   return {
+//     message: 'Despacho realizado con éxito',
+//     dispatchedLots, // Lotes y cantidades tomadas
+//   };
+// }
+
+

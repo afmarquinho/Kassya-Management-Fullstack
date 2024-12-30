@@ -18,7 +18,7 @@ export const PurchaseNote = [
     Note_content: "Revisar datos del proveedor en el sistema.",
     Note_createdAt: "2024-11-17T20:00:00.000Z",
     Note_userId: 5,
-    Note_purchaseId: 12,
+    Note_purchaseId: 10,
   },
   {
     Note_id: 4,
@@ -39,7 +39,7 @@ export const PurchaseNote = [
     Note_content: "Pendiente de confirmación por parte del proveedor.",
     Note_createdAt: "2024-11-14T21:20:00.000Z",
     Note_userId: 4,
-    Note_purchaseId: 12,
+    Note_purchaseId: 8,
   },
   {
     Note_id: 7,
@@ -60,7 +60,7 @@ export const PurchaseNote = [
     Note_content: "Pendiente revisión de documentación adjunta.",
     Note_createdAt: "2024-11-12T01:25:00.000Z",
     Note_userId: 1,
-    Note_purchaseId: 12,
+    Note_purchaseId: 1,
   },
   {
     Note_id: 10,
@@ -75,7 +75,7 @@ export const PurchaseNote = [
       "Solicitar actualización del inventario para garantizar disponibilidad.",
     Note_createdAt: "2024-11-19T19:30:00.000Z",
     Note_userId: 3,
-    Note_purchaseId: 12,
+    Note_purchaseId: 9,
   },
   {
     Note_id: 12,
@@ -83,7 +83,7 @@ export const PurchaseNote = [
       "Confirmar los términos del contrato de servicio con el proveedor.",
     Note_createdAt: "2024-11-19T21:00:00.000Z",
     Note_userId: 7,
-    Note_purchaseId: 12,
+    Note_purchaseId: 7,
   },
   {
     Note_id: 13,
@@ -91,7 +91,7 @@ export const PurchaseNote = [
       "Enviar notificación de cambio en la fecha de entrega al equipo de logística.",
     Note_createdAt: "2024-11-19T23:15:00.000Z",
     Note_userId: 2,
-    Note_purchaseId: 12,
+    Note_purchaseId: 10,
   },
   {
     Note_id: 14,

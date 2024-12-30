@@ -111,7 +111,7 @@ type PurchaseType = {
   notes: PurchaseNoteType[];
 };
 
-type PurchaseItemType = {
+export type PurchaseItemType = {
   itemId: number;
   name: string;
   qtyOrdered: number;
@@ -120,8 +120,6 @@ type PurchaseItemType = {
   purchase: PurchaseType;
 };
 
-//*TYPES PARA MOSTRAR EN PAGINA DE PRODUCTO EL ABASTECIMIENTO DEL ITEM.
-export type purchaseItemsType = PurchaseItemType[];
 
 //*Interfaz que se usa en el server action para crear o actualizar productos en el inventario: registerProductWithMovement y en la función para crear o actualizar inventario en el front
 export interface ProductData {
@@ -131,6 +129,7 @@ export interface ProductData {
   Product_qtyReceive?: number;
   Product_location?: string;
   Product_lotNumber?: string;
+  Product_lotDate?: string;
   Product_categoryId: number;
   Item_id: number;
 }

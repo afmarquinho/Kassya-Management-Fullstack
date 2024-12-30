@@ -46,7 +46,15 @@ export const PurchaseContent = () => {
           </>
         )}
       </button>
-      {processedPurchases ? (
+      {!processedPurchases ? (
+        <div className={`italic font-medium text-base`}>
+          No hay compras pendientes en el panel
+        </div>
+      ) : processedPurchases.length < 1 ? (
+        <div className={`italic font-medium text-base`}>
+          No hay compras procesadas aún, comuníquese con el área de compras.
+        </div>
+      ) : (
         //* Si no hay compras procesadas voy a ver un mensaje
         <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
           <table className="w-full rounded-lg text-left shadow-md border-collapse">
@@ -105,10 +113,6 @@ export const PurchaseContent = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      ) : (
-        <div className={`italic font-medium text-base`}>
-          No hay compras pendientes en el panel
         </div>
       )}
     </>

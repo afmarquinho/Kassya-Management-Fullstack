@@ -5,6 +5,7 @@ import { useInventoryStore } from "@/store";
 import { LogIn } from "lucide-react";
 import AddProductModal from "../inventory/AddProductModal";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 type Props = {
   data: StockEntry;
@@ -90,14 +91,16 @@ export const IncomeTrackingTable = ({ data }: Props) => {
           ))}
         </tbody>
       </table>
-      {productModalOpen && (
-        <AddProductModal
-          productData={productData}
-          itemQtyRemaining={itemQtyRemaining}
-          setProductData={setProductData}
-          setItemQtyRemaining={setItemQtyRemaining}
-        />
-      )}
+      <AnimatePresence>
+        {productModalOpen && (
+          <AddProductModal
+            productData={productData}
+            itemQtyRemaining={itemQtyRemaining}
+            setProductData={setProductData}
+            setItemQtyRemaining={setItemQtyRemaining}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

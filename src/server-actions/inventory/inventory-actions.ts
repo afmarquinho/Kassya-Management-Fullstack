@@ -324,10 +324,11 @@ export const registerProductWithMovement = async (
             Movement_reason: reason || "compra",
             Movement_productId: newProduct.Product_id,
             Movement_lotNumber: productData.Product_lotNumber || "1",
+            Movement_lotDate: productData.Product_lotDate,
             Movement_relatedId: productData.Product_purchaseId,
           },
         });
-        
+
         // Actualizar el purchaseItem
         await tx.purchaseItem.update({
           where: {
@@ -337,7 +338,7 @@ export const registerProductWithMovement = async (
             Item_qtyReceived: productData.Product_qtyReceive,
           },
         });
-        
+
         return {
           ok: true,
           data: newProduct,
@@ -349,11 +350,11 @@ export const registerProductWithMovement = async (
           where: { Product_id: existingProduct.Product_id },
           data: {
             Product_stockQty:
-            existingProduct.Product_stockQty +
-            (productData.Product_qtyReceive || 0),
+              existingProduct.Product_stockQty +
+              (productData.Product_qtyReceive || 0),
           },
         });
-        
+
         // Registrar el movimiento
         await tx.stockMovement.create({
           data: {
@@ -363,6 +364,7 @@ export const registerProductWithMovement = async (
             Movement_reason: reason || "compra",
             Movement_productId: existingProduct.Product_id,
             Movement_lotNumber: productData.Product_lotNumber || "1",
+            Movement_lotDate: productData.Product_lotDate,
             Movement_relatedId: productData.Product_purchaseId,
           },
         });
@@ -401,6 +403,29 @@ export const registerProductWithMovement = async (
     return result;
   } catch (error) {
     console.error("Error al registrar producto con movimiento:", error);
+    return {
+      ok: false,
+      data: null,
+      message: error instanceof Error ? error.message : "Error desconocido",
+    };
+  }
+};
+
+export const getBatchesByProduct = async (itemId: number) => {
+  try {
+    const batchesInfo = await prisma.batchInventory.findMany({
+      where: {
+        Batch_itemId: itemId,
+        Batch_stockQty: { gt: 0 },
+      },
+    });
+    return{
+      ok: true,
+      data:batchesInfo,
+      message: "Lotes cargados exitosamente"
+    }
+  } catch (error) {
+    console.error("Error al obtener los lotes: ", error);
     return {
       ok: false,
       data: null,

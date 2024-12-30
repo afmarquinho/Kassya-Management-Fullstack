@@ -97,6 +97,13 @@ model Supplier {
   User                      User       @relation(fields: [Supplier_userId], references: [User_id])
 }
 
+model Category {
+  Category_id   Int            @id @default(autoincrement())
+  Category_name String         @unique
+  PurchaseItem  PurchaseItem[]
+  Product       Product[]
+}
+
 model Purchase {
   Purchase_id            Int             @id @default(autoincrement())
   Purchase_description   String
@@ -115,11 +122,52 @@ model Purchase {
   PurchaseNote           PurchaseNote[]
 }
 
+// TODO: COMO PURCJASEITEM SE RELACIONA CON PORDUCT, LO MEJOR ES CREAR EL LISTADO DEL PRODUCTO ANTES DE CREAR AL ORDEN Y SELECCIONARLO EN EL FORMULARIO, ASI CONSERVA LA REFERNCIA
+
+model PurchaseItem {
+  Item_id          Int           @id @default(autoincrement())
+  Item_ref         String
+  Item_name        String
+  Item_description String
+  Item_unitCost    Decimal
+  Item_qtyOrdered  Int
+  Item_totalAmount Decimal
+  Item_qtyReceived Int
+  Item_location    String        @default("UNRECEIVED")
+  Item_status      String        @default("ORDERED")
+  Item_purchaseId  Int
+  SaleDetails      SaleDetails[]
+  Purchase         Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
+  Item_categoryId  Int
+  Category         Category      @relation(fields: [Item_categoryId], references: [Category_id])
+  Item_unitMeasure String
+
+  Item_productId Int
+  Product        Product?        @relation(fields: [Item_productId], references: [Product_id])
+  BatchInventory BatchInventory?
+
+  @@index([Item_ref])
+}
+
+model Product {
+  Product_id           Int                @id @default(autoincrement())
+  Product_name         String             @unique
+  Product_ref          String             @unique
+  Product_reorderPoint Int                @default(0)
+  Product_active       Boolean            @default(true)
+  Product_createdAt    DateTime           @default(now())
+  PurchaseItem         PurchaseItem[]
+  Product_categoryId   Int
+  ProvisionRequest     ProvisionRequest[]
+
+  Category      Category        @relation(fields: [Product_categoryId], references: [Category_id])
+  StockMovement StockMovement[]
+}
+
 model PurchaseNote {
   Note_id        Int      @id @default(autoincrement())
   Note_content   String
   Note_createdAt DateTime @default(now())
-
   Note_userId Int
   User        User @relation(fields: [Note_userId], references: [User_id])
 
@@ -127,69 +175,36 @@ model PurchaseNote {
   Purchase        Purchase @relation(fields: [Note_purchaseId], references: [Purchase_id])
 }
 
-model Category {
-  Category_id   Int            @id @default(autoincrement())
-  Category_name String         @unique
-  PurchaseItem  PurchaseItem[]
-  Product       Product[]
-}
+model BatchInventory {
+  Batch_id       Int    @id @default(autoincrement())
+  Batch_code     String @unique
+  Batch_stockQty Int    @default(0)
+  Batch_location String @default("Bodega")
+  Batch_userId   Int
+  Batch_itemId   Int    @unique
 
-model PurchaseItem {
-  Item_id            Int           @id @default(autoincrement())
-  Item_ref           String
-  Item_name          String
-  Item_description   String
-  Item_unitCost      Decimal
-  Item_qtyOrdered    Int
-  Item_totalAmount   Decimal
-  Item_qtyReceived   Int
-  Item_qtyDispatched Int           @default(0)
-  Item_location      String        @default("UNRECEIVED")
-  Item_status        String        @default("ORDERED")
-  Item_purchaseId    Int
-  SaleDetails        SaleDetails[]
-  Purchase           Purchase      @relation(fields: [Item_purchaseId], references: [Purchase_id])
-  Item_categoryId    Int
-  Category           Category      @relation(fields: [Item_categoryId], references: [Category_id])
-  Item_unitMeasure   String
+  PurchaseItem PurchaseItem @relation(fields: [Batch_itemId], references: [Item_id])
 
-  Item_productId Int?
-  Product        Product? @relation(fields: [Item_productId], references: [Product_id])
+  StockMovement StockMovement[]
 
-  @@index([Item_ref])
-}
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
-model Product {
-  Product_id            Int      @id @default(autoincrement())
-  Product_name          String   @unique
-  Product_ref           String   @unique
-  Product_stockQty      Int      @default(0)
-  Product_qtyDispatched Int      @default(0)
-  Product_reorderPoint  Int      @default(0)
-  Product_location      String   @default("Bodega")
-  Product_active        Boolean  @default(true)
-  Product_createdAt     DateTime @default(now())
-
-  PurchaseItem PurchaseItem[]
-
-  Product_categoryId Int
-  Category           Category           @relation(fields: [Product_categoryId], references: [Category_id])
-  ProvisionRequest   ProvisionRequest[]
-  StockMovement      StockMovement[]
-
-  @@index([Product_location])
+  @@index([Batch_itemId])
 }
 
 model ProvisionRequest {
-  Prov_id          Int      @id @default(autoincrement())
+  Prov_id          Int     @id @default(autoincrement())
   Prov_productId   Int
-  Product          Product  @relation(fields: [Prov_productId], references: [Product_id])
+  Product          Product @relation(fields: [Prov_productId], references: [Product_id])
   Prov_quantity    Int
-  Prov_status      String   @default("pending")
+  Prov_status      String  @default("pending")
   Prov_desc        String
   Prov_requestedBy Int
-  User             User     @relation(fields: [Prov_requestedBy], references: [User_id])
-  createdAt        DateTime @default(now())
+
+  createdAt DateTime @default(now())
+
+  User User @relation(fields: [Prov_requestedBy], references: [User_id])
 }
 
 model StockMovement {
@@ -198,15 +213,15 @@ model StockMovement {
   Movement_qty         Int
   Movement_reason      String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
   Movement_date        DateTime @default(now())
-  Movement_lotNumber   String
   Movement_productId   Int
   Movement_destination String   @default("bodega") // (e.g., ventas, garantías, ...)
+  Movement_userId      Int
+  Movement_relatedId   Int? // ID relacionado (e.g., Sale_id o Purchase_id)
+  Movement_batchId     Int
 
-  Product         Product @relation(fields: [Movement_productId], references: [Product_id])
-  Movement_userId Int
-  User            User    @relation(fields: [Movement_userId], references: [User_id])
-
-  Movement_relatedId Int? // ID relacionado (e.g., Sale_id o Purchase_id)
+  BatchInventory BatchInventory @relation(fields: [Movement_batchId], references: [Batch_id])
+  Product        Product        @relation(fields: [Movement_productId], references: [Product_id])
+  User           User           @relation(fields: [Movement_userId], references: [User_id])
 
   @@index([Movement_productId, Movement_destination])
 }
