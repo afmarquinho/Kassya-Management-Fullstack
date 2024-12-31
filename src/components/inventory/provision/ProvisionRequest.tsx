@@ -98,10 +98,11 @@ export const ProvisionRequest = ({ productId }: Props) => {
             className="border p-2 rounded h-10 w-44 outline-none resize-none dark:bg-slate-800"
           />
         </div>
+
         <button
+          className={`px-4 py-2 w-36 h-10 flex justify-center items-center shadow-md border-2 transition-all duration-300 rounded text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-gray-600 border-blue-500`}
           onClick={handleCreateRequest}
           disabled={loading}
-          className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded shadow h-10 px-4 mr-5 w-32 flex justify-center items-center"
         >
           {loading ? <LoadingSpinner /> : "Hacer Solicitud"}
         </button>

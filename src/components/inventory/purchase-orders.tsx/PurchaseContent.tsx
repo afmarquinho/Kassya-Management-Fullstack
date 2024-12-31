@@ -29,7 +29,7 @@ export const PurchaseContent = () => {
     <>
       <button
         onClick={getProcessed}
-        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors shadow-md text-xs bg-gradient-to-b from-rose-500 to-rose-700 hover:from-rose-700 hover:to-rose-700 dark:from-rose-700 dark:to-rose-900 dark:hover:from-rose-700 dark:hover:to-rose-700`}
+        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
         disabled={loading}
       >
         {loading ? (

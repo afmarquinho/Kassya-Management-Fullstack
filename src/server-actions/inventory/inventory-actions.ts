@@ -166,34 +166,6 @@ export const getProductDetails = async (productId: number) => {
       category: productDetails.Category?.Category_name || "Sin categoría",
     };
 
-    // const purchaseItems = productDetails.PurchaseItem.map((item) => ({
-    //   itemId: item.Item_id,
-    //   name: item.Item_name,
-    //   qtyOrdered: item.Item_qtyOrdered,
-    //   location: item.Item_location,
-    //   status: item.Item_status,
-    //   purchase: {
-    //     id: item.Purchase.Purchase_id,
-    //     description: item.Purchase.Purchase_description,
-    //     date: item.Purchase.Purchase_date,
-    //     supplier: {
-    //       id: item.Purchase.Supplier.Supplier_id,
-    //       name: item.Purchase.Supplier.Supplier_name,
-    //       email: item.Purchase.Supplier.Supplier_email,
-    //     },
-    //     user: {
-    //       id: item.Purchase.User.User_id,
-    //       name: `${item.Purchase.User.User_name} ${item.Purchase.User.User_surname}`,
-    //     },
-    //     notes: item.Purchase.PurchaseNote.map((note) => ({
-    //       usser_name: note.User.User_name,
-    //       usser_surname: note.User.User_surname,
-    //       content: note.Note_content,
-    //       createdAt: note.Note_createdAt,
-    //     })),
-    //   },
-    // }));
-
     return {
       ok: true,
       data: product,
@@ -419,11 +391,11 @@ export const getBatchesByProduct = async (itemId: number) => {
         Batch_stockQty: { gt: 0 },
       },
     });
-    return{
+    return {
       ok: true,
-      data:batchesInfo,
-      message: "Lotes cargados exitosamente"
-    }
+      data: batchesInfo,
+      message: "Lotes cargados exitosamente",
+    };
   } catch (error) {
     console.error("Error al obtener los lotes: ", error);
     return {

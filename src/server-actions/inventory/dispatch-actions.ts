@@ -51,6 +51,12 @@ export const getItemsToDispatch = async (productId: number) => {
 };
 
 
+export const dispatcheReqs = async() => {
+  const disp = await prisma.d
+};
+
+
+
 // export const dispatchProduct = async (productId: number, requestedQty: number, userId: number) => {
  
 //   const dispatchedLots: { lotNumber: string; quantity: number }[] = []; // Para registrar los lotes y cantidades tomadas

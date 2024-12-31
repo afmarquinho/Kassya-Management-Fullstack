@@ -1,6 +1,7 @@
 export * from './BatchInventory';
 export * from './Category';
 export * from './Customer';
+export * from './Departments';
 export * from './Devolution';
 export * from './ExpenseSummary';
 export * from './Product';

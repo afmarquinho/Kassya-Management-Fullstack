@@ -20,6 +20,7 @@ export * from './inventory/inventory/AddProductModal';
 export * from './inventory/inventory/DispatchConfirmation';
 export * from './inventory/inventory/DispatchProduct';
 export * from './inventory/inventory/DispatchRequestTable';
+export * from './inventory/inventory/DispatchRequirement';
 export * from './inventory/inventory/InventoryContent';
 export * from './inventory/inventory/InventoryProductGrid';
 export * from './inventory/inventory/InventoryProductItems';

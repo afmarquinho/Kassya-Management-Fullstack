@@ -88,10 +88,10 @@ export const DispatchRequestTable = ({
                 </td>
                 <td className="border border-gray-200 dark:border-slate-600 px-4 py-2 text-sm">
                   <button
-                    className="px-4 py-1 bg-gradient-to-b from-blue-400 to-blue-500 dark:from-blue-600 dark:to-blue-700 hover:from-blue-500 hover:to-blue-500 dark:hover:from-blue-500 dark:hover:to-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-700"
+                    className={`px-2 py-1 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
                     onClick={() => handleDispatchItem(item)}
                   >
-                    Despechar
+                    Despachar
                   </button>
                 </td>
               </tr>

@@ -15,14 +15,15 @@ export const InvetoryMenu = () => {
           <InventoryMenuButton label="Compras" />
           <InventoryMenuButton label="Inventario" />
           <InventoryMenuButton label="Categoría" />
+          <InventoryMenuButton label="Solicitudes" />
         </div>
       ) : (
-        <div className={`flex justify-end gap-5`}>
+        <div className={`flex justify-end gap-2`}>
           <Link
             href="/inventory"
-            className={`bg-red-500 dark:bg-red-700 h-full p-2 rounded text-slate-200 hover:bg-red-600 dark:hover:bg-red-500 transition-colors duration-300 ease-in-out`}
+            className={`p-2 w-12 h-full flex justify-center items-center transition-all duration-300 rounded text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-gray-600`}
           >
-            <Home />
+            <Home className={`w-full`} />
           </Link>
           <BackButton />
         </div>

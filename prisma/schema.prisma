@@ -44,26 +44,36 @@ datasource db {
 //   COMPLETED
 // }
 
+model Departments {
+  Dep_id            Int                 @id @default(autoincrement())
+  Dep_name          String              @unique
+  User              User[]
+  InventoryRequests InventoryRequests[]
+}
+
 model User {
-  User_id               Int                @id @default(autoincrement())
-  User_code             String             @unique() @default(uuid())
-  User_dni              Int                @unique
+  User_id               Int         @id @default(autoincrement())
+  User_code             String      @unique() @default(uuid())
+  User_dni              Int         @unique
   User_role             String
   User_name             String
   User_surname          String
-  User_email            String             @unique
+  User_email            String      @unique
   User_password         String
   User_phoneNumber      String
   User_address          String
-  User_active           Boolean            @default(true)
-  User_registrationDate DateTime           @default(now())
-  Sales                 Sale[]
-  Purchase              Purchase[]
-  Supplier              Supplier[]
-  Customer              Customer[]
-  PurchaseNote          PurchaseNote[]
-  ProvisionRequest      ProvisionRequest[]
-  StockMovement         StockMovement[]
+  User_active           Boolean     @default(true)
+  User_registrationDate DateTime    @default(now())
+  User_depId            Int
+  Departments           Departments @relation(fields: [User_depId], references: [Dep_id])
+
+  Sales            Sale[]
+  Purchase         Purchase[]
+  Supplier         Supplier[]
+  Customer         Customer[]
+  PurchaseNote     PurchaseNote[]
+  ProvisionRequest ProvisionRequest[]
+  StockMovement    StockMovement[]
 }
 
 model Customer {
@@ -160,16 +170,17 @@ model Product {
   Product_categoryId   Int
   ProvisionRequest     ProvisionRequest[]
 
-  Category      Category        @relation(fields: [Product_categoryId], references: [Category_id])
-  StockMovement StockMovement[]
+  Category          Category            @relation(fields: [Product_categoryId], references: [Category_id])
+  StockMovement     StockMovement[]
+  InventoryRequests InventoryRequests[]
 }
 
 model PurchaseNote {
   Note_id        Int      @id @default(autoincrement())
   Note_content   String
   Note_createdAt DateTime @default(now())
-  Note_userId Int
-  User        User @relation(fields: [Note_userId], references: [User_id])
+  Note_userId    Int
+  User           User     @relation(fields: [Note_userId], references: [User_id])
 
   Note_purchaseId Int
   Purchase        Purchase @relation(fields: [Note_purchaseId], references: [Purchase_id])
@@ -224,6 +235,17 @@ model StockMovement {
   User           User           @relation(fields: [Movement_userId], references: [User_id])
 
   @@index([Movement_productId, Movement_destination])
+}
+
+model InventoryRequests {
+  Req_id         Int    @id @default(autoincrement())
+  Req_prodId     Int
+  Req_destDestId Int
+  Req_desc       String
+  Req_qty        Int
+  
+  Product    Product     @relation(fields: [Req_prodId], references: [Product_id])
+  Department Departments @relation(fields: [Req_destDestId], references: [Dep_id])
 }
 
 model Sale {

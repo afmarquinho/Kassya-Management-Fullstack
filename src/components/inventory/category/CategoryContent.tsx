@@ -52,7 +52,7 @@ export const CategoryContent = () => {
   ) : (
     <>
       <button
-         className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors text-xs bg-gradient-to-b from-teal-500 to-teal-700 hover:from-teal-700 hover:to-teal-700 dark:from-teal-700 dark:to-teal-800 dark:hover:from-teal-600 dark:hover:to-teal-600`}
+         className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
         onClick={onNew}
       >
         Nueva Categoría

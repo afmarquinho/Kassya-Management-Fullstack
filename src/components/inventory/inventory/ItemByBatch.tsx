@@ -39,7 +39,7 @@ export const ItemByBatch = () => {
         Consultar Inventario por Lotes
       </h2>
       <button
-        className={`px-4 py-2 w-36 shadow-md bg-gradient-to-b flex items justify-center text-white from-violet-500 to-violet-700 hover:from-violet-700 hover:to-violet-700 dark:from-violet-800 dark:to-violet-900 hover:dark:from-violet-700 hover:dark:to-violet-700 transition-all duration-300 rounded`}
+        className={`px-4 py-2 w-36 h-10 flex justify-center items-center shadow-md border-2 transition-all duration-300 rounded text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-gray-600 border-blue-500`}
         onClick={getBatchs}
         disabled={loading}
       >
