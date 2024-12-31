@@ -2,21 +2,21 @@
 
 import { TriangleAlert, X } from "lucide-react";
 import { useState } from "react";
-import { useInventoryStore } from "@/store";
 import { toast } from "react-toastify";
 import { Category } from "@prisma/client";
 import { delteCategory } from "@/server-actions";
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
+import { useCategoryStore } from "@/store/categoryStore";
 
-type DeleteCategoryModalProps = {
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
-};
 
-export const DeleteCategoryModal = ({
-  setCategories,
-}: DeleteCategoryModalProps) => {
+
+export const DeleteCategoryModal = () => {
+ const {  setCategories, categories, deleteCategoryModal, setDeleteCategoryModal} = useCategoryStore();
+
   const [loading, setLoading] = useState<boolean>(false);
-  const { setDeleteCategoryModal, deleteCategoryModal } = useInventoryStore();
+
+const [updatedCat, setUpdatedCat] = useState<Category[]>(categories);
+
 
   const handleDelete = async () => {
     setLoading(true);
@@ -26,11 +26,12 @@ export const DeleteCategoryModal = ({
 
     if (ok) {
       //* Filtrar categorías eliminando la seleccionada
-      setCategories((prevCategories) =>
+      setUpdatedCat((prevCategories) =>
         prevCategories.filter(
           (category) => category.Category_id !== deleteCategoryModal.categoryId
         )
       );
+      setCategories(updatedCat)
 
       //* Cerrar el modal
       setDeleteCategoryModal({
@@ -43,9 +44,8 @@ export const DeleteCategoryModal = ({
       toast.error("Error desconocido");
     }
 
-    setLoading(false);
-  };
-
+    setLoading(false);}
+  
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 z-20 flex justify-center items-center backdrop-blur-[1px]">
       <div className="w-full max-w-96 bg-white dark:bg-slate-700">

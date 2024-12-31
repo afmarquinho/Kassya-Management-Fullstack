@@ -17,11 +17,11 @@ export const InventoryMenuButton = ({ label }: Props) => {
     toggleCategoryModal,
     togglePurchaseModal,
     toggleInventoryModal,
-    toggleRequirementModal,
+    toggleRequestsModal: toggleRequirementModal,
     categoryModalOpen,
     purchaseModalOpen,
     inventoryModalOpen,
-    requirementModalOpen,
+    requestsModalOpen: requirementModalOpen,
   } = useInventoryStore();
 
   // Configuración de modales y estados
@@ -34,7 +34,7 @@ export const InventoryMenuButton = ({ label }: Props) => {
 
   // Clases dinámicas basadas en el estado del modal
   const dynamicClasses = modalConfig[label].isOpen
-    ? "from-gray-300 to-gray-300 dark:from-teal-600 dark:to-teal-600"
+    ? "from-teal-100 to-teal-100 dark:from-teal-600 dark:to-teal-600"
     : "hover:from-gray-300 hover:to-gray-300 dark:hover:from-teal-600 dark:hover:to-teal-600";
 
   const handleClick = () => {

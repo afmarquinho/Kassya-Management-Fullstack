@@ -1,4 +1,4 @@
-" use server";
+"use server";
 
 import { prisma } from "@/lib/db";
 
@@ -50,15 +50,41 @@ export const getItemsToDispatch = async (productId: number) => {
   }
 };
 
-
-export const dispatcheReqs = async() => {
-  const disp = await prisma.d
+export const getDispatcheReq = async () => {
+  try {
+    const disp = await prisma.inventoryRequests.findMany({
+      include: {
+        Department: {
+          select: {
+            Dep_name: true,
+          },
+        },
+      },
+    });
+    if (!disp || disp.length === 0) {
+      return {
+        ok: false,
+        data: null,
+        message: "No hay solicitudes aún.",
+      };
+    }
+    return {
+      ok: true,
+      data: disp,
+      message: "Solicitudes obtenidas con éxito.",
+    };
+  } catch (error) {
+    console.error("Error al obtener las solicitudes: ", error);
+    return {
+      ok: false,
+      message: "Ocurrió un error al procesar la solicitud.",
+      data: null,
+    };
+  }
 };
 
-
-
 // export const dispatchProduct = async (productId: number, requestedQty: number, userId: number) => {
- 
+
 //   const dispatchedLots: { lotNumber: string; quantity: number }[] = []; // Para registrar los lotes y cantidades tomadas
 //   let remainingQty = requestedQty; // Cantidad que aún necesita ser despachada
 
@@ -120,5 +146,3 @@ export const dispatcheReqs = async() => {
 //     dispatchedLots, // Lotes y cantidades tomadas
 //   };
 // }
-
-

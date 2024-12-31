@@ -8,23 +8,21 @@ import { toast } from "react-toastify";
 import { DeleteCategoryModal } from "./DeleteCategoryModal";
 import { getCategories } from "@/server-actions";
 import { NewCategoryModal } from "./NewCategoryModal";
+import { useCategoryStore } from "@/store/categoryStore";
 
 export const CategoryContent = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  
   const [category, setCategory] = useState<Category | null>(null);
 
-  const {
-    setDeleteCategoryModal,
-    deleteCategoryModal,
-    newCategoryModal,
-    toggleNewCategoryModal,
-  } = useInventoryStore();
+  const { newCategoryModal, toggleNewCategoryModal } = useInventoryStore();
+  const { deleteCategoryModal, setDeleteCategoryModal, setCategories, categories} = useCategoryStore();
 
   const onNew = () => {
     setCategory(null);
     toggleNewCategoryModal();
   };
+
   const onEdit = (category: Category) => {
     setCategory(category);
     toggleNewCategoryModal();
@@ -32,6 +30,9 @@ export const CategoryContent = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
+      if(categories.length>0){
+        return
+      }
       setLoading(true);
 
       const { ok, data, message } = await getCategories();
@@ -45,14 +46,14 @@ export const CategoryContent = () => {
     };
 
     fetchCategories();
-  }, []);
+  }, [categories, setCategories]);
 
   return loading ? (
     <div>Cargando...</div>
   ) : (
     <>
       <button
-         className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
+        className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
         onClick={onNew}
       >
         Nueva Categoría
@@ -76,21 +77,23 @@ export const CategoryContent = () => {
               {categories.map((category, i) => (
                 <tr
                   key={category.Category_id}
-                  className="hover:bg-blue-100 dark:hover:bg-slate-800"
+                  className={`hover:bg-gray-300 dark:hover:bg-teal-950 py-5 ${
+                    i % 2 === 0 ? "bg-slate-100 dark:bg-slate-800" : ""
+                  }`}
                 >
-                  <td className="py-2 px-1">{i + 1}</td>
-                  <td className="py-2 px-1">{category.Category_name}</td>
-                  <td className="py-2 px-1">
+                  <td className="p-1">{i + 1}</td>
+                  <td className="p-1">{category.Category_name}</td>
+                  <td className="p-1">
                     <button
-                      className="text-white rounded-full bg-blue-800 dark:bg-blue-900 w-8 h-8 p-1 flex items-center justify-center"
+                      className="text-white rounded-full bg-blue-800 dark:bg-blue-900 w-7 h-7 p-1 flex items-center justify-center"
                       onClick={() => onEdit(category)}
                     >
-                      <Pencil className={`w-5`} />
+                      <Pencil className={`w-4`} />
                     </button>
                   </td>
-                  <td className="py-2 px-1">
+                  <td className="p-1">
                     <button
-                      className="text-white rounded-full bg-rose-600 dark:bg-rose-900 w-8 h-8 p-1 flex items-center justify-center"
+                      className="text-white rounded-full bg-rose-600 dark:bg-rose-900 w-7 h-7 p-1 flex items-center justify-center"
                       onClick={() =>
                         setDeleteCategoryModal({
                           isOpen: true,
@@ -98,7 +101,7 @@ export const CategoryContent = () => {
                         })
                       }
                     >
-                      <Trash className={`w-5`} />
+                      <Trash className={`w-4`} />
                     </button>
                   </td>
                 </tr>
@@ -109,11 +112,11 @@ export const CategoryContent = () => {
       )}
 
       {deleteCategoryModal.isOpen && (
-        <DeleteCategoryModal setCategories={setCategories} />
+        <DeleteCategoryModal />
       )}
       {newCategoryModal && (
         <NewCategoryModal
-          setCategories={setCategories}
+         
           category={category}
           setCategory={setCategory}
         />

@@ -18,6 +18,8 @@ import { InventoryRequests } from "./data/InvetoryRequests";
 async function main() {
   try {
     // 1. Eliminar registros en el orden correcto
+
+    await prisma.inventoryRequests.deleteMany(); // Primero eliminar movimientos de inventario
     await prisma.stockMovement.deleteMany(); // Primero eliminar movimientos de inventario
     await prisma.provisionRequest.deleteMany(); // Eliminar solicitudes de provisión
     await prisma.purchaseNote.deleteMany(); // Eliminar notas de compra

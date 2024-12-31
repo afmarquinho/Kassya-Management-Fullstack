@@ -6,14 +6,10 @@ type States = {
   categoryModalOpen: boolean;
   purchaseModalOpen: boolean;
   inventoryModalOpen: boolean;
-  deleteCategoryModal: {
-    isOpen: boolean; // Controla si el modal está abierto o cerrado
-    categoryId: number | null; // Almacena el ID de la categoría
-  };
   newCategoryModal: boolean;
   products: InventoryTable[] | null;
   productModalOpen: boolean;
-  requirementModalOpen: boolean;
+  requestsModalOpen: boolean;
 };
 
 type Actions = {
@@ -21,11 +17,7 @@ type Actions = {
   togglePurchaseModal: (isOpen: boolean) => void;
   toggleCategoryModal: (isOpen: boolean) => void;
   toggleInventoryModal: (isOpen: boolean) => void;
-  toggleRequirementModal: (isOpen: boolean) => void;
-  setDeleteCategoryModal: (modalState: {
-    isOpen: boolean;
-    categoryId: number | null;
-  }) => void;
+  toggleRequestsModal: (isOpen: boolean) => void;
   toggleNewCategoryModal: () => void;
   toggleProductModal: () => void;
   setProducts: (products: InventoryTable[]) => void;
@@ -38,14 +30,11 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
   purchaseModalOpen: true, // Inicia mostrando la tabla de compras en el módulo de inventarios.
   categoryModalOpen: false,
   inventoryModalOpen: false,
-  deleteCategoryModal: {
-    isOpen: false,
-    categoryId: null,
-  },
+
   newCategoryModal: false,
   products: null,
   productModalOpen: false,
-  requirementModalOpen: false,
+  requestsModalOpen: false,
 
   // Acciones para actualizar el estado
   setProcessedPurchases: (purchases) => {
@@ -57,7 +46,7 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
         purchaseModalOpen: isOpen,
         categoryModalOpen: !isOpen,
         inventoryModalOpen: !isOpen,
-        requirementModalOpen: !isOpen,
+        requestsModalOpen: !isOpen,
       });
     }
     return;
@@ -68,7 +57,7 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
         purchaseModalOpen: !isOpen,
         categoryModalOpen: isOpen,
         inventoryModalOpen: !isOpen,
-        requirementModalOpen: !isOpen,
+        requestsModalOpen: !isOpen,
       });
     }
     return;
@@ -79,28 +68,24 @@ export const useInventoryStore = create<States & Actions>((set, get) => ({
         purchaseModalOpen: !isOpen,
         categoryModalOpen: !isOpen,
         inventoryModalOpen: isOpen,
-        requirementModalOpen: !isOpen,
+        requestsModalOpen: !isOpen,
       });
     }
     return;
   },
-  
-  toggleRequirementModal: (isOpen) => {
+
+  toggleRequestsModal: (isOpen) => {
     if (isOpen) {
       set({
         purchaseModalOpen: !isOpen,
         categoryModalOpen: !isOpen,
         inventoryModalOpen: !isOpen,
-        requirementModalOpen: isOpen,
+        requestsModalOpen: isOpen,
       });
     }
     return;
-
   },
 
-  setDeleteCategoryModal: (modalState) => {
-    set({ deleteCategoryModal: modalState });
-  },
   toggleNewCategoryModal: () => {
     const { newCategoryModal } = get();
     document.documentElement.classList.toggle("overflow-hidden");

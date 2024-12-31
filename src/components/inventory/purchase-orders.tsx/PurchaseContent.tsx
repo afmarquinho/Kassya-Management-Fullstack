@@ -74,7 +74,7 @@ export const PurchaseContent = () => {
               {processedPurchases?.map((purchase, i) => (
                 <tr
                   key={purchase.Purchase_id}
-                  className={`hover:bg-gray-300 dark:hover:bg-yellow-900 py-5 ${
+                  className={`hover:bg-gray-300 dark:hover:bg-teal-950 py-5 ${
                     i % 2 === 0 ? "bg-slate-100 dark:bg-slate-800" : ""
                   }`}
                 >

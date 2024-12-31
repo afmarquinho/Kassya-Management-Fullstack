@@ -8,23 +8,21 @@ import { useState } from "react";
 import { createCategory, updateCategory } from "@/server-actions";
 import { toast } from "react-toastify";
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
+import { useCategoryStore } from "@/store/categoryStore";
 
 type Props = {
   category: Category | null;
   setCategory: React.Dispatch<React.SetStateAction<Category | null>>;
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
-export const NewCategoryModal = ({
-  category,
-  setCategory,
-  setCategories,
-}: Props) => {
+export const NewCategoryModal = ({ category, setCategory }: Props) => {
+  const { setCategories, categories } = useCategoryStore();
   const { toggleNewCategoryModal } = useInventoryStore();
   const [name, setName] = useState<string>(
     category ? category.Category_name : ""
   );
   const [loading, setLoading] = useState<boolean>(false); // Estado de carga
+  const [updatedCat, setUpdatedCat] = useState<Category[]>(categories);
 
   const handleCancel = () => {
     toggleNewCategoryModal();
@@ -47,11 +45,12 @@ export const NewCategoryModal = ({
       });
 
       if (ok && data) {
-        setCategories((prevCategories) =>
+        setUpdatedCat((prevCategories) =>
           prevCategories.map((cat) =>
             cat.Category_id === data.Category_id ? data : cat
           )
         );
+        setCategories(updatedCat);
 
         toggleNewCategoryModal();
         setCategory(null);
@@ -61,9 +60,12 @@ export const NewCategoryModal = ({
     } else {
       const { ok, data, message } = await createCategory({ name });
       if (ok && data) {
-        setCategories((prevCategories) =>
-          prevCategories ? [...prevCategories, data] : [data]
+        setUpdatedCat((prevCategories) =>
+          prevCategories.map((cat) =>
+            cat.Category_id === data.Category_id ? data : cat
+          )
         );
+        setCategories(updatedCat);
         toggleNewCategoryModal();
       } else {
         toast.error(message || "No se pudo crear la categoría.");

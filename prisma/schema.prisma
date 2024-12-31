@@ -240,12 +240,12 @@ model StockMovement {
 model InventoryRequests {
   Req_id         Int    @id @default(autoincrement())
   Req_prodId     Int
-  Req_destDestId Int
+  Req_depId Int
   Req_desc       String
   Req_qty        Int
   
   Product    Product     @relation(fields: [Req_prodId], references: [Product_id])
-  Department Departments @relation(fields: [Req_destDestId], references: [Dep_id])
+  Department Departments @relation(fields: [Req_depId], references: [Dep_id])
 }
 
 model Sale {
