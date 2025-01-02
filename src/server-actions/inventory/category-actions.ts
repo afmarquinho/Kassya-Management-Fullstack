@@ -1,5 +1,4 @@
 "use server";
-
 import { prisma } from "@/lib/db";
 import { Category } from "@prisma/client";
 

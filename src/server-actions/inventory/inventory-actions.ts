@@ -1,5 +1,4 @@
 "use server";
-
 import { ProductData } from "@/interfaces";
 import { prisma } from "@/lib/db";
 

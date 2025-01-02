@@ -18,6 +18,7 @@ export * from './inventory/category/DeleteCategoryModal';
 export * from './inventory/category/NewCategoryModal';
 export * from './inventory/inventory/AddProductModal';
 export * from './inventory/inventory/DispatchConfirmation';
+export * from './inventory/inventory/DispatchModal';
 export * from './inventory/inventory/DispatchProduct';
 export * from './inventory/inventory/DispatchRequestTable';
 export * from './inventory/inventory/DispatchRequests';

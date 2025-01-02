@@ -1,5 +1,4 @@
 "use server";
-
 import { prisma } from "@/lib/db";
 
 export const getMovementsById = async (productId: number) => {

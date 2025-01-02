@@ -1,20 +1,21 @@
 "use client";
 
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
-import { getDispatcheReq } from "@/server-actions";
+import { getDispatchReq } from "@/server-actions";
 import { useInvRequestsStore } from "@/store/InvRequestsStore";
-import { LogIn, RefreshCcw } from "lucide-react";
+import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { DispatchModal } from "./DispatchModal";
 
 export const DispatchRequests = () => {
-  const { invRequests, setInvRequests } = useInvRequestsStore();
+  const { invRequests, setInvRequests, toggleDispatchModal, dispatchModalOpen } = useInvRequestsStore();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onDispatch = async () => {
+  const getDispatchRequests = async () => {
     setLoading(true);
     try {
-      const { ok, data, message } = await getDispatcheReq();
+      const { ok, data, message } = await getDispatchReq();
       if (ok && data) {
         setInvRequests(data);
       } else {
@@ -27,12 +28,18 @@ export const DispatchRequests = () => {
     }
   };
 
+  const onDispatch = () => {
+    toggleDispatchModal()
+  };
+  
+
+
   return (
     <>
       <div className={`flex gap-2`}>
         <button
           className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-white transition-colors duration-300 text-xs bg-teal-600 hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-600 shadow-md rounded`}
-          onClick={onDispatch}
+          onClick={getDispatchRequests}
         >
           {loading ? (
             <LoadingSpinner />
@@ -53,7 +60,9 @@ export const DispatchRequests = () => {
       </div>
       {invRequests.length > 0 ? (
         <div className={`p-5 bg-white dark:bg-slate-900 my-5`}>
-          <h3 className={`text-center font-semibold mb-5`}>Solicitudes de Despacho</h3>
+          <h3 className={`italic font-medium text-base mb-5 text-center`}>
+            Solicitudes de Compras
+          </h3>
           <table
             className={`w-full border-collapse text-left overflow-hidden shadow-md text-sm`}
           >
@@ -85,6 +94,7 @@ export const DispatchRequests = () => {
                   <td className={`py-2 px-1`}>
                     <button
                       className={`transition-colors duration-300 h-full flex justify-center items-center text-blue-700 font-semibold`}
+                      onClick={onDispatch}
                     >
                       Depachar
                     </button>
@@ -99,6 +109,7 @@ export const DispatchRequests = () => {
           No hay solicitudes de despacho
         </div>
       )}
+      {dispatchModalOpen && <DispatchModal/>}
     </>
   );
 };

@@ -68,7 +68,8 @@ async function main() {
     await prisma.stockMovement.createMany({ data: StockMovement });
   } catch (error) {
     console.error("Error during seeding:", error);
-  } finally {
+  } 
+  finally {
     await prisma.$disconnect();
     console.log("Conexion a la bbdd cerrada.");
   }

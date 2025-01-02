@@ -64,6 +64,9 @@ export const CategoryContent = () => {
         </div>
       ) : (
         <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900 shadow-lg">
+          <h3 className={`italic font-medium text-base mb-5 text-center`}>
+            Categorías
+          </h3>
           <table className="w-full rounded-lg text-left shadow-md border-collapse">
             <thead className="bg-indigo-900 text-slate-200 border-b-8 border-b-blue-600">
               <tr>

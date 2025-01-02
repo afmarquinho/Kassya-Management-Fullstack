@@ -1,5 +1,4 @@
 "use server";
-
 import { prisma } from "@/lib/db";
 import { Supplier } from "@prisma/client";
 import { Supplier as SupplierType } from "@/interfaces";
