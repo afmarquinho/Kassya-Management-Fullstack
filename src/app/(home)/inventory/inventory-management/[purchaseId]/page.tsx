@@ -1,3 +1,4 @@
+
 import {
   AddNoteForm,
   CommentsSection,
@@ -6,6 +7,9 @@ import {
 import { getPurchaseInventory } from "@/server-actions/inventory/inventory-actions";
 import { FolderClosed } from "lucide-react";
 import { toast } from "react-toastify";
+
+
+
 
 interface PageProps {
   params: { purchaseId: string }; // El parámetro dinámico de la URL
@@ -17,7 +21,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
 
   const { ok, data } = await getPurchaseInventory(purchaseIdInt);
 
-  if (!ok || data === null) {
+  if (!ok || !data ) {
     toast.error("Error al cargar la compra");
     return (
       <div className={`italic font-medium text-base`}>
@@ -25,6 +29,8 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
       </div>
     );
   }
+
+  if(!data) return <div className={`italic text-base font-semibold`}>No hay datos para mostrar</div>
 
   return (
     <>
@@ -115,7 +121,7 @@ const InventoryItemsManagementPage = async ({ params }: PageProps) => {
       {!data.Purchase_close && (
         <button
           type="button"
-          className={`bg-rose-600 shadow-lg rounded-lg p-2 flex gap-2 text-xs text-white items-center justify-center my-5 hover:bg-rose-700`}
+          className={`shadow-lg rounded p-2 flex gap-2 text-xs text-white items-center justify-center my-5 bg-rose-600 hover:bg-rose-700 dark:bg-rose-700 dark:hover:bg-rose-600 transition-colors duration-300`}
         >
           <FolderClosed strokeWidth={1.5} />
           Cerrar Compra

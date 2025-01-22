@@ -1,34 +1,28 @@
 "use client";
 
-import { getSuppliersForm, updatePurchase } from "@/server-actions";
+import { getSuppliersForm } from "@/server-actions";
 import { usePurchaseStore, useSupplierStore } from "@/store";
 import purchaseSchema from "@/validations/purchase.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Decimal } from "@prisma/client/runtime/library";
+// import { Decimal } from "@prisma/client/runtime/library";
 import { useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+
 import { LoadingSpinner } from "../UI/LoadingSpinner";
 import { z } from "zod";
 
 type FormValuesTypes = z.infer<typeof purchaseSchema>;
 
 export const PurchaseForm = () => {
-  const {
-    purchase,
-    togglePurchaseModal,
-    cleanPurchase,
-    updatePurchases,
-    // updatePurchases,
-  } = usePurchaseStore();
+  const { purchase } = usePurchaseStore();
   const { supplierList, setSupplierList } = useSupplierStore();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading] = useState<boolean>(false);
 
   const {
     register,
-    handleSubmit,
+
     setValue,
-    reset,
+
     formState: { errors },
   } = useForm<FormValuesTypes>({
     resolver: zodResolver(purchaseSchema),
@@ -96,7 +90,7 @@ export const PurchaseForm = () => {
     };
 
     fetchSuppliers();
-  }, [setSupplierList,]);
+  }, [setSupplierList]);
 
   return (
     <>

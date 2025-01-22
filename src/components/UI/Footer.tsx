@@ -6,16 +6,16 @@ export const Footer = () => {
   return (
     <footer className={`bg-slate-300 dark:bg-slate-800 transition-colors`}>
       <div className={`hidden md:flex justify-center items-center gap-2`}>
-        <div className={`w-6 h-7 relative`}>
+        <div className={`w-3 relative`}>
           <Image
             src={logo}
             alt="Kassya"
-            width={100}
-            height={100}
+            width={50}
+            height={50}
             className={``}
           />
         </div>
-        <span className={`text-red-500 font-bold text-xl`}>Kassya</span>
+        <span className={`text-red-500 font-bold`}> Kassya Management System</span>
       </div>
 
       <div className="w-full">

@@ -18,9 +18,6 @@ import logo from "../../../public/logo.png";
 import { SidebarLink } from "./SidebarLink";
 import { useUIStore } from "@/store/UIStore";
 
-
-
-
 export const Sidebar = () => {
   const { isSidebarCollapsed, setSidebarCollapsed } = useUIStore();
 
@@ -67,15 +64,36 @@ export const Sidebar = () => {
         </button>
       </div>
 
-      <SidebarLink label="Panel" href="/dashboard" icon={PanelsTopLeft} />
-      {/* <SidebarLink label="Sales" href="/sales" icon={CircleDollarSign} /> */}
-      <SidebarLink label="Órden de Compra" href="/purchase" icon={ShoppingBag} /> 
-      <SidebarLink label="Inventario" href="/inventory" icon={Warehouse} /> 
-      <SidebarLink label="Terceros" href="/masters" icon={ClipboardPen} /> 
-      {/* <SidebarLink label="Reports" href="/reports" icon={NotebookText} /> */}
-      {/* <SidebarLink label="Warranty" href="/warranty" icon={Wrench} /> */}
-      <SidebarLink label="Gestor de Usuarios" href="/users" icon={UserRoundCog} />
-      {/* <SidebarLink label="My Profile" href="/profile" icon={CircleUserRound} />  */}
+      <SidebarLink
+        path="Panel"
+        href="/dashboard"
+        icon={PanelsTopLeft}
+        subtitle="Resumen general"
+      />
+      <SidebarLink
+        path="Órdenes de Compra"
+        href="/purchase"
+        icon={ShoppingBag}
+        subtitle="Administrar órdenes"
+      />
+      <SidebarLink
+        path="Inventarios"
+        href="/inventory"
+        icon={Warehouse}
+        subtitle="Gestión de stock"
+      />
+      <SidebarLink
+        path="Terceros"
+        href="/masters"
+        icon={ClipboardPen}
+        subtitle="Proveedores y clientes"
+      />
+      <SidebarLink
+        path="Gestor de Usuarios"
+        href="/users"
+        icon={UserRoundCog}
+        subtitle="Administrar usuarios"
+      />
     </div>
   );
 };

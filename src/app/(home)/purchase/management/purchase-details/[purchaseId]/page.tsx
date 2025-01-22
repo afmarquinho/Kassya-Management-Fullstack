@@ -1,4 +1,5 @@
 import { BackButton, PurchaseView } from "@/components";
+
 interface Props {
   params: {
     purchaseId: string;

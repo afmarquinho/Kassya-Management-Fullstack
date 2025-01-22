@@ -1,4 +1,5 @@
 "use server";
+
 import { ProductData } from "@/interfaces";
 import { prisma } from "@/lib/db";
 
@@ -262,113 +263,91 @@ export const getProductPurchaseDetails = async (productId: number) => {
   }
 };
 
-export const registerProductWithMovement = async (
+export const processProductEntry = async (
   productData: ProductData,
   userId: number,
-  reason?: string
+  
 ) => {
+  
+  if (!productData || typeof productData !== "object") {
+    throw new Error("Los datos del producto son inválidos.");
+  }
   try {
+    console.log("Datos recibidos:", productData);
+    // Validar existencia del ítem de compra antes de iniciar la transacción
+    const purchaseItem = await prisma.purchaseItem.findUnique({
+      where: { Item_id: productData.Item_id },
+    });
+    if (!purchaseItem) {
+      return {
+        ok: false,
+        data: null,
+        message: "El ítem de compra no existe.",
+      };
+    }
+
     const result = await prisma.$transaction(async (tx) => {
-      // Buscar el producto por referencia
-      const existingProduct = await tx.product.findUnique({
+      // Buscar o crear el producto
+      const product = await tx.product.upsert({
         where: { Product_ref: productData.Product_ref },
+        update: {
+          Product_stockQty: {
+            increment: productData.Product_qtyReceive || 0,
+          },
+        },
+        create: {
+          Product_name: productData.Product_name,
+          Product_ref: productData.Product_ref,
+          Product_categoryId: productData.Product_categoryId,
+          Product_stockQty: productData.Product_qtyReceive,
+        },
       });
 
-      if (!existingProduct) {
-        // Crear un nuevo producto
-        const newProduct = await tx.product.create({
-          data: {
-            Product_name: productData.Product_name,
-            Product_ref: productData.Product_ref,
-            Product_stockQty: productData.Product_qtyReceive || 0,
-            Product_location: productData.Product_location || "bodega",
-            Product_categoryId: productData.Product_categoryId,
+      // Gestionar el lote
+      const batch = await tx.batchInventory.upsert({
+        where: { Batch_code: productData.Product_batchCode },
+        update: {
+          Batch_stockQty: {
+            increment: productData.Product_qtyReceive,
           },
-        });
+        },
+        create: {
+          Batch_code: productData.Product_batchCode,
+          Batch_stockQty: productData.Product_qtyReceive,
+          Batch_userId: userId,
+          Batch_itemId: productData.Item_id,
+          createdAt: productData.Product_batchDate
+        },
+      });
 
-        // Registrar el movimiento de entrada
-        await tx.stockMovement.create({
-          data: {
-            Movement_userId: userId,
-            Movement_type: "entrada",
-            Movement_qty: productData.Product_qtyReceive || 0,
-            Movement_reason: reason || "compra",
-            Movement_productId: newProduct.Product_id,
-            Movement_lotNumber: productData.Product_lotNumber || "1",
-            Movement_lotDate: productData.Product_lotDate,
-            Movement_relatedId: productData.Product_purchaseId,
-          },
-        });
+      // Registrar movimiento de inventario
+      await tx.stockMovement.create({
+        data: {
+          Movement_type: "entrada",
+          Movement_qty: productData.Product_qtyReceive || 0,
+          Movement_reason: productData.reason || "compra",
+          Movement_productId: product.Product_id,
+          Movement_userId: userId,
+          Movement_relatedId: productData.Product_purchaseId,
+          Movement_batchId: batch.Batch_id,
+        },
+      });
 
-        // Actualizar el purchaseItem
-        await tx.purchaseItem.update({
-          where: {
-            Item_id: productData.Item_id,
+      // Actualizar el ítem de compra
+      await tx.purchaseItem.update({
+        where: { Item_id: productData.Item_id },
+        data: {
+          Item_qtyReceived: {
+            increment: productData.Product_qtyReceive || 0,
           },
-          data: {
-            Item_qtyReceived: productData.Product_qtyReceive,
-          },
-        });
+        },
+      });
 
-        return {
-          ok: true,
-          data: newProduct,
-          message: "Producto registrado exitosamente",
-        };
-      } else {
-        // Actualizar el producto existente
-        const updatedProduct = await tx.product.update({
-          where: { Product_id: existingProduct.Product_id },
-          data: {
-            Product_stockQty:
-              existingProduct.Product_stockQty +
-              (productData.Product_qtyReceive || 0),
-          },
-        });
-
-        // Registrar el movimiento
-        await tx.stockMovement.create({
-          data: {
-            Movement_userId: userId,
-            Movement_type: "entrada",
-            Movement_qty: productData.Product_qtyReceive || 0,
-            Movement_reason: reason || "compra",
-            Movement_productId: existingProduct.Product_id,
-            Movement_lotNumber: productData.Product_lotNumber || "1",
-            Movement_lotDate: productData.Product_lotDate,
-            Movement_relatedId: productData.Product_purchaseId,
-          },
-        });
-
-        // Obtener el valor actual de Item_qtyReceived
-        const existingPurchaseItem = await tx.purchaseItem.findUnique({
-          where: {
-            Item_id: productData.Item_id,
-          },
-        });
-
-        if (!existingPurchaseItem) {
-          throw new Error("El ítem de compra no existe.");
-        }
-
-        // Actualizar el purchaseItem sumando la cantidad existente y la nueva cantidad recibida
-        await tx.purchaseItem.update({
-          where: {
-            Item_id: productData.Item_id,
-          },
-          data: {
-            Item_qtyReceived:
-              existingPurchaseItem.Item_qtyReceived +
-              (productData.Product_qtyReceive || 0),
-          },
-        });
-
-        return {
-          ok: true,
-          data: updatedProduct,
-          message: "Producto actualizado exitosamente",
-        };
-      }
+      return {
+        ok: true,
+        data: product,
+        message: `Producto ${product.Product_name} procesado exitosamente.`,
+      };
     });
 
     return result;

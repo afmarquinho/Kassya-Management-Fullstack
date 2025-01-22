@@ -165,10 +165,11 @@ model Product {
   Product_ref          String             @unique
   Product_reorderPoint Int                @default(0)
   Product_active       Boolean            @default(true)
-  Product_createdAt    DateTime           @default(now())
+  Product_stockQty     Int                @default(0)
   PurchaseItem         PurchaseItem[]
   Product_categoryId   Int
   ProvisionRequest     ProvisionRequest[]
+  createdAt            DateTime           @default(now())
 
   Category          Category            @relation(fields: [Product_categoryId], references: [Category_id])
   StockMovement     StockMovement[]
@@ -223,12 +224,12 @@ model StockMovement {
   Movement_type        String // "entrada", "salida"
   Movement_qty         Int
   Movement_reason      String // Razón del movimiento (e.g., "venta", "compra", "ajuste")
-  Movement_date        DateTime @default(now())
   Movement_productId   Int
   Movement_destination String   @default("bodega") // (e.g., ventas, garantías, ...)
   Movement_userId      Int
   Movement_relatedId   Int? // ID relacionado (e.g., Sale_id o Purchase_id)
   Movement_batchId     Int
+  createdAt            DateTime @default(now())
 
   BatchInventory BatchInventory @relation(fields: [Movement_batchId], references: [Batch_id])
   Product        Product        @relation(fields: [Movement_productId], references: [Product_id])
@@ -238,14 +239,17 @@ model StockMovement {
 }
 
 model InventoryRequests {
-  Req_id         Int    @id @default(autoincrement())
-  Req_prodId     Int
-  Req_depId Int
-  Req_desc       String
-  Req_qty        Int
-  
+  Req_id     Int     @id @default(autoincrement())
+  Req_prodId Int
+  Req_depId  Int
+  Req_desc   String
+  Req_qty    Int
+  Req_close  Boolean @default(false)
+
   Product    Product     @relation(fields: [Req_prodId], references: [Product_id])
   Department Departments @relation(fields: [Req_depId], references: [Dep_id])
+
+  @@index([Req_prodId])
 }
 
 model Sale {

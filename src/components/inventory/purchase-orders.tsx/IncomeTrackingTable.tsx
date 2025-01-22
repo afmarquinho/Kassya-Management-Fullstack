@@ -3,9 +3,10 @@
 import { ProductData, StockEntry } from "@/interfaces";
 import { useInventoryStore } from "@/store";
 import { LogIn } from "lucide-react";
-import AddProductModal from "../inventory/AddProductModal";
+
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import { AddProductModal } from "../inventory/AddProductModal";
 
 type Props = {
   data: StockEntry;
@@ -13,16 +14,13 @@ type Props = {
 
 export const IncomeTrackingTable = ({ data }: Props) => {
   const { productModalOpen, toggleProductModal } = useInventoryStore();
+
   const [productData, setProductData] = useState<ProductData | null>(null);
   const [itemQtyRemaining, setItemQtyRemaining] = useState<number>(0);
 
-  const handleStock = (
-    productData: ProductData,
-    Item_qtyOrdered: number,
-    Item_qtyReceived: number
-  ) => {
+  const handleStock = (productData: ProductData, item_qtyOrdered: number) => {
     setProductData(productData);
-    setItemQtyRemaining(Item_qtyOrdered - Item_qtyReceived);
+    setItemQtyRemaining(item_qtyOrdered - productData.Product_qtyReceive);
     toggleProductModal();
   };
 
@@ -50,8 +48,8 @@ export const IncomeTrackingTable = ({ data }: Props) => {
           {data?.PurchaseItem.map((item, i) => (
             <tr
               key={item.Item_id}
-              className={` dark:border-slate-600 hover:bg-gray-300 dark:hover:bg-yellow-900 py-5 ${
-                i % 2 === 0 && "bg-slate-300 dark:bg-slate-800"
+              className={`dark:border-slate-600 hover:bg-gray-300 dark:hover:bg-teal-900 py-5 ${
+                i % 2 === 0 && "bg-slate-100 dark:bg-slate-800"
               }`}
             >
               <td className={`py-2 px-2`}>{i + 1}</td>
@@ -67,19 +65,22 @@ export const IncomeTrackingTable = ({ data }: Props) => {
               <td className={`py-2 px-1`}>
                 {item.Item_qtyOrdered > item.Item_qtyReceived && (
                   <button
-                    className={`bg-gradient-to-b from-rose-600 to-rose-700 w-8 h-full flex justify-center items-center shadow-md rounded-sm`}
+                    className={`w-8 h-full flex justify-center items-center shadow-md rounded bg-rose-600 hover:bg-rose-700 dark:bg-rose-700 dark:hover:bg-rose-600 transition-colors duration-300`}
                     onClick={() =>
                       handleStock(
                         {
                           Product_purchaseId: data.Purchase_id,
                           Product_name: item.Item_name,
                           Product_ref: item.Item_ref,
-                          Product_location: "Bodega", //*En este momento los productos están ingresando a la bodega.
+                          Product_qtyReceive: item.Item_qtyReceived,
+                          Product_location: "Bodega",
+                          Product_batchCode: "1",
+                          Product_batchDate: "01/01/1990",
                           Product_categoryId: item.Category.Category_id,
                           Item_id: item.Item_id,
+                          reason: "",
                         },
-                        item.Item_qtyOrdered,
-                        item.Item_qtyReceived
+                        item.Item_qtyOrdered
                       )
                     }
                   >
@@ -95,10 +96,10 @@ export const IncomeTrackingTable = ({ data }: Props) => {
         {productModalOpen && (
           <AddProductModal
             productData={productData}
+            setItemQtyRemaining={setItemQtyRemaining} // Se pasa la acción para limpiar el estado al terminar o cancelar
             itemQtyRemaining={itemQtyRemaining}
-            setProductData={setProductData}
-            setItemQtyRemaining={setItemQtyRemaining}
-          />
+            setProductData={setProductData} // Se pasa la acción para limpiar el estado al terminar o cancelar
+            />
         )}
       </AnimatePresence>
     </>

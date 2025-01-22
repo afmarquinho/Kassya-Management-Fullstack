@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kassya Management System",
+  title: "KMS",
   description: "Mange your processes eficiently",
 };
 

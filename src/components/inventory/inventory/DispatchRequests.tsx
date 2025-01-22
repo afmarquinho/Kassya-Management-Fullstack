@@ -7,10 +7,19 @@ import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { DispatchModal } from "./DispatchModal";
+import { InventoryRequestType } from "@/interfaces/invRequests.interface";
 
 export const DispatchRequests = () => {
-  const { invRequests, setInvRequests, toggleDispatchModal, dispatchModalOpen } = useInvRequestsStore();
+  const {
+    invRequests,
+    setInvRequests,
+    toggleDispatchModal,
+    dispatchModalOpen,
+  } = useInvRequestsStore();
   const [loading, setLoading] = useState<boolean>(false);
+  const [reqToDispatch, setReqToDispatch] =
+    useState<InventoryRequestType | null>(null);
+  
 
   const getDispatchRequests = async () => {
     setLoading(true);
@@ -28,11 +37,10 @@ export const DispatchRequests = () => {
     }
   };
 
-  const onDispatch = () => {
-    toggleDispatchModal()
+  const onDispatch = (request: InventoryRequestType) => {
+    toggleDispatchModal();
+    setReqToDispatch(request);
   };
-  
-
 
   return (
     <>
@@ -48,7 +56,7 @@ export const DispatchRequests = () => {
               <RefreshCcw className={`w-5`} /> Refrescar
             </div>
           ) : (
-            "Ver Solicitudes"
+            "Solicitudes Pendientes"
           )}
         </button>
         <button
@@ -70,7 +78,7 @@ export const DispatchRequests = () => {
               className={`bg-indigo-900 dark:bg-indigo-900 text-slate-200 border-b-8 border-b-blue-600 dark:border-b-blue-800`}
             >
               <tr>
-                <th className={`py-3`}>Item</th>
+                <th className={`py-3 ps-2`}>Item</th>
                 <th className={`py-3`}>ID</th>
                 <th className={`py-3`}>Descipción</th>
                 <th className={`py-3`}>Cantidad</th>
@@ -93,10 +101,10 @@ export const DispatchRequests = () => {
                   <td className={`py-2 px-1`}>{request.Department.Dep_name}</td>
                   <td className={`py-2 px-1`}>
                     <button
-                      className={`transition-colors duration-300 h-full flex justify-center items-center text-blue-700 font-semibold`}
-                      onClick={onDispatch}
+                      className={`transition-colors duration-300 h-full flex justify-center items-center text-blue-700 dark:text-teal-400 font-semibold`}
+                      onClick={() => onDispatch(request)}
                     >
-                      Depachar
+                      Despachar
                     </button>
                   </td>
                 </tr>
@@ -109,7 +117,7 @@ export const DispatchRequests = () => {
           No hay solicitudes de despacho
         </div>
       )}
-      {dispatchModalOpen && <DispatchModal/>}
+      {dispatchModalOpen && <DispatchModal data={reqToDispatch} />}
     </>
   );
 };

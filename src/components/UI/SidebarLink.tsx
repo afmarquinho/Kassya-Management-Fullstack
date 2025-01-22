@@ -6,12 +6,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 type Props = {
-  label: string;
+  path: string;
+  subtitle?: string;
   href: string;
   icon: LucideIcon;
 };
 
-export const SidebarLink = ({ label, href, icon: Icon }: Props) => {
+export const SidebarLink = ({
+  path,
+  href,
+  icon: Icon,
+  subtitle = "",
+}: Props) => {
   const pathname = usePathname();
   const isActive = pathname === href || pathname.startsWith(href);
   const { isSidebarCollapsed } = useUIStore();
@@ -35,9 +41,12 @@ export const SidebarLink = ({ label, href, icon: Icon }: Props) => {
           }`}
           strokeWidth={1.5}
         />
-        <span className={`${isSidebarCollapsed ? "hidden" : "block"}`}>
-          {label}
-        </span>
+        <div className={`${isSidebarCollapsed ? "hidden" : "block"} flex flex-col`}>
+          <span className={``}>
+            {path}
+          </span>
+          <span className={`italic text-xs text-gray-500 dark:text-gray-400`}>{subtitle}</span>
+        </div>
       </div>
     </Link>
   );

@@ -2,7 +2,7 @@
 
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import { ProductData } from "@/interfaces";
-import { registerProductWithMovement } from "@/server-actions";
+import { processProductEntry } from "@/server-actions";
 import { useInventoryStore } from "@/store";
 import { Ban, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -17,27 +17,38 @@ type Props = {
   setItemQtyRemaining: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const AddProductModal = ({
+export const AddProductModal = ({
   productData,
   itemQtyRemaining,
   setProductData,
   setItemQtyRemaining,
 }: Props) => {
   const router = useRouter();
-  const [qtyReceive, setQtyReceive] = useState<number>(0);
-  const [lotNumber, setLotNumber] = useState<string>("");
-  const [reason, setReason] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [lotDate, setLotDate] = useState<string>("");
 
+  const [qtyReceive, setQtyReceive] = useState<number>(0);
+  const [batchCode, setBatchCode] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
+  const [batchDate, setBatchDate] = useState<string>("");
+
+  const [loading, setLoading] = useState<boolean>(false);
   const { toggleProductModal } = useInventoryStore();
+
   const handleCancel = () => {
-    toggleProductModal();
+    setQtyReceive(0);
+    setBatchCode("");
+    setReason("");
+    setBatchDate("");
     setProductData(null);
     setItemQtyRemaining(0);
+    toggleProductModal();
   };
 
-  const handleStock = async () => {
+  const handleStock = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!productData) {
+      toast.error("Los datos del producto son inválidos.");
+      return;
+    }
     //Recibimos la cantidad faltante como parámetro
     // Verificar si el valor es negativo
     if (qtyReceive <= 0) {
@@ -59,36 +70,39 @@ const AddProductModal = ({
     } else {
       //* Actualizamos o creamos la bbdd del inventario con la cantidad recibida.
 
-      if (!productData) return;
+      const updatedProductData: ProductData = {
+        ...productData,
+        Product_qtyReceive: qtyReceive,
+        Product_batchCode: batchCode,
+        Product_batchDate: batchDate,
+        reason,
+      };
+     
       setLoading(true);
+
       try {
-        const { ok, data, message } = await registerProductWithMovement(
-          {
-            Product_purchaseId: productData.Product_purchaseId,
-            Product_name: productData.Product_name,
-            Product_ref: productData.Product_ref,
-            Product_qtyReceive: qtyReceive,
-            Product_location: productData.Product_location,
-            Product_lotNumber: lotNumber,
-            Product_lotDate: lotDate,
-            Product_categoryId: productData.Product_categoryId,
-            Item_id: productData.Item_id,
-          },
-          4, // TODO: ACTUALIZAR EL USERID
-          reason
-        );
+        console.log("Datos enviados al servidor:", updatedProductData);
+        const { ok, data, message } = await processProductEntry(
+          updatedProductData as ProductData,
+          4
+        ); // Reemplazar con userId dinámico
 
         if (ok && data) {
           toast.success(message);
           setQtyReceive(0);
-          setLotNumber("");
+          setBatchCode("");
+          setReason("");
+          setBatchDate("");
+          setProductData(null);
+          setItemQtyRemaining(0);
           toggleProductModal();
           router.refresh();
         } else {
           toast.error(message);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
+        toast.error("Error al procesar el producto.");
       } finally {
         setLoading(false);
       }
@@ -115,7 +129,7 @@ const AddProductModal = ({
         <h3 className={`italic font-bold text-center mb-2`}>
           Ingresar: <span>{productData?.Product_name}</span> al Inventario
         </h3>
-        <form>
+        <form onSubmit={handleStock}>
           <label className={`flex gap-2 justify-start items-center mb-2`}>
             <span className={`w-20 italic`}>Cantidad:</span>
             <input
@@ -132,7 +146,7 @@ const AddProductModal = ({
               type="text"
               className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none text-base rounded h-8 flex-1 max-w-40 uppercase`}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setLotNumber(e.target.value.toUpperCase())
+                setBatchCode(e.target.value.toUpperCase())
               }
             />
           </label>
@@ -142,19 +156,19 @@ const AddProductModal = ({
               type="date"
               className={`bg-slate-300 dark:bg-slate-800 p-2 focus:outline-none rounded h-8 flex-1 max-w-40 uppercase`}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setLotDate(e.target.value.toUpperCase())
+                setBatchDate(e.target.value.toUpperCase())
               }
             />
           </label>
-          <label className={`flex gap-2 justify-start items-center mb-2`}>
+          <label className={`flex gap-2 justify-start items-center mb-2 `}>
             <span className={`w-20 italic`}>Razón:</span>
             <select
-              className={`outline-none`}
+              className={`outline-none bg-slate-300 dark:bg-slate-800 h-8 w-40 rounded`}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setReason(e.target.value)
               }
             >
-              <option value="">-- Seleccione --</option>
+              <option value="compra">-- Seleccione --</option>
               <option value="compra">Compra</option>
               <option value="reposición">Reposición</option>
               <option value="devolución">Devolucón</option>
@@ -163,7 +177,8 @@ const AddProductModal = ({
           </label>
           <div className={`flex gap-2 mt-5`}>
             <button
-              className={`flex justify-center items-center py-1 px-2 text-white gap-1 my-1 bg-gradient-to-b from-rose-500 to-rose-600 rounde hover:from-rose-700 hover:to-rose-700 mx-auto rounded mt-2 w-28 transition-all duration-300`}
+              type="button"
+              className={`flex justify-center items-center py-2 text-white gap-1 my-1 bg-rose-600 hover:bg-rose-700 dark:bg-rose-700 dark:hover:bg-rose-600 mx-auto rounded mt-2 w-28 transition-all duration-300`}
               onClick={handleCancel}
               disabled={loading}
             >
@@ -172,8 +187,8 @@ const AddProductModal = ({
             </button>
 
             <button
-              className={`flex justify-center items-center py-1 px-2 text-white gap-1 my-1 bg-gradient-to-b from-indigo-600 to-indigo-700 hover:from-indigo-800 hover:to-indigo-800 rounde mx-auto rounded mt-2 w-28 transition-all duration-300`}
-              onClick={handleStock}
+              type="submit"
+              className={`flex justify-center items-center py-2 text-white gap-1 my-1 bg-teal-600 hover:bg-teal-700 dark:bg-teal-600 dark:hover:bg-teal-500 mx-auto rounded mt-2 w-28 transition-all duration-300`}
               disabled={loading}
             >
               {loading ? (
@@ -191,4 +206,3 @@ const AddProductModal = ({
     </motion.div>
   );
 };
-export default AddProductModal;

@@ -12,5 +12,11 @@ export type InventoryRequestType = Prisma.InventoryRequestsGetPayload<{
         Dep_name: true;
       };
     };
+    Product: {
+      select: {
+        Product_name: true;
+        Product_id: true;
+      };
+    };
   };
 }>;

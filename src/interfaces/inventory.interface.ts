@@ -126,10 +126,11 @@ export interface ProductData {
   Product_purchaseId: number,
   Product_name: string;
   Product_ref: string;
-  Product_qtyReceive?: number;
+  Product_qtyReceive: number;
   Product_location?: string;
-  Product_lotNumber?: string;
-  Product_lotDate?: string;
+  Product_batchCode: string;
+  Product_batchDate: string;
   Product_categoryId: number;
   Item_id: number;
+  reason: string;
 }

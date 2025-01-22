@@ -34,8 +34,8 @@ export const InventoryMenuButton = ({ label }: Props) => {
 
   // Clases dinámicas basadas en el estado del modal
   const dynamicClasses = modalConfig[label].isOpen
-    ? "from-teal-100 to-teal-100 dark:from-teal-600 dark:to-teal-600"
-    : "hover:from-gray-300 hover:to-gray-300 dark:hover:from-teal-600 dark:hover:to-teal-600";
+    ? "bg-blue-600 dark:bg-blue-800 text-white dark:bg-blue-300"
+    : "hover:bg-gray-300 hover:dark:bg-slate-800";
 
   const handleClick = () => {
     modalConfig[label].toggle(true);
@@ -43,7 +43,7 @@ export const InventoryMenuButton = ({ label }: Props) => {
 
   return (
     <button
-      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-xs shadow-md p-2 border-2 transition-all duration-300 rounded text-slate-700 dark:text-slate-200 bg-gradient-to-b from-white to-white  border-blue-500 ${dynamicClasses} dark:from-slate-800 dark:to-slate-800`}
+      className={`w-36 md:w-40 md:px-0 h-10 flex justify-center items-center gap-1 text-xs shadow-md p-2 border-2 transition-all duration-300 rounded ${dynamicClasses} bg-white dark:border-slate-300 dark:bg-transparent border-white`}
       onClick={handleClick}
     >
       {icons[label]} {label}

@@ -58,7 +58,7 @@ export const PurchaseContent = () => {
         //* Si no hay compras procesadas voy a ver un mensaje
         <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
           <h3 className={`italic font-medium text-base mb-5 text-center`}>
-            Compras pendintes por procesar
+            Compras pendientes por procesar
           </h3>
           <table className="w-full rounded-lg text-left shadow-md border-collapse">
             <thead className="bg-indigo-900 text-slate-200 border-b-8 border-b-blue-600">
@@ -77,7 +77,7 @@ export const PurchaseContent = () => {
               {processedPurchases?.map((purchase, i) => (
                 <tr
                   key={purchase.Purchase_id}
-                  className={`hover:bg-gray-300 dark:hover:bg-teal-950 py-5 ${
+                  className={`hover:bg-gray-300 dark:hover:bg-teal-900 py-5 ${
                     i % 2 === 0 ? "bg-slate-100 dark:bg-slate-800" : ""
                   }`}
                 >
