@@ -27,11 +27,11 @@ export const Sidebar = () => {
     ${isSidebarCollapsed ? "w-0 md:w-14" : "w-56"}
     `}
     >
-      <div className={`flex items-center justify-between p-3`}>
+      <div className={`flex items-center justify-between p-3 border-b-2 border-slate-200 dark:border-slate-700`}>
         {/* DIV TO WRAP LOGO AND NAME */}
         <div className={`flex justify-start items-center gap-1`}>
           <div
-            className={`bg-white p-1 ${
+            className={`p-1 ${
               isSidebarCollapsed ? "hidden md:block" : "block"
             }`}
           >

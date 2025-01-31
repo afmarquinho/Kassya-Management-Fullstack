@@ -3,7 +3,6 @@
 import { ProductData, StockEntry } from "@/interfaces";
 import { useInventoryStore } from "@/store";
 import { LogIn } from "lucide-react";
-
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { AddProductModal } from "../inventory/AddProductModal";
@@ -95,10 +94,10 @@ export const IncomeTrackingTable = ({ data }: Props) => {
       <AnimatePresence>
         {productModalOpen && (
           <AddProductModal
+          setProductData={setProductData} // Se pasa la acción para limpiar el estado al terminar o cancelar
             productData={productData}
             setItemQtyRemaining={setItemQtyRemaining} // Se pasa la acción para limpiar el estado al terminar o cancelar
             itemQtyRemaining={itemQtyRemaining}
-            setProductData={setProductData} // Se pasa la acción para limpiar el estado al terminar o cancelar
             />
         )}
       </AnimatePresence>

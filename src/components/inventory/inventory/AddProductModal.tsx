@@ -2,13 +2,13 @@
 
 import { LoadingSpinner } from "@/components/UI/LoadingSpinner";
 import { ProductData } from "@/interfaces";
-import { processProductEntry } from "@/server-actions";
 import { useInventoryStore } from "@/store";
 import { Ban, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useInventory } from "@/hooks/inventory/useInventory";
 
 type Props = {
   productData: ProductData | null;
@@ -32,6 +32,8 @@ export const AddProductModal = ({
 
   const [loading, setLoading] = useState<boolean>(false);
   const { toggleProductModal } = useInventoryStore();
+
+  const { updatePurchaseItemStock } = useInventory();
 
   const handleCancel = () => {
     setQtyReceive(0);
@@ -77,15 +79,16 @@ export const AddProductModal = ({
         Product_batchDate: batchDate,
         reason,
       };
-     
+
       setLoading(true);
 
       try {
-        console.log("Datos enviados al servidor:", updatedProductData);
-        const { ok, data, message } = await processProductEntry(
-          updatedProductData as ProductData,
-          4
-        ); // Reemplazar con userId dinámico
+        const { ok, data, message } = await updatePurchaseItemStock(
+          updatedProductData.Product_purchaseId,
+          updatedProductData,
+          // TODO: Reemplazar con userId dinámico
+          4,
+        ); 
 
         if (ok && data) {
           toast.success(message);

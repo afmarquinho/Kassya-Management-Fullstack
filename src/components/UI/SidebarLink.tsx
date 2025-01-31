@@ -25,10 +25,10 @@ export const SidebarLink = ({
   return (
     <Link
       href={href}
-      className={`${isSidebarCollapsed ? "hidden md:block" : "block"}`}
+      className={`${isSidebarCollapsed ? "hidden md:block" : "block"} border-b-2 border-slate-200 dark:border-slate-700`}
     >
       <div
-        className={`group flex justify-start items-center gap-2 px-4 py-3 w-full hover:bg-gradient-to-r hover:from-cyan-200 hover:to-blue-400 dark:hover:from-zinc-800 dark:hover:to-gray-600 ${
+        className={`group flex justify-start items-center gap-2 px-4 py-3 w-full hover:bg-gradient-to-r hover:from-cyan-200 hover:to-blue-400 dark:hover:from-slate-900 dark:hover:to-slate-950 ${
           isActive && "bg-slate-200 dark:bg-slate-700"
         }
         `}

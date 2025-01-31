@@ -1,13 +1,14 @@
 "use server";
 
-import { ProductData } from "@/interfaces";
+
 import { prisma } from "@/lib/db";
 
-export const getPurchaseInventory = async (purchaseId: number) => {
+
+export const getPurchaseInventoryById = async (id: number) => {
   try {
-    const purchases = await prisma.purchase.findUnique({
+    const purchase = await prisma.purchase.findUnique({
       where: {
-        Purchase_id: purchaseId,
+        Purchase_id: id,
       },
 
       select: {
@@ -57,25 +58,28 @@ export const getPurchaseInventory = async (purchaseId: number) => {
         },
       },
     });
-    if (!purchases) {
+    if (!purchase) {
       return {
         ok: false,
         data: null,
-        message: "El producto no existe en la base de datos",
+        message: "La compra que buscas no existe",
+        status: 404,
       };
     }
 
     return {
       ok: true,
-      data: purchases,
-      message: "Datos cargados exitosamente",
+      data: purchase,
+      message: "Compra cargada exitosamente",
+      status: 200,
     };
   } catch (error) {
-    console.error("Error al obtener las compras: ", error); // Mejor manejo del error
+    console.error("Error al obtener la compra: ", error);
     return {
       ok: false,
       data: null,
       message: error instanceof Error ? error.message : "Error desconocido",
+      status: 500,
     };
   }
 };
@@ -255,104 +259,6 @@ export const getProductPurchaseDetails = async (productId: number) => {
     };
   } catch (error) {
     console.error("Error fetching product details:", error);
-    return {
-      ok: false,
-      data: null,
-      message: error instanceof Error ? error.message : "Error desconocido",
-    };
-  }
-};
-
-export const processProductEntry = async (
-  productData: ProductData,
-  userId: number,
-  
-) => {
-  
-  if (!productData || typeof productData !== "object") {
-    throw new Error("Los datos del producto son inválidos.");
-  }
-  try {
-    console.log("Datos recibidos:", productData);
-    // Validar existencia del ítem de compra antes de iniciar la transacción
-    const purchaseItem = await prisma.purchaseItem.findUnique({
-      where: { Item_id: productData.Item_id },
-    });
-    if (!purchaseItem) {
-      return {
-        ok: false,
-        data: null,
-        message: "El ítem de compra no existe.",
-      };
-    }
-
-    const result = await prisma.$transaction(async (tx) => {
-      // Buscar o crear el producto
-      const product = await tx.product.upsert({
-        where: { Product_ref: productData.Product_ref },
-        update: {
-          Product_stockQty: {
-            increment: productData.Product_qtyReceive || 0,
-          },
-        },
-        create: {
-          Product_name: productData.Product_name,
-          Product_ref: productData.Product_ref,
-          Product_categoryId: productData.Product_categoryId,
-          Product_stockQty: productData.Product_qtyReceive,
-        },
-      });
-
-      // Gestionar el lote
-      const batch = await tx.batchInventory.upsert({
-        where: { Batch_code: productData.Product_batchCode },
-        update: {
-          Batch_stockQty: {
-            increment: productData.Product_qtyReceive,
-          },
-        },
-        create: {
-          Batch_code: productData.Product_batchCode,
-          Batch_stockQty: productData.Product_qtyReceive,
-          Batch_userId: userId,
-          Batch_itemId: productData.Item_id,
-          createdAt: productData.Product_batchDate
-        },
-      });
-
-      // Registrar movimiento de inventario
-      await tx.stockMovement.create({
-        data: {
-          Movement_type: "entrada",
-          Movement_qty: productData.Product_qtyReceive || 0,
-          Movement_reason: productData.reason || "compra",
-          Movement_productId: product.Product_id,
-          Movement_userId: userId,
-          Movement_relatedId: productData.Product_purchaseId,
-          Movement_batchId: batch.Batch_id,
-        },
-      });
-
-      // Actualizar el ítem de compra
-      await tx.purchaseItem.update({
-        where: { Item_id: productData.Item_id },
-        data: {
-          Item_qtyReceived: {
-            increment: productData.Product_qtyReceive || 0,
-          },
-        },
-      });
-
-      return {
-        ok: true,
-        data: product,
-        message: `Producto ${product.Product_name} procesado exitosamente.`,
-      };
-    });
-
-    return result;
-  } catch (error) {
-    console.error("Error al registrar producto con movimiento:", error);
     return {
       ok: false,
       data: null,

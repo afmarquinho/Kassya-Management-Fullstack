@@ -4,22 +4,25 @@ import { PencilLineIcon, RefreshCw, ShoppingCart } from "lucide-react";
 import { LoadingSpinner } from "../../UI/LoadingSpinner";
 import { useInventoryStore } from "@/store";
 import { useState } from "react";
-import { getProcessedPurchases } from "@/server-actions";
-import { toast } from "react-toastify";
 import { desformatearFecha } from "@/utils";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useInventory } from "@/hooks/inventory/useInventory";
+
 
 export const PurchaseContent = () => {
   const { processedPurchases, setProcessedPurchases } = useInventoryStore();
   const [loading, setLoading] = useState<boolean>(false);
+  const { getProcessedPurchases } = useInventory(); 
 
   const getProcessed = async () => {
     setLoading(true);
-    const { ok, data } = await getProcessedPurchases();
+    const { ok, data, message } = await getProcessedPurchases(); 
+
     if (ok && data) {
       setProcessedPurchases(data);
     } else {
-      toast.error("Error al cargar las compras");
+      toast.error(message);
     }
 
     setLoading(false);
@@ -41,7 +44,6 @@ export const PurchaseContent = () => {
             ) : (
               <ShoppingCart className={`w-5`} size={20} strokeWidth={1.25} />
             )}
-
             {processedPurchases ? "Refrescar" : "Ver Compras"}
           </>
         )}
@@ -55,7 +57,6 @@ export const PurchaseContent = () => {
           No hay compras procesadas aún, comuníquese con el área de compras.
         </div>
       ) : (
-        //* Si no hay compras procesadas voy a ver un mensaje
         <div className="overflow-auto my-5 bg-white p-5 dark:bg-slate-900">
           <h3 className={`italic font-medium text-base mb-5 text-center`}>
             Compras pendientes por procesar
@@ -100,10 +101,8 @@ export const PurchaseContent = () => {
                   <td className="py-2 px-1">{purchase.Purchase_totalAmount}</td>
                   <td className="py-2 px-1">
                     <Link
-                      href={`/inventory/inventory-management/${purchase.Purchase_id}`}
+                      href={`/inventory/inventory-management/purchase-Id/${purchase.Purchase_id}`}
                       className="bg-rose-600 w-8 h-8 flex justify-center items-center shadow-md rounded-sm"
-
-                      //   onClick={() => handleEdit(purchase)}
                     >
                       <PencilLineIcon
                         size={20}

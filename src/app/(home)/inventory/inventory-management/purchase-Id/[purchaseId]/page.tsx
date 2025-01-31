@@ -4,12 +4,10 @@ import {
   CommentsSection,
   IncomeTrackingTable,
 } from "@/components";
-import { getPurchaseInventory } from "@/server-actions/inventory/inventory-actions";
+import { getPurchaseInventoryById } from "@/server-actions";
+
 import { FolderClosed } from "lucide-react";
 import { toast } from "react-toastify";
-
-
-
 
 interface PageProps {
   params: { purchaseId: string }; // El parámetro dinámico de la URL
@@ -17,9 +15,9 @@ interface PageProps {
 
 const InventoryItemsManagementPage = async ({ params }: PageProps) => {
   const { purchaseId } = await params;
-  const purchaseIdInt = parseInt(purchaseId, 10); // Convertir el parámetro a número
-
-  const { ok, data } = await getPurchaseInventory(purchaseIdInt);
+  const idInt = parseInt(purchaseId, 10); // Convertir el parámetro a número
+ 
+  const { ok, data } = await getPurchaseInventoryById(idInt);
 
   if (!ok || !data ) {
     toast.error("Error al cargar la compra");

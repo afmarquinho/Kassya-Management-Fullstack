@@ -191,7 +191,6 @@ export const deletePurchase = async (purchaseId: number) => {
     };
   }
 };
-
 export const getProcessedPurchases = async () => {
   try {
     const purchases = await prisma.purchase.findMany({
@@ -231,4 +230,5 @@ export const getProcessedPurchases = async () => {
     };
   }
 };
+
 
